@@ -753,14 +753,8 @@ export default function App() {
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600" />
 
               <div className="relative z-10">
-                <div className="inline-flex items-center justify-center w-28 h-28 rounded-[2rem] bg-gradient-to-br from-blue-500 to-indigo-600 mb-10 shadow-2xl shadow-blue-500/20 rotate-3 group-hover:rotate-0 transition-transform duration-700">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                </div>
-
                 <h1 className="text-7xl font-black tracking-tighter mb-6 bg-gradient-to-b from-slate-900 to-slate-700 bg-clip-text text-transparent transform transition-all">
-                  The Anxiety Simulator
+                  Cursor Anxiety Stimulator
                 </h1>
 
                 <p className="text-2xl text-slate-500 mb-12 max-w-2xl mx-auto font-medium leading-normal">
