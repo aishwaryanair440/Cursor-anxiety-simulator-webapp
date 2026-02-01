@@ -688,7 +688,7 @@ export default function App() {
   }, [currentSection]);
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-900 selection:bg-blue-500/20 px-4 py-8 md:py-12" style={{ fontFamily: '\"Plus Jakarta Sans\", \"Inter\", sans-serif' }}>
+    <div className="min-h-screen bg-[#f8fafc] text-slate-900 selection:bg-blue-500/20 px-3 py-2" style={{ fontFamily: '"Plus Jakarta Sans", "Inter", sans-serif' }}>
 
       {/* Global Progress Bar - Fixed at top */}
       {currentSection > 0 && currentSection < 14 && (
@@ -744,7 +744,7 @@ export default function App() {
         </header>
       )}
 
-      <div className={currentSection > 0 && currentSection < 14 ? 'pt-20 pb-12' : 'py-8'}>
+      <div className={currentSection > 0 && currentSection < 14 ? 'pt-16 pb-4' : 'py-4'}>
 
         {/* Introduction Screen */}
         {currentSection === 0 && (
@@ -852,7 +852,7 @@ export default function App() {
 
                   {section1Processing && (
                     <div className="mt-12 max-w-md mx-auto animate-in fade-in duration-700">
-                      <div className="flex items-center justify-between mb-3">
+                      <div className="flex items-center justify-between mb-2">
                         <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 italic">Syncing Data...</span>
                         <span className="text-xs font-black text-blue-600">{Math.floor(section1Progress)}%</span>
                       </div>
@@ -1273,10 +1273,10 @@ export default function App() {
               </div>
             )}
 
-            <div className="glass-panel p-6">
-              <div className="flex items-start justify-between mb-5">
+            <div className="glass-panel p-4">
+              <div className="flex items-start justify-between mb-3">
                 <div>
-                  <h2 className="text-3xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Section 5: Interruptions & Distractions</h2>
+                  <h2 className="text-2xl font-bold mb-1 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Section 5: Interruptions & Distractions</h2>
                   <p className="text-muted-foreground">Complete the task while managing interruptions</p>
                 </div>
                 <div className="text-xs font-medium text-purple-700 bg-purple-100/50 px-3 py-1 rounded-full border border-purple-200/50 backdrop-blur-sm">
@@ -1284,20 +1284,20 @@ export default function App() {
                 </div>
               </div>
 
-              <div className="border-t border-gray-200/30 pt-6">
-                <p className="text-gray-800 mb-4 leading-relaxed">
+              <div className="border-t border-gray-200/30 pt-3">
+                <p className="text-sm text-gray-800 mb-2 leading-snug">
                   Try to complete the task below. You will be interrupted by various UI elements designed to break your focus.
                 </p>
 
-                <div className="bg-white/40 border border-white/50 rounded-xl p-5 mb-5 shadow-sm backdrop-blur-md">
-                  <h3 className="text-sm font-semibold mb-4 text-foreground/80 uppercase tracking-wider">Simple Task: User Feedback</h3>
+                <div className="bg-white/40 border border-white/50 rounded-lg p-3 mb-3 shadow-sm backdrop-blur-md">
+                  <h3 className="text-xs font-semibold mb-2 text-foreground/80 uppercase tracking-wider">Simple Task: User Feedback</h3>
 
-                  <div className="mb-4">
-                    <label className="text-sm font-medium text-gray-700 mb-2 block">Your thoughts on the experiment so far?</label>
+                  <div className="mb-2">
+                    <label className="text-xs font-medium text-gray-700 mb-1 block">Your thoughts on the experiment so far?</label>
                     <textarea
                       value={section5TaskInput}
                       onChange={(e) => setSection5TaskInput(e.target.value)}
-                      className="glass-input w-full p-4 text-sm h-32"
+                      className="glass-input w-full p-2 text-sm h-20"
                       placeholder="Start typing..."
                     />
                     <div className="flex justify-between items-center mt-2">
