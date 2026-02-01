@@ -688,7 +688,7 @@ export default function App() {
   }, [currentSection]);
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-900 selection:bg-blue-500/20 px-3 py-2" style={{ fontFamily: '"Plus Jakarta Sans", "Inter", sans-serif' }}>
+    <div className="min-h-screen selection:bg-blue-500/20 px-3 py-2" style={{ fontFamily: '"Plus Jakarta Sans", "Inter", sans-serif', background: 'var(--background)', color: 'var(--foreground)' }}>
 
       {/* Global Progress Bar - Fixed at top */}
       {currentSection > 0 && currentSection < 14 && (
