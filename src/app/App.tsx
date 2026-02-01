@@ -5,7 +5,7 @@ export default function App() {
   const [anxietyLevel, setAnxietyLevel] = useState(0); // 0-100
   const [sectionAnxiety, setSectionAnxiety] = useState(0); // Anxiety added in current section
   const [showImproved, setShowImproved] = useState(false);
-  
+
   // Interaction tracking
   const [stats, setStats] = useState({
     totalClicks: 0,
@@ -171,10 +171,10 @@ export default function App() {
   const detectRageClick = () => {
     const now = Date.now();
     clickTimestamps.current.push(now);
-    
+
     // Keep only clicks from last 1 second
     clickTimestamps.current = clickTimestamps.current.filter(t => now - t < 1000);
-    
+
     // If 4+ clicks in 1 second, it's rage clicking
     if (clickTimestamps.current.length >= 4) {
       setStats(prev => ({ ...prev, rageClicks: prev.rageClicks + 1 }));
@@ -200,12 +200,12 @@ export default function App() {
     if (currentSection > 0 && currentSection < 14) {
       const handleMouseMove = () => {
         lastMouseMove.current = Date.now();
-        
+
         // Clear existing timer
         if (mouseIdleTimer.current) {
           clearTimeout(mouseIdleTimer.current);
         }
-        
+
         // Set new timer for 2 seconds
         mouseIdleTimer.current = setTimeout(() => {
           trackCursorHesitation();
@@ -213,7 +213,7 @@ export default function App() {
       };
 
       window.addEventListener('mousemove', handleMouseMove);
-      
+
       return () => {
         window.removeEventListener('mousemove', handleMouseMove);
         if (mouseIdleTimer.current) {
@@ -284,7 +284,7 @@ export default function App() {
     detectRageClick();
     detectRepeatedClick(`section2-button-${buttonId}`);
     setSection2Attempts(prev => prev + 1);
-    
+
     if (buttonId === 3) {
       setSection2Feedback('Success! Moving to next section...');
       setSection2Completed(true);
@@ -319,7 +319,7 @@ export default function App() {
     trackClick();
     detectRepeatedClick('section3-main');
     setSection3Attempts(prev => prev + 1);
-    
+
     if (section3Attempts >= 2) {
       setSection3Completed(true);
       setSection3StatusLabel('Success');
@@ -335,18 +335,18 @@ export default function App() {
   const handleSection4Checkbox = (option: string) => {
     trackClick();
     detectRepeatedClick(`section4-checkbox-${option}`);
-    const newSelections = section4Selections.includes(option) 
-      ? section4Selections.filter(o => o !== option) 
+    const newSelections = section4Selections.includes(option)
+      ? section4Selections.filter(o => o !== option)
       : [...section4Selections, option];
     setSection4Selections(newSelections);
-    
+
     // Update summary
     setSection4Summary(
-      newSelections.length === 0 
-        ? 'No preferences selected' 
+      newSelections.length === 0
+        ? 'No preferences selected'
         : `${newSelections.length} option${newSelections.length > 1 ? 's' : ''} selected`
     );
-    
+
     increaseAnxiety(1);
   };
 
@@ -355,7 +355,7 @@ export default function App() {
     detectRepeatedClick(`section4-toggle-${key}`);
     setSection4Toggles(prev => ({ ...prev, [key]: !prev[key] }));
     increaseAnxiety(1);
-    
+
     // Auto-changing status
     const messages = [
       'Settings updating...',
@@ -498,7 +498,7 @@ export default function App() {
     trackClick();
     detectRepeatedClick(`section8-${buttonId}`);
     setSection8Attempts(prev => prev + 1);
-    
+
     if (buttonId === 'proceed') {
       setSection8Completed(true);
     } else {
@@ -512,7 +512,7 @@ export default function App() {
     trackClick();
     detectRepeatedClick('section9-submit');
     setSection9Attempts(prev => prev + 1);
-    
+
     // Always show error on first submit
     if (section9Attempts === 0 || !section9FormData.field1 || !section9FormData.field2 || !section9FormData.field3) {
       setSection9Error('Something is wrong. Please check your entries.');
@@ -531,7 +531,7 @@ export default function App() {
     detectRepeatedClick('section10-fake');
     setSection10Attempts(prev => prev + 1);
     setSection10HoverLoops(prev => prev + 1);
-    
+
     // Add delay to response
     setTimeout(() => {
       if (section10Attempts >= 2) {
@@ -567,7 +567,7 @@ export default function App() {
     trackClick();
     detectRepeatedClick('section12-moving');
     setSection12Attempts(prev => prev + 1);
-    
+
     if (section12Attempts >= 2) {
       setSection12Completed(true);
     } else {
@@ -604,12 +604,12 @@ export default function App() {
     setAnxietyLevel(0);
     setSectionAnxiety(0);
     setShowImproved(false);
-    setStats({ 
-      totalClicks: 0, 
-      hesitations: 0, 
-      retries: 0, 
-      timeSpent: 0, 
-      distractions: 0, 
+    setStats({
+      totalClicks: 0,
+      hesitations: 0,
+      retries: 0,
+      timeSpent: 0,
+      distractions: 0,
       pressureResponses: 0,
       missedClicks: 0,
       rageClicks: 0,
@@ -617,7 +617,7 @@ export default function App() {
     });
     clickTimestamps.current = [];
     lastClickedElement.current = null;
-    
+
     // Reset all section states
     setSection1Status('');
     setSection1Processing(false);
@@ -688,526 +688,340 @@ export default function App() {
   }, [currentSection]);
 
   return (
-    <div className="min-h-screen bg-gray-50" style={{ fontFamily: 'Inter, Arial, sans-serif' }}>
-      
-      {/* Global Header */}
+    <div className="min-h-screen bg-[#f8fafc] text-slate-900 selection:bg-blue-500/20 px-4 py-8 md:py-12" style={{ fontFamily: '\"Plus Jakarta Sans\", \"Inter\", sans-serif' }}>
+
+      {/* Global Progress Bar - Fixed at top */}
       {currentSection > 0 && currentSection < 14 && (
-        <div className="fixed top-0 left-0 right-0 bg-white border-b border-gray-300 z-50 shadow-sm">
-          <div className="max-w-6xl mx-auto px-6 py-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <h3 className="text-sm text-gray-600">Cursor Anxiety Simulator</h3>
-                <div className="text-xs text-gray-500 mt-1">
-                  Step {currentSection} of 13
-                </div>
-              </div>
-              
-              {/* Anxiety Meter */}
-              <div className="flex-1 max-w-md mx-12">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-gray-700">Anxiety Meter</span>
-                  <span className="text-sm font-medium">{getAnxietyState()}</span>
-                </div>
-                <div className="w-full h-3 bg-gray-200 border border-gray-300 rounded-sm overflow-hidden">
-                  <div 
-                    className="h-full transition-all duration-1000 ease-out"
-                    style={{ 
-                      width: `${anxietyLevel}%`,
-                      backgroundColor: anxietyLevel < 25 ? '#22c55e' : anxietyLevel < 50 ? '#eab308' : anxietyLevel < 75 ? '#f97316' : '#dc2626'
-                    }}
-                  />
-                </div>
-                <div className="text-xs text-gray-500 mt-1">
-                  Based on your behavior patterns
-                </div>
-              </div>
-              
-              <button
-                onClick={handleRestart}
-                className="px-4 py-2 text-sm border border-gray-400 bg-white hover:bg-gray-100"
-              >
-                Restart Experience
-              </button>
-            </div>
-          </div>
+        <div className="fixed top-0 left-0 right-0 h-1.5 bg-slate-200/50 z-[100] backdrop-blur-sm">
+          <div
+            className="h-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 transition-all duration-500 ease-out shadow-[0_0_10px_rgba(37,99,235,0.3)]"
+            style={{ width: `${(currentSection / 13) * 100}%` }}
+          />
         </div>
       )}
 
-      {/* Section 5 Toast Notification */}
-      {section5Toast && (
-        <div className="fixed top-24 right-6 bg-blue-600 text-white p-4 border border-blue-700 shadow-lg z-50 max-w-xs">
-          <div className="flex items-start justify-between">
-            <div>
-              <div className="text-sm mb-1">New Message</div>
-              <div className="text-xs">You have 3 unread notifications</div>
+      {/* Premium Header */}
+      {currentSection > 0 && currentSection < 14 && (
+        <header className="fixed top-6 left-1/2 -translate-x-1/2 z-[90] w-full max-w-5xl px-4 pointer-events-none">
+          <div className="glass-panel px-6 py-3 flex items-center justify-between shadow-2xl pointer-events-auto border-white/40 ring-1 ring-black/5">
+            <div className="flex items-center gap-4">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+                <span className="font-black text-xs">UX</span>
+              </div>
+              <div>
+                <h3 className="text-sm font-black tracking-tight text-slate-800 uppercase">Friction Lab</h3>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Protocol {currentSection} / 13</span>
+                </div>
+              </div>
             </div>
-            <button 
-              onClick={() => {
-                setSection5Toast(false);
-                trackClick();
-              }}
-              className="text-white ml-4"
+
+            <div className="hidden md:flex flex-1 max-w-xs mx-12 flex-col gap-1.5">
+              <div className="flex items-center justify-between px-1">
+                <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Bio-Stress Level</span>
+                <span className={`text-[10px] font-black uppercase tracking-widest ${anxietyLevel > 70 ? 'text-red-500 animate-pulse' : 'text-blue-600'}`}>
+                  {getAnxietyState()}
+                </span>
+              </div>
+              <div className="h-2 bg-slate-200/50 rounded-full overflow-hidden p-0.5 border border-white/20">
+                <div
+                  className="h-full rounded-full transition-all duration-1000 ease-out shadow-sm"
+                  style={{
+                    width: `${anxietyLevel}%`,
+                    background: anxietyLevel < 40 ? '#3b82f6' : anxietyLevel < 70 ? '#f59e0b' : '#ef4444'
+                  }}
+                />
+              </div>
+            </div>
+
+            <button
+              onClick={handleRestart}
+              className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-red-500 transition-all border-l border-slate-200 ml-4 pl-4 hover:scale-105"
             >
-              ✕
+              Terminate
             </button>
           </div>
-        </div>
+        </header>
       )}
 
-      {/* Section 5 Modal */}
-      {section5Modal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white border border-gray-300 p-6 max-w-md shadow-xl">
-            <h3 className="text-lg mb-3">Special Offer!</h3>
-            <p className="text-sm text-gray-700 mb-4">
-              Subscribe now to get exclusive updates and early access to new features. 
-              Limited time offer - don't miss out!
-            </p>
-            <div className="flex gap-3">
-              <button
-                onClick={() => {
-                  setSection5Modal(false);
-                  trackClick();
-                  increaseAnxiety(2);
-                }}
-                className="flex-1 px-4 py-2 bg-blue-600 text-white hover:bg-blue-700"
-              >
-                Subscribe Now
-              </button>
-              <button
-                onClick={() => {
-                  setSection5Modal(false);
-                  trackClick();
-                }}
-                className="px-4 py-2 text-sm text-gray-600 underline"
-              >
-                Maybe later
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <div className={currentSection > 0 && currentSection < 14 ? 'pt-24 pb-20' : 'py-12'}>
 
-      {/* Main Content */}
-      <div className={currentSection > 0 && currentSection < 14 ? 'pt-24 pb-12' : 'py-12'}>
-        
         {/* Introduction Screen */}
         {currentSection === 0 && (
-          <div className="max-w-4xl mx-auto px-6">
-            <div className="bg-white border border-gray-300 p-12">
-              <h1 className="text-4xl mb-3">Cursor Anxiety Simulator</h1>
-              <p className="text-lg text-gray-600 mb-8">An experiment in subtle UX stress</p>
-              
-              <div className="space-y-4 mb-8 text-gray-800">
-                <p className="leading-relaxed">
-                  Welcome to an interactive study exploring how small interface design decisions 
-                  create cumulative user stress. You'll experience thirteen common UI patterns that 
-                  make digital interactions unnecessarily difficult.
+          <div className="max-w-4xl mx-auto">
+            <div className="glass-panel p-12 md:p-20 text-center shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] relative overflow-hidden group">
+              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600" />
+
+              <div className="relative z-10">
+                <div className="inline-flex items-center justify-center w-28 h-28 rounded-[2rem] bg-gradient-to-br from-blue-500 to-indigo-600 mb-10 shadow-2xl shadow-blue-500/20 rotate-3 group-hover:rotate-0 transition-transform duration-700">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+
+                <h1 className="text-7xl font-black tracking-tighter mb-6 bg-gradient-to-b from-slate-900 to-slate-700 bg-clip-text text-transparent transform transition-all">
+                  The Anxiety Simulator
+                </h1>
+
+                <p className="text-2xl text-slate-500 mb-12 max-w-2xl mx-auto font-medium leading-normal">
+                  An interactive deep-dive into the <span className="text-indigo-600 font-bold italic underline decoration-blue-500/30 underline-offset-8">Dark Patterns</span> that define the modern web.
                 </p>
-                <p className="leading-relaxed">
-                  As you progress, an "Anxiety Meter" will track your frustration based on your actual behavior—
-                  cursor hesitation, missed clicks, repeated attempts, and rage clicking. 
-                  The meter responds only to what you do, not just time spent.
-                </p>
-                <p className="leading-relaxed">
-                  This experiment takes approximately 6–8 minutes. You can restart at any time. 
-                  There are no wrong answers—just honest reactions to intentionally problematic design.
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left mb-16">
+                  {[
+                    { title: "Behavioral Tracking", desc: "We monitor cursor velocity, hesitation, and rage-clicks.", icon: "🎯" },
+                    { title: "Biological Stress", desc: "Experience the physical toll of poor interface design.", icon: "🧬" },
+                    { title: "Hostile Patterns", desc: "13 curated sections of intentional digital obstruction.", icon: "⚔️" },
+                    { title: "Final Exposure", desc: "Receive a full cognitive analysis of your performance.", icon: "📊" }
+                  ].map((item, i) => (
+                    <div key={i} className="glass-panel bg-white/50 border-white/80 p-6 flex gap-4 hover:shadow-xl transition-all duration-300">
+                      <div className="text-3xl">{item.icon}</div>
+                      <div>
+                        <h4 className="font-black text-slate-800 text-sm uppercase tracking-tight mb-1">{item.title}</h4>
+                        <p className="text-sm text-slate-500 font-medium leading-relaxed">{item.desc}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <button
+                  onClick={() => setCurrentSection(1)}
+                  className="glass-button px-14 py-6 text-2xl font-black shadow-2xl hover:scale-105 active:scale-95 transition-all bg-blue-600 text-white relative overflow-hidden group/btn"
+                >
+                  <span className="relative z-10 flex items-center gap-3">
+                    Initialize Protocol
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover/btn:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-indigo-800 opacity-0 group-hover/btn:opacity-100 transition-opacity" />
+                </button>
+
+                <p className="text-[10px] text-slate-400 mt-10 font-black uppercase tracking-[0.3em]">
+                  Scientific Analysis in Progress
                 </p>
               </div>
-
-              <div className="bg-gray-50 border border-gray-300 p-6 mb-8">
-                <h3 className="text-sm mb-3 text-gray-700">What to Expect:</h3>
-                <ul className="space-y-2 text-sm text-gray-700">
-                  <li className="flex items-start">
-                    <span className="mr-2">•</span>
-                    <span>13 interactive sections demonstrating common UX friction patterns</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2">•</span>
-                    <span>Behavior-based anxiety tracking (no auto-increase)</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2">•</span>
-                    <span>Delayed feedback, ambiguous buttons, deceptive interactions</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2">•</span>
-                    <span>Interruptions, pressure tactics, and cognitive overload</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2">•</span>
-                    <span>Final reflection revealing how friction affected you</span>
-                  </li>
-                </ul>
-              </div>
-
-              <button
-                onClick={() => setCurrentSection(1)}
-                className="px-8 py-4 bg-black text-white hover:bg-gray-900 text-lg"
-              >
-                Begin Experiment
-              </button>
-
-              <p className="text-sm text-gray-600 mt-4">
-                By continuing, you consent to having your interactions tracked for this experiment.
-              </p>
             </div>
           </div>
         )}
 
-        {/* Section 1: Delayed Feedback */}
+
+        {/* Section 1: Latency Frustration */}
         {currentSection === 1 && (
           <div className="max-w-5xl mx-auto px-6">
-            <div className="bg-white border border-gray-300 p-8">
-              <div className="flex items-start justify-between mb-6">
+            <div className="glass-panel p-10 md:p-16">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-2xl mb-2">Section 1: Delayed Feedback</h2>
-                  <p className="text-gray-600">Click the primary button to begin processing</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 01: Latency Frustration</h2>
+                  <p className="text-lg text-slate-500 font-medium italic">Delayed feedback and uncertain system states.</p>
                 </div>
-                <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 border border-gray-300">
-                  Pattern: Uncertain Wait Times
+                <div className="px-4 py-2 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                  Pattern: Feedback Gap
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-6">
-                <p className="text-gray-800 mb-6 leading-relaxed">
-                  In this section, you'll submit a request that requires server processing. 
-                  Pay attention to how the interface communicates progress and status. 
-                  Notice any impulses to click again while waiting.
-                </p>
+              <div className="space-y-10">
+                <div className="glass-panel bg-white/40 border-slate-200/60 p-12 text-center shadow-inner">
+                  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-8">System Handshake Required</h3>
 
-                <div className="bg-gray-50 border border-gray-300 p-6 mb-6">
-                  <h3 className="text-sm mb-4 text-gray-700">Processing Request</h3>
-                  
-                  <div className="flex gap-4 mb-6 flex-wrap">
-                    <div className="relative">
-                      <button
-                        onClick={handleSection1Primary}
-                        disabled={section1Completed}
-                        className={`px-6 py-3 border flex items-center gap-2 ${
-                          section1Completed
-                            ? 'bg-green-100 text-green-800 border-green-400 cursor-not-allowed'
-                            : section1Processing
-                            ? 'bg-yellow-100 text-yellow-800 border-yellow-400'
-                            : 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'
-                        }`}
-                      >
-                        {section1Processing && (
-                          <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                          </svg>
-                        )}
-                        {section1Completed ? 'Completed ✓' : section1Processing ? 'Processing...' : 'Submit Request'}
-                      </button>
-                      <div className="absolute -bottom-6 left-0 text-xs text-gray-600 whitespace-nowrap">
-                        Primary action
-                      </div>
-                    </div>
-
+                  <div className="flex flex-col items-center gap-8">
                     <button
-                      onClick={handleSection1Secondary}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100 text-gray-800 opacity-60"
-                      disabled={section1Processing}
+                      onClick={handleSection1Primary}
+                      disabled={section1Completed}
+                      className={`min-w-[280px] px-10 py-5 rounded-2xl font-black text-xl transition-all duration-500 flex items-center justify-center gap-4 ${section1Completed
+                        ? 'bg-green-500 text-white shadow-lg shadow-green-500/20 cursor-not-allowed'
+                        : section1Processing
+                          ? 'bg-amber-100 text-amber-700 border-2 border-amber-200'
+                          : 'glass-button bg-blue-600 text-white shadow-2xl shadow-blue-500/20 hover:scale-105 active:scale-95'
+                        }`}
                     >
-                      Cancel Request
+                      {section1Processing && (
+                        <div className="w-5 h-5 border-[3px] border-amber-400 border-t-transparent rounded-full animate-spin" />
+                      )}
+                      {section1Completed ? 'Success Received ✓' : section1Processing ? 'Processing Batch...' : 'Establish Secure Connection'}
                     </button>
 
                     <button
-                      onClick={handleSection1Tertiary}
-                      className="px-4 py-3 text-sm text-gray-600 underline"
+                      onClick={handleSection1Secondary}
+                      className="text-sm font-bold text-slate-400 hover:text-red-500 transition-colors uppercase tracking-widest"
+                      disabled={section1Processing || section1Completed}
                     >
-                      View Details
+                      Abort Operation
                     </button>
                   </div>
 
                   {section1Processing && (
-                    <div className="mb-6 mt-8">
-                      <div className="flex items-center justify-between mb-2 text-xs text-gray-600">
-                        <span>Progress</span>
-                        <span>{Math.floor(section1Progress)}%</span>
+                    <div className="mt-12 max-w-md mx-auto animate-in fade-in duration-700">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 italic">Syncing Data...</span>
+                        <span className="text-xs font-black text-blue-600">{Math.floor(section1Progress)}%</span>
                       </div>
-                      <div className="w-full h-2 bg-gray-300 border border-gray-400 overflow-hidden">
-                        <div 
-                          className="h-full bg-blue-600 transition-all duration-200"
+                      <div className="h-3 bg-slate-200/50 rounded-full overflow-hidden p-0.5 border border-white/40 shadow-inner">
+                        <div
+                          className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-300 shadow-[0_0_10px_rgba(59,130,246,0.3)]"
                           style={{ width: `${section1Progress}%` }}
                         />
                       </div>
                     </div>
                   )}
 
-                  {section1Status && (
-                    <div className="mb-4 p-3 bg-blue-50 border border-blue-200 text-sm text-blue-800 flex items-start gap-2">
-                      <span className="text-xs mt-0.5">ℹ️</span>
-                      <span>{section1Status}</span>
+                  {(section1Status || section1RetryHint) && (
+                    <div className="mt-12 p-6 rounded-2xl bg-blue-50/50 border border-blue-100/50 text-left animate-in slide-in-from-bottom-4 duration-500">
+                      <div className="flex items-center gap-3 mb-2 text-blue-600 font-black text-xs uppercase tracking-widest">
+                        <span className="text-lg">⚡</span>
+                        System Log
+                      </div>
+                      <p className="text-slate-600 font-medium leading-relaxed italic">{section1Status || section1RetryHint}</p>
                     </div>
                   )}
+                </div>
 
-                  {section1RetryHint && (
-                    <div className="mb-4 p-3 bg-orange-50 border border-orange-200 text-sm text-orange-800">
-                      {section1RetryHint}
-                    </div>
-                  )}
+                <div className="glass-panel bg-amber-500/5 border-l-4 border-l-amber-500 p-8 flex gap-6">
+                  <div className="text-3xl text-amber-600">⚠️</div>
+                  <div>
+                    <h4 className="font-black text-amber-900 text-sm uppercase tracking-tight mb-1">Behavioral Analysis: Uncertain Wait Times</h4>
+                    <p className="text-sm text-amber-800/80 font-medium leading-relaxed">
+                      Human psychology is hard-wired to find uncertainty stressful. When a system provides no feedback during high-latency events,
+                      users lose their sense of agency, leading to <span className="font-bold underline">repetitive clicking</span>—a direct metabolic cost of poor design.
+                    </p>
+                  </div>
+                </div>
 
-                  <div className="flex items-center justify-between text-xs text-gray-600 pt-4 border-t border-gray-200">
-                    <span>⏱ Wait time may vary based on server load</span>
-                    {section1Clicks > 0 && (
-                      <span className="text-orange-600">⚠ Re-clicks detected: {section1Clicks}</span>
+                {section1Completed && (
+                  <div className="flex justify-end pt-6 animate-in fade-in duration-500">
+                    <button
+                      onClick={() => setCurrentSection(2)}
+                      className="glass-button px-10 py-4 font-black text-lg bg-indigo-600 text-white shadow-xl shadow-indigo-500/20"
+                    >
+                      Continue Protocol 02 →
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+
+        {/* Section 2: Affordance Deception */}
+        {currentSection === 2 && (
+          <div className="max-w-5xl mx-auto px-6">
+            <div className="glass-panel p-10 md:p-16">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
+                <div>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 02: Affordance Deception</h2>
+                  <p className="text-lg text-slate-500 font-medium italic">Unclear UI states and misleading visual cues.</p>
+                </div>
+                <div className="px-4 py-2 rounded-xl bg-purple-50 border border-purple-100 text-purple-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                  Pattern: Visual Ambiguity
+                </div>
+              </div>
+
+              <div className="space-y-10">
+                <div className="glass-panel bg-white/40 border-slate-200/60 p-12 shadow-inner">
+                  <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-8 text-center">Locate the functional affordance</h3>
+
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                    {[
+                      { id: 1, label: "Confirm Action", style: "opacity-40 cursor-not-allowed bg-slate-200", hint: "Looks disabled" },
+                      { id: 2, label: "Next Step", style: "bg-indigo-600 text-white font-black shadow-lg shadow-indigo-500/20", hint: "Primary action?" },
+                      { id: 3, label: "Skip", style: "border-2 border-slate-200 text-slate-400 italic font-medium", hint: "Secondary link" },
+                      { id: 4, label: "Proceed →", style: "bg-green-600 text-white font-black shadow-lg shadow-green-500/20", hint: "Looks functional" },
+                      { id: 5, label: "Cancel", style: "text-red-500 font-bold underline underline-offset-4", hint: "Destructive link" },
+                      { id: 6, label: "Update Now", style: "bg-blue-500 text-white shadow-inner", hint: "System update" },
+                      { id: 7, label: "⚙️", style: "w-12 h-12 rounded-full border border-slate-300 flex items-center justify-center mx-auto", hint: "Settings gear" },
+                      { id: 8, label: "Click to continue", style: "text-blue-600 font-black text-xs uppercase tracking-widest hover:underline", hint: "Text trigger" }
+                    ].map((btn) => (
+                      <button
+                        key={btn.id}
+                        onClick={() => handleSection2Button(btn.id)}
+                        onMouseEnter={() => showTooltip(btn.hint)}
+                        className={`p-4 rounded-xl transition-all duration-300 text-sm ${btn.style} ${section2Completed ? 'opacity-50 grayscale' : 'hover:scale-105 active:scale-95'}`}
+                      >
+                        {btn.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div className="min-h-[60px] flex flex-col items-center justify-center gap-4">
+                    {section2Tooltip && (
+                      <div className="px-4 py-2 rounded-lg bg-slate-800 text-white text-[10px] font-black uppercase tracking-widest animate-in zoom-in-95 duration-200">
+                        {section2Tooltip}
+                      </div>
+                    )}
+
+                    {section2Feedback && (
+                      <div className={`px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-3 animate-in fade-in duration-500 ${section2Completed ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-600 border border-red-200'
+                        }`}>
+                        <span>{section2Feedback}</span>
+                        {section2Completed && <span className="text-xl">✓</span>}
+                      </div>
                     )}
                   </div>
                 </div>
 
-                <div className="bg-yellow-50 border border-yellow-300 p-4 mb-6">
-                  <p className="text-sm text-yellow-800 flex items-start gap-2">
-                    <span className="text-lg">⚠️</span>
-                    <span>
-                      <strong>Note:</strong> This process cannot be interrupted once started. 
-                      Please wait for confirmation before proceeding. This action may take longer than expected.
-                    </span>
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-3 gap-4 mb-6 text-xs">
-                  <div className="bg-gray-100 border border-gray-300 p-3">
-                    <div className="text-gray-600 mb-1">Typical processing time</div>
-                    <div className="text-gray-800">3–7 seconds</div>
-                  </div>
-                  <div className="bg-gray-100 border border-gray-300 p-3">
-                    <div className="text-gray-600 mb-1">Server status</div>
-                    <div className="text-green-700">● Online</div>
-                  </div>
-                  <div className="bg-gray-100 border border-gray-300 p-3">
-                    <div className="text-gray-600 mb-1">Queue position</div>
-                    <div className="text-gray-800">Loading...</div>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <button
-                    onClick={() => setCurrentSection(0)}
-                    className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                  >
-                    ← Back
-                  </button>
-                  {section1Completed && (
-                    <button
-                      onClick={() => setCurrentSection(2)}
-                      className="px-6 py-3 bg-black text-white hover:bg-gray-900"
-                    >
-                      Continue to Section 2 →
-                    </button>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 text-sm text-gray-600 text-center">
-              Anxiety increases based on your behavior, not time
-            </div>
-          </div>
-        )}
-
-        {/* Section 2: Confusing Button States */}
-        {currentSection === 2 && (
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="bg-white border border-gray-300 p-8">
-              <div className="flex items-start justify-between mb-6">
-                <div>
-                  <h2 className="text-2xl mb-2">Section 2: Confusing Button States</h2>
-                  <p className="text-gray-600">Identify and click the active button</p>
-                </div>
-                <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 border border-gray-300">
-                  Pattern: Unclear Affordances
-                </div>
-              </div>
-
-              <div className="border-t border-gray-200 pt-6">
-                <p className="text-gray-800 mb-6 leading-relaxed">
-                  Multiple buttons appear below with varying visual states. Some look disabled but are clickable, 
-                  others look active but don't respond. Find the button that actually works to proceed.
-                </p>
-
-                <div className="bg-gray-50 border border-gray-300 p-8 mb-6">
-                  <div className="grid grid-cols-3 gap-4 mb-6">
-                    <button
-                      onClick={() => handleSection2Button(1)}
-                      onMouseEnter={() => showTooltip('This might be the right button')}
-                      className="px-4 py-2 bg-gray-300 text-gray-500 border border-gray-400 opacity-60"
-                      title="This button appears disabled"
-                    >
-                      Option A
-                    </button>
-
-                    <button
-                      onClick={() => handleSection2Button(2)}
-                      onMouseEnter={() => showTooltip('Primary action')}
-                      className="px-6 py-4 bg-blue-600 text-white border border-blue-600 hover:bg-blue-700"
-                      title="Primary action"
-                    >
-                      Option B - Confirm
-                    </button>
-
-                    <button
-                      onClick={() => handleSection2Button(3)}
-                      className="px-3 py-2 bg-gray-200 text-gray-600 border border-gray-300 text-sm"
-                      title="Secondary option"
-                    >
-                      Option C
-                    </button>
-
-                    <div className="flex items-center gap-2">
-                      <button
-                        onClick={() => handleSection2Button(4)}
-                        className="flex-1 px-5 py-3 bg-green-500 text-white border border-green-600"
-                        title="Looks active"
-                      >
-                        Option D
-                      </button>
-                      <button
-                        onClick={() => handleSection2Button(4)}
-                        className="px-3 py-3 bg-green-500 text-white border border-green-600"
-                        title="Icon button"
-                      >
-                        →
-                      </button>
-                    </div>
-
-                    <button
-                      onClick={() => handleSection2Button(5)}
-                      className="px-4 py-2 bg-white text-gray-400 border border-gray-300"
-                      title="Another option"
-                    >
-                      Option E
-                    </button>
-
-                    <button
-                      onClick={() => handleSection2Button(6)}
-                      className="px-4 py-3 bg-gray-100 text-gray-700 border border-gray-400 hover:bg-gray-200"
-                      title="Try this one"
-                    >
-                      Option F - Continue
-                    </button>
-
-                    <button
-                      onClick={() => handleSection2Button(7)}
-                      className="px-2 py-2 border border-gray-400 bg-white text-gray-700 text-xs"
-                    >
-                      ⚙️
-                    </button>
-
-                    <div className="col-span-2">
-                      <button
-                        onClick={() => handleSection2Button(8)}
-                        className="text-blue-600 underline text-sm"
-                      >
-                        Click here to proceed
-                      </button>
-                    </div>
-                  </div>
-
-                  {section2Tooltip && (
-                    <div className="mb-4 p-2 bg-black text-white text-xs">
-                      {section2Tooltip}
-                    </div>
-                  )}
-
-                  {section2Feedback && (
-                    <div className={`p-3 border text-sm mb-4 ${
-                      section2Completed 
-                        ? 'bg-green-50 border-green-300 text-green-800'
-                        : 'bg-red-50 border-red-300 text-red-800'
-                    }`}>
-                      {section2Feedback}
-                    </div>
-                  )}
-
-                  <div className="flex items-center justify-between text-xs text-gray-600 pt-4 border-t border-gray-200">
-                    <span>💡 Hover over buttons for additional hints</span>
-                    <span>Attempts: {section2Attempts}</span>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-4">
-                  <div className="bg-blue-50 border border-blue-300 p-4">
-                    <p className="text-sm text-blue-800 flex items-start gap-2">
-                      <span className="text-lg">ℹ️</span>
-                      <span>
-                        <strong>Hint:</strong> Visual appearance doesn't always indicate functionality. 
-                        Some buttons may be styled to look inactive while remaining functional.
-                      </span>
-                    </p>
-                  </div>
-
-                  <div className="bg-orange-50 border border-orange-300 p-4">
-                    <p className="text-sm text-orange-800 flex items-start gap-2">
-                      <span className="text-lg">⚠️</span>
-                      <span>
-                        <strong>Warning:</strong> Clicking the wrong button may reset your progress in this section.
-                      </span>
+                <div className="glass-panel bg-purple-500/5 border-l-4 border-l-purple-500 p-8 flex gap-6">
+                  <div className="text-3xl text-purple-600">🧠</div>
+                  <div>
+                    <h4 className="font-black text-purple-900 text-sm uppercase tracking-tight mb-1">Pattern Analysis: False Affordance</h4>
+                    <p className="text-sm text-purple-800/80 font-medium leading-relaxed">
+                      Design creates <span className="italic font-bold">Expectations</span>. When an element looks inactive but works (or vice versa), it forces the user to interact via trial-and-error.
+                      This erodes the mental model of the interface, turning navigation into a guessing game.
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between pt-6">
                   <button
                     onClick={() => setCurrentSection(1)}
-                    className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
+                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
                   >
                     ← Back
                   </button>
-                  <div className="text-sm text-gray-600 flex items-center gap-2">
-                    <span className="text-xs">📊</span>
-                    <span>Notice how uncertainty increases with each failed attempt</span>
-                  </div>
+                  {section2Completed && (
+                    <button
+                      onClick={() => setCurrentSection(3)}
+                      className="glass-button px-10 py-4 font-black text-lg bg-purple-600 text-white shadow-xl shadow-purple-500/20"
+                    >
+                      Continue Protocol 03 →
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* Section 3: Unstable Click Area */}
+        {/* Section 3: Kinetic Obstruction */}
         {currentSection === 3 && (
           <div className="max-w-5xl mx-auto px-6">
-            <div className="bg-white border border-gray-300 p-8">
-              <div className="flex items-start justify-between mb-6">
+            <div className="glass-panel p-10 md:p-16">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-2xl mb-2">Section 3: Unstable Click Target</h2>
-                  <p className="text-gray-600">Complete the action by clicking the button</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 03: Kinetic Obstruction</h2>
+                  <p className="text-lg text-slate-500 font-medium italic">Unstable targets and mechanical friction.</p>
                 </div>
-                <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 border border-gray-300">
-                  Pattern: Moving Targets
+                <div className="px-4 py-2 rounded-xl bg-pink-50 border border-pink-100 text-pink-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                  Pattern: Target Shift
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-6">
-                <p className="text-gray-800 mb-6 leading-relaxed">
-                  This section demonstrates interfaces where click targets shift unexpectedly. 
-                  Try to click the primary action button below. The button will stabilize after a few attempts.
-                </p>
+              <div className="space-y-10">
+                <div className="glass-panel bg-white/40 border-slate-200/60 p-12 shadow-inner relative overflow-hidden h-[400px]">
+                  <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-8 text-center relative z-10">Capture the primary trigger</h3>
 
-                <div className="mb-4 flex items-center justify-between bg-gray-100 border border-gray-300 p-3">
-                  <div className="flex items-center gap-4">
-                    <div className="text-sm text-gray-700">
-                      Status: <span className={`${section3StatusLabel === 'Success' ? 'text-green-700' : 'text-gray-800'}`}>{section3StatusLabel}</span>
-                    </div>
-                    <div className="h-4 w-px bg-gray-300"></div>
-                    <div className="text-xs text-gray-600">
-                      {section3HelperText}
-                    </div>
+                  <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute top-10 left-10 w-32 h-32 bg-blue-400/5 rounded-full blur-3xl animate-pulse" />
+                    <div className="absolute bottom-10 right-10 w-32 h-32 bg-purple-400/5 rounded-full blur-3xl animate-pulse delay-700" />
                   </div>
-                  <div className="text-xs text-gray-500">
-                    Auto-updates
-                  </div>
-                </div>
 
-                <div className="bg-gray-50 border border-gray-300 p-12 mb-6 relative" style={{ minHeight: '300px' }}>
-                  <div 
-                    className="absolute"
+                  <div
+                    className="absolute z-20"
                     style={{
                       top: '50%',
                       left: '50%',
                       transform: `translate(calc(-50% + ${section3ButtonPos.x}px), calc(-50% + ${section3ButtonPos.y}px))`,
-                      transition: section3Completed ? 'none' : 'transform 0.3s ease-out'
+                      transition: section3Completed ? 'all 0.5s ease-out' : 'transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)'
                     }}
                   >
                     <button
@@ -1215,333 +1029,219 @@ export default function App() {
                       onMouseLeave={() => setSection3Hovering(false)}
                       onClick={handleSection3Click}
                       disabled={section3Completed}
-                      className={`px-8 py-4 border ${
-                        section3Completed
-                          ? 'bg-green-600 text-white border-green-600 cursor-not-allowed'
-                          : 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'
-                      }`}
+                      className={`min-w-[240px] px-8 py-5 rounded-2xl font-black text-lg transition-all duration-300 ${section3Completed
+                        ? 'bg-green-500 text-white shadow-2xl shadow-green-500/30'
+                        : 'glass-button bg-blue-600 text-white shadow-2xl shadow-blue-500/20 hover:scale-105 active:scale-95'
+                        }`}
                     >
-                      {section3Completed ? 'Successfully Clicked ✓' : 'Click Here to Continue'}
+                      {section3Completed ? 'Target Captured ✓' : 'Establish Link'}
                     </button>
                   </div>
 
                   {!section3Completed && (
-                    <>
-                      <button 
-                        onClick={() => {
-                          trackClick();
-                          trackMissedClick();
-                        }}
-                        className="absolute top-4 left-4 p-2 text-xs border border-gray-400 bg-white hover:bg-gray-100"
-                      >
-                        ℹ️
-                      </button>
-                      <button 
-                        onClick={() => {
-                          trackClick();
-                          trackMissedClick();
-                        }}
-                        className="absolute top-4 right-4 p-2 text-xs border border-gray-400 bg-white hover:bg-gray-100"
-                      >
-                        ⚙️
-                      </button>
-                    </>
-                  )}
-
-                  {!section3Completed && section3Attempts > 0 && (
-                    <div className="absolute bottom-4 left-4 right-4 text-center text-sm text-gray-600 bg-white border border-gray-300 p-2">
-                      Attempts: {section3Attempts} - {section3Attempts >= 2 ? 'Button will now stabilize' : 'Keep trying...'}
+                    <div className="absolute inset-0 pointer-events-none opacity-40">
+                      <button className="absolute top-[20%] left-[25%] p-4 rounded-xl border border-slate-200 text-slate-300 text-xs font-bold pointer-events-auto cursor-not-allowed">Settings</button>
+                      <button className="absolute bottom-[20%] right-[25%] p-4 rounded-xl border border-slate-200 text-slate-300 text-xs font-bold pointer-events-auto cursor-not-allowed">Profile</button>
                     </div>
                   )}
-                </div>
 
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-yellow-50 border border-yellow-300 p-4">
-                    <p className="text-sm text-yellow-800 flex items-start gap-2">
-                      <span className="text-lg">💡</span>
-                      <span>
-                        <strong>Retry Hint:</strong> The button may shift position when you approach it. 
-                        This simulates ads that move as you try to close them.
-                      </span>
-                    </p>
-                  </div>
-
-                  <div className="bg-gray-100 border border-gray-300 p-4">
-                    <div className="text-xs text-gray-600 mb-2">Quick Stats</div>
-                    <div className="text-sm text-gray-800 space-y-1">
-                      <div>Click attempts: {section3Attempts}</div>
-                      <div>Status: {section3Completed ? 'Completed' : section3Hovering ? 'Hovering' : 'Ready'}</div>
-                      <div className="text-xs text-gray-600 pt-1 border-t border-gray-200">
-                        Position: {section3ButtonPos.x !== 0 ? 'Shifted' : 'Center'}
+                  <div className="absolute bottom-10 left-10 right-10 flex justify-between items-center px-4">
+                    <div className="flex gap-4">
+                      <div className="flex flex-col">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Velocity</span>
+                        <span className="text-xs font-bold text-slate-600">Adaptive</span>
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Attempts</span>
+                        <span className={`text-xs font-bold ${section3Attempts > 2 ? 'text-red-500' : 'text-slate-600'}`}>{section3Attempts}</span>
                       </div>
                     </div>
+                    <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 italic">
+                      {section3Hovering && !section3Completed ? 'Target Evading...' : ''}
+                    </div>
                   </div>
                 </div>
 
-                {section3Completed && (
-                  <div className="flex justify-between items-center bg-green-50 border border-green-300 p-4 mb-4">
-                    <p className="text-sm text-green-700 flex items-center gap-2">
-                      <span className="text-lg">✓</span>
-                      <span>Success! You've experienced how moving interface elements create frustration.</span>
+                <div className="glass-panel bg-pink-500/5 border-l-4 border-l-pink-500 p-8 flex gap-6">
+                  <div className="text-3xl text-pink-600">⚙️</div>
+                  <div>
+                    <h4 className="font-black text-pink-900 text-sm uppercase tracking-tight mb-1">Behavioral Analysis: Mechanical Friction</h4>
+                    <p className="text-sm text-pink-800/80 font-medium leading-relaxed">
+                      Kinetic obstruction subverts the user's motor planning. When an interface element moves <span className="italic">at the moment of intent</span>,
+                      it creates a profound sense of powerlessness and irritation. This pattern is commonly used in intrusive ads to force accidental clicks on surrounding elements.
                     </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-6">
+                  <button
+                    onClick={() => setCurrentSection(2)}
+                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                  >
+                    ← Back
+                  </button>
+                  {section3Completed && (
                     <button
                       onClick={() => setCurrentSection(4)}
-                      className="px-6 py-3 bg-black text-white hover:bg-gray-900"
+                      className="glass-button px-10 py-4 font-black text-lg bg-pink-600 text-white shadow-xl shadow-pink-500/20"
                     >
-                      Continue to Section 4 →
+                      Continue Protocol 04 →
                     </button>
-                  </div>
-                )}
-
-                {!section3Completed && (
-                  <div className="flex items-center justify-between text-sm border-t border-gray-200 pt-4">
-                    <button
-                      onClick={() => setCurrentSection(2)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
-                    <div className="text-gray-600 flex items-center gap-2">
-                      <span className="text-xs">📝</span>
-                      <span>Alternative: <button className="text-blue-600 underline" onClick={handleSection3Click}>Skip this section</button> if it becomes too frustrating</span>
-                    </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* Section 4: Cognitive Overload */}
+        {/* Section 4: Cognitive Paralysis */}
         {currentSection === 4 && (
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="bg-white border border-gray-300 p-8">
-              <div className="flex items-start justify-between mb-6">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="glass-panel p-10 md:p-16">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-2xl mb-2">Section 4: Cognitive Overload</h2>
-                  <p className="text-gray-600">Configure your preferences to continue</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 04: Cognitive Paralysis</h2>
+                  <p className="text-lg text-slate-500 font-medium italic">Decision fatigue through excessive configuration.</p>
                 </div>
-                <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 border border-gray-300">
-                  Pattern: Excessive Choice
+                <div className="px-4 py-2 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                  Pattern: Choice Overload
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-6">
-                <p className="text-gray-800 mb-6 leading-relaxed">
-                  Make at least 3 selections from the options below. This section demonstrates how 
-                  overwhelming users with choices and settings creates decision paralysis.
-                </p>
-
-                <div className="mb-4 bg-blue-50 border border-blue-300 p-3 flex items-center justify-between">
-                  <div className="text-sm text-blue-800">{section4Summary}</div>
-                  <div className="text-xs text-blue-600">Updates automatically</div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-6 mb-6">
-                  {/* Left column - Checkboxes */}
-                  <div className="border border-gray-300 p-6 bg-gray-50">
-                    <div className="flex items-center justify-between mb-4">
-                      <h3 className="text-sm text-gray-700">Feature Preferences</h3>
-                      <span className="text-xs text-gray-500">ℹ️ Required</span>
+              <div className="space-y-10">
+                <div className="glass-panel bg-white/40 border-slate-200/60 p-10 shadow-inner">
+                  <div className="flex items-center justify-between mb-8 border-b border-slate-200/60 pb-6">
+                    <div>
+                      <h3 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Status Report</h3>
+                      <p className="text-sm font-bold text-slate-600">{section4Summary}</p>
                     </div>
-                    <div className="space-y-3 max-h-96 overflow-y-auto pr-2">
-                      {[
-                        { label: 'Enable automatic updates', info: 'Recommended' },
-                        { label: 'Receive promotional emails', info: null },
-                        { label: 'Share usage analytics', info: 'Helps improve service' },
-                        { label: 'Allow cookies for personalization', info: 'Required for features' },
-                        { label: 'Enable experimental features', info: 'May be unstable' },
-                        { label: 'Sync settings across devices', info: null },
-                        { label: 'Participate in beta testing', info: null },
-                        { label: 'Send crash reports', info: 'Anonymous' },
-                        { label: 'Enable advanced security', info: 'Recommended' },
-                        { label: 'Allow location tracking', info: 'For personalized content' },
-                        { label: 'Enable push notifications', info: null },
-                        { label: 'Share data with partners', info: 'Optional' },
-                        { label: 'Enable two-factor authentication', info: 'Strongly recommended' },
-                        { label: 'Allow background data usage', info: null },
-                        { label: 'Participate in surveys', info: null },
-                      ].map((option, idx) => (
-                        <label key={idx} className="flex items-start gap-2 cursor-pointer hover:bg-gray-100 p-2 -m-2">
-                          <input
-                            type="checkbox"
-                            checked={section4Selections.includes(option.label)}
-                            onChange={() => handleSection4Checkbox(option.label)}
-                            className="mt-1"
-                          />
-                          <div className="flex-1">
-                            <span className="text-sm text-gray-800">{option.label}</span>
-                            {option.info && (
-                              <div className="text-xs text-gray-500 mt-0.5">{option.info}</div>
-                            )}
-                          </div>
-                        </label>
-                      ))}
-                    </div>
-                    <div className="text-xs text-gray-500 mt-3 pt-3 border-t border-gray-200">
-                      Scroll for more options
+                    <div className="text-[10px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
+                      Live Sync Active
                     </div>
                   </div>
 
-                  {/* Right column - Toggles and Dropdown */}
-                  <div className="space-y-4">
-                    <div className="border border-gray-300 p-6 bg-gray-50">
-                      <div className="flex items-center justify-between mb-4">
-                        <h3 className="text-sm text-gray-700">Privacy Settings</h3>
-                        <span className="text-xs text-gray-500">⚠️ Affects all devices</span>
-                      </div>
-                      <div className="space-y-4">
-                        {['Public Profile', 'Location Services', 'Personalized Ads', 'Data Collection', 'Third-party Access', 'Usage Tracking'].map((setting, idx) => (
-                          <div key={idx} className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <span className="text-sm text-gray-800">{setting}</span>
-                              <button 
-                                onClick={() => {
-                                  trackClick();
-                                  increaseAnxiety(1);
-                                }}
-                                className="text-xs text-gray-500"
-                              >
-                                ℹ️
-                              </button>
-                            </div>
-                            <button
-                              onClick={() => handleSection4Toggle(setting)}
-                              className={`w-12 h-6 rounded-full border transition-colors ${
-                                section4Toggles[setting]
-                                  ? 'bg-blue-600 border-blue-600'
-                                  : 'bg-gray-300 border-gray-400'
-                              }`}
-                            >
-                              <div
-                                className={`w-5 h-5 bg-white rounded-full shadow transition-transform ${
-                                  section4Toggles[setting] ? 'translate-x-6' : 'translate-x-0.5'
-                                }`}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+                    <div className="space-y-6">
+                      <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Primary Permissions</h4>
+                      <div className="space-y-3 max-h-[400px] overflow-y-auto pr-4 custom-scrollbar">
+                        {[
+                          { label: 'Enable automatic updates', info: 'Recommended' },
+                          { label: 'Receive promotional emails', info: null },
+                          { label: 'Share usage analytics', info: 'Helps improve service' },
+                          { label: 'Allow cookies for personalization', info: 'Required' },
+                          { label: 'Enable experimental features', info: 'Unstable' },
+                          { label: 'Sync settings across devices', info: null },
+                          { label: 'Participate in beta testing', info: null },
+                          { label: 'Send crash reports', info: 'Anonymous' },
+                          { label: 'Allow location tracking', info: 'Personalized' },
+                          { label: 'Enable push notifications', info: null },
+                        ].map((option, idx) => (
+                          <label key={idx} className="flex items-start gap-4 p-4 rounded-xl hover:bg-white/60 transition-colors cursor-pointer group">
+                            <div className="relative flex items-center">
+                              <input
+                                type="checkbox"
+                                checked={section4Selections.includes(option.label)}
+                                onChange={() => handleSection4Checkbox(option.label)}
+                                className="w-5 h-5 rounded-md border-2 border-slate-300 text-indigo-600 focus:ring-indigo-500 group-hover:border-indigo-400 transition-colors"
                               />
-                            </button>
-                          </div>
+                            </div>
+                            <div className="flex-1">
+                              <p className="text-sm font-bold text-slate-700">{option.label}</p>
+                              {option.info && <p className="text-[10px] text-slate-400 font-medium uppercase tracking-widest mt-0.5">{option.info}</p>}
+                            </div>
+                          </label>
                         ))}
                       </div>
                     </div>
 
-                    <div className="border border-gray-300 p-6 bg-gray-50">
-                      <h3 className="text-sm mb-4 text-gray-700">Notification Frequency</h3>
-                      <select
-                        value={section4Dropdown}
-                        onChange={(e) => {
-                          setSection4Dropdown(e.target.value);
-                          trackClick();
-                          increaseAnxiety(1);
-                        }}
-                        className="w-full border border-gray-400 p-2 bg-white text-sm mb-2"
-                      >
-                        <option value="">Select frequency...</option>
-                        <option value="realtime">Real-time (as they happen)</option>
-                        <option value="hourly">Hourly digest</option>
-                        <option value="daily">Daily summary</option>
-                        <option value="weekly">Weekly roundup</option>
-                        <option value="never">Never notify me</option>
-                      </select>
-                      <div className="text-xs text-gray-500">
-                        Some options may override previous selections
+                    <div className="space-y-8">
+                      <div className="space-y-6">
+                        <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Security Parameters</h4>
+                        <div className="glass-panel bg-slate-50 border-slate-200/60 p-6 space-y-4">
+                          {['Public Profile', 'Matrix Sync', 'De-identified Tracking'].map((setting) => (
+                            <div key={setting} className="flex items-center justify-between">
+                              <span className="text-sm font-bold text-slate-600">{setting}</span>
+                              <button
+                                onClick={() => handleSection4Toggle(setting)}
+                                className={`w-12 h-6 rounded-full transition-all duration-300 relative ${section4Toggles[setting] ? 'bg-indigo-600 shadow-lg shadow-indigo-500/30' : 'bg-slate-300'
+                                  }`}
+                              >
+                                <div className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 ${section4Toggles[setting] ? 'translate-x-6' : 'translate-x-0'
+                                  }`} />
+                              </button>
+                            </div>
+                          ))}
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="border border-gray-300 p-6 bg-gray-50">
-                      <h3 className="text-sm mb-4 text-gray-700">Advanced Options</h3>
-                      <div className="space-y-3">
-                        <label className="flex items-center gap-2 text-sm text-gray-700">
-                          <input type="radio" name="mode" defaultChecked />
-                          Standard Mode
-                        </label>
-                        <label className="flex items-center gap-2 text-sm text-gray-700">
-                          <input type="radio" name="mode" />
-                          Power User Mode
-                        </label>
-                        <label className="flex items-center gap-2 text-sm text-gray-700">
-                          <input type="radio" name="mode" />
-                          Minimal Mode
-                        </label>
+                      <div className="space-y-4">
+                        <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Interaction Frequency</h4>
+                        <select
+                          value={section4Dropdown}
+                          onChange={(e) => setSection4Dropdown(e.target.value)}
+                          className="w-full bg-white/50 border border-slate-200 rounded-xl p-4 text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                        >
+                          <option value="">Select frequency...</option>
+                          <option value="realtime">Real-time / Instant</option>
+                          <option value="hourly">Hourly Digest</option>
+                          <option value="daily">Daily Summary</option>
+                          <option value="never">Manual Only</option>
+                        </select>
                       </div>
                     </div>
                   </div>
+
+                  {section4Status && (
+                    <div className="mt-10 p-4 rounded-xl bg-orange-50 border border-orange-100 text-orange-700 text-xs font-bold animate-in slide-in-from-bottom-2 duration-300">
+                      {section4Status}
+                    </div>
+                  )}
                 </div>
 
-                {section4Status && (
-                  <div className={`p-3 border text-sm mb-4 flex items-start gap-2 ${
-                    section4Completed
-                      ? 'bg-green-50 border-green-300 text-green-800'
-                      : 'bg-orange-50 border-orange-300 text-orange-800'
-                  }`}>
-                    <span className="text-lg">{section4Completed ? '✓' : '⚠️'}</span>
-                    <span>{section4Status}</span>
+                <div className="glass-panel bg-indigo-500/5 border-l-4 border-l-indigo-500 p-8 flex gap-6">
+                  <div className="text-3xl text-indigo-600">🧠</div>
+                  <div>
+                    <h4 className="font-black text-indigo-900 text-sm uppercase tracking-tight mb-1">Behavioral Analysis: Decision Fatigue</h4>
+                    <p className="text-sm text-indigo-800/80 font-medium leading-relaxed">
+                      This pattern creates "Decision Fatigue" by presenting too many non-essential choices.
+                      When overwhelmed, users often abandon the process or revert to defaults, which are often configured to benefit the platform rather than the user (the "Default Effect").
+                    </p>
                   </div>
-                )}
-
-                <div className="bg-yellow-50 border border-yellow-300 p-4 mb-6">
-                  <p className="text-sm text-yellow-800 flex items-start gap-2">
-                    <span className="text-lg">⚠️</span>
-                    <span>
-                      <strong>Warning:</strong> Some settings may affect others. Changes are auto-saved and 
-                      cannot be easily undone. Review carefully before confirming. Privacy settings will sync 
-                      across all your devices immediately.
-                    </span>
-                  </p>
                 </div>
 
-                <div className="flex items-center justify-between border-t border-gray-200 pt-6">
-                  <div className="text-sm text-gray-600">
-                    <div>Selections: {section4Selections.length} / 3 minimum required</div>
-                    <div className="text-xs text-gray-500 mt-1">Toggle states: {Object.keys(section4Toggles).filter(k => section4Toggles[k]).length} active</div>
-                  </div>
-                  <div className="flex gap-3">
+                <div className="flex items-center justify-between pt-6">
+                  <button
+                    onClick={() => setCurrentSection(3)}
+                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                  >
+                    ← Back
+                  </button>
+                  <div className="flex gap-4">
                     <button
-                      onClick={() => {
-                        trackClick();
-                        detectRepeatedClick('section4-reset');
-                        increaseAnxiety(1);
-                      }}
-                      className="px-4 py-2 text-sm border border-gray-400 bg-white hover:bg-gray-100"
+                      onClick={() => increaseAnxiety(5)}
+                      className="px-6 py-3 border border-slate-200 text-slate-400 font-bold text-xs uppercase tracking-widest hover:text-red-500 transition-colors"
                     >
-                      Reset to Defaults
+                      Reset Defaults
                     </button>
                     <button
                       onClick={handleSection4Submit}
                       disabled={section4Completed}
-                      className={`px-6 py-3 border ${
-                        section4Completed
-                          ? 'bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed'
-                          : 'bg-black text-white border-black hover:bg-gray-900'
-                      }`}
+                      className={`glass-button px-10 py-4 font-black transition-all ${section4Completed
+                        ? 'bg-green-500 text-white cursor-not-allowed'
+                        : 'bg-indigo-600 text-white shadow-xl shadow-indigo-500/20'
+                        }`}
                     >
-                      {section4Completed ? 'Saved ✓' : 'Save Preferences'}
+                      {section4Completed ? 'Confirmed ✓' : 'Commit Configuration'}
                     </button>
                   </div>
                 </div>
-
                 {section4Completed && (
-                  <div className="mt-6 flex justify-between">
-                    <button
-                      onClick={() => setCurrentSection(3)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
+                  <div className="flex justify-end pt-4 animate-in fade-in duration-500">
                     <button
                       onClick={() => setCurrentSection(5)}
-                      className="px-6 py-3 bg-black text-white hover:bg-gray-900"
+                      className="glass-button px-10 py-4 font-black text-lg bg-indigo-600 text-white shadow-xl shadow-indigo-500/20"
                     >
-                      Continue to Section 5 →
-                    </button>
-                  </div>
-                )}
-                {!section4Completed && (
-                  <div className="mt-6 flex justify-start">
-                    <button
-                      onClick={() => setCurrentSection(3)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
+                      Continue Protocol 05 →
                     </button>
                   </div>
                 )}
@@ -1554,485 +1254,336 @@ export default function App() {
         {currentSection === 5 && (
           <div className="max-w-5xl mx-auto px-6">
             {section5Banner && (
-              <div className="bg-orange-500 text-white p-3 mb-4 flex items-center justify-between">
-                <div className="text-sm">
-                  🎉 Limited Time Offer: Upgrade now and save 50%! Expires in 2 hours.
+              <div className="glass-panel bg-orange-500/90 text-white p-4 mb-6 flex items-center justify-between shadow-lg backdrop-blur-md animate-in slide-in-from-top-5 duration-500">
+                <div className="text-sm font-semibold flex items-center gap-2">
+                  <span className="text-xl">🎉</span>
+                  Limited Time Offer: Upgrade now and save 50%! Expires in 2 hours.
                 </div>
-                <button 
+                <button
                   onClick={() => {
                     setSection5Banner(false);
                     trackClick();
                     trackDistraction();
                     increaseAnxiety(2);
                   }}
-                  className="text-white hover:text-gray-200"
+                  className="text-white/80 hover:text-white hover:bg-white/20 rounded-full p-1 transition-colors"
                 >
                   ✕
                 </button>
               </div>
             )}
 
-            <div className="bg-white border border-gray-300 p-8">
-              <div className="flex items-start justify-between mb-6">
+            <div className="glass-panel p-10">
+              <div className="flex items-start justify-between mb-8">
                 <div>
-                  <h2 className="text-2xl mb-2">Section 5: Interruptions & Distractions</h2>
-                  <p className="text-gray-600">Complete the task while managing interruptions</p>
+                  <h2 className="text-3xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Section 5: Interruptions & Distractions</h2>
+                  <p className="text-muted-foreground">Complete the task while managing interruptions</p>
                 </div>
-                <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 border border-gray-300">
+                <div className="text-xs font-medium text-purple-700 bg-purple-100/50 px-3 py-1 rounded-full border border-purple-200/50 backdrop-blur-sm">
                   Pattern: Attention Hijacking
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-6">
+              <div className="border-t border-gray-200/30 pt-6">
                 <p className="text-gray-800 mb-6 leading-relaxed">
-                  Try to complete a simple task below. However, the interface will interrupt you with 
-                  popups, notifications, and distractions—simulating common patterns in modern web applications.
+                  Try to complete the task below. You will be interrupted by various UI elements designed to break your focus.
                 </p>
 
-                <div className="bg-gray-50 border border-gray-300 p-6 mb-6">
-                  <h3 className="text-sm mb-4 text-gray-700">Main Task</h3>
-                  <p className="text-sm text-gray-700 mb-4">
-                    Enter your feedback about this experience in the text field below. Write at least 5 characters.
-                  </p>
+                <div className="bg-white/40 border border-white/50 rounded-xl p-8 mb-6 shadow-sm backdrop-blur-md">
+                  <h3 className="text-sm font-semibold mb-4 text-foreground/80 uppercase tracking-wider">Simple Task: User Feedback</h3>
 
                   <div className="mb-4">
-                    <label className="text-sm text-gray-700 mb-2 block">Your Feedback</label>
+                    <label className="text-sm font-medium text-gray-700 mb-2 block">Your thoughts on the experiment so far?</label>
                     <textarea
                       value={section5TaskInput}
                       onChange={(e) => setSection5TaskInput(e.target.value)}
-                      className="w-full border border-gray-400 p-3 bg-white text-sm"
-                      rows={4}
-                      placeholder="Type your feedback here..."
+                      className="glass-input w-full p-4 text-sm h-32"
+                      placeholder="Start typing..."
                     />
-                    <div className="text-xs text-gray-500 mt-1">
-                      Characters: {section5TaskInput.length} / 5 minimum
-                    </div>
-                  </div>
-
-                  <div className="flex items-center justify-between">
-                    <div className="text-xs text-gray-600">
-                      Interruptions encountered: {section5InterruptCount}
-                    </div>
-                    <button
-                      onClick={handleSection5Complete}
-                      disabled={section5Completed}
-                      className={`px-6 py-3 border ${
-                        section5Completed
-                          ? 'bg-green-100 text-green-800 border-green-400 cursor-not-allowed'
-                          : 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'
-                      }`}
-                    >
-                      {section5Completed ? 'Submitted ✓' : 'Submit Feedback'}
-                    </button>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-blue-50 border border-blue-300 p-4">
-                    <p className="text-sm text-blue-800 flex items-start gap-2">
-                      <span className="text-lg">ℹ️</span>
-                      <span>
-                        <strong>Observation:</strong> Notice how interruptions break your focus and 
-                        increase cognitive load, even for simple tasks.
-                      </span>
-                    </p>
-                  </div>
-
-                  <div className="bg-gray-100 border border-gray-300 p-4">
-                    <div className="text-xs text-gray-600 mb-2">Distraction Metrics</div>
-                    <div className="text-sm text-gray-800 space-y-1">
-                      <div>Modal popups: {section5Modal ? 1 : 0} shown</div>
-                      <div>Toast notifications: {section5Toast ? 1 : 0} active</div>
-                      <div>Banner ads: {section5Banner ? 1 : 0} visible</div>
+                    <div className="flex justify-between items-center mt-2">
+                      <div className="text-xs font-bold text-muted-foreground">
+                        Require at least 15 characters: {section5TaskInput.length} / 15
+                      </div>
+                      <div className="text-[10px] uppercase tracking-widest font-black text-orange-600">
+                        Interruptions: {section5InterruptCount}
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                {section5Completed && (
-                  <div className="flex justify-between">
-                    <button
-                      onClick={() => setCurrentSection(4)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
-                    <button
-                      onClick={() => setCurrentSection(6)}
-                      className="px-6 py-3 bg-black text-white hover:bg-gray-900"
-                    >
-                      Continue to Section 6 →
-                    </button>
-                  </div>
-                )}
-                {!section5Completed && (
-                  <div className="flex justify-start">
-                    <button
-                      onClick={() => setCurrentSection(4)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
-                  </div>
-                )}
+                <div className="flex items-center justify-between mb-8">
+                  <button
+                    onClick={() => setCurrentSection(4)}
+                    className="px-6 py-3 border border-gray-300 bg-white/50 hover:bg-white rounded-lg transition-colors font-medium"
+                  >
+                    ← Back
+                  </button>
+                  <button
+                    onClick={handleSection5Complete}
+                    disabled={section5Completed}
+                    className={`glass-button px-10 py-3 font-bold ${section5Completed ? 'bg-green-500 text-white' : ''}`}
+                  >
+                    {section5Completed ? 'Task Complete ✓' : 'Submit Response'}
+                  </button>
+                </div>
+
               </div>
+
+              {section5Footer && (
+                <div className="glass-panel mt-6 p-6 flex items-center justify-between shadow-2xl border-l-4 border-l-orange-500 animate-in slide-in-from-bottom-5">
+                  <div className="text-sm flex items-center gap-4 text-slate-700 font-medium">
+                    <span className="text-2xl">🍪</span>
+                    <span>We use "essential" cookies to monitor your behavioral deviations.</span>
+                  </div>
+                  <div className="flex gap-4">
+                    <button onClick={() => { increaseAnxiety(1); }} className="px-5 py-2 text-[10px] font-black hover:bg-slate-100 rounded-xl transition-all uppercase tracking-[0.2em] text-slate-400">Settings</button>
+                    <button
+                      onClick={() => { setSection5Footer(false); trackDistraction(); }}
+                      className="glass-button bg-slate-900 text-white px-8 py-2 text-[10px] font-black uppercase tracking-[0.2em]"
+                    >
+                      Accept All
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
-
-            {section5Footer && (
-              <div className="bg-gray-800 text-white p-4 mt-4 flex items-center justify-between sticky bottom-0">
-                <div className="text-sm flex items-center gap-4">
-                  <span>🍪 We use cookies to enhance your experience.</span>
-                  <button 
-                    onClick={() => {
-                      trackClick();
-                      increaseAnxiety(1);
-                    }}
-                    className="underline text-xs"
-                  >
-                    Learn more
-                  </button>
-                </div>
-                <div className="flex gap-3">
-                  <button 
-                    onClick={() => {
-                      trackClick();
-                      increaseAnxiety(1);
-                    }}
-                    className="px-4 py-2 text-sm border border-gray-500 hover:bg-gray-700"
-                  >
-                    Decline
-                  </button>
-                  <button 
-                    onClick={() => {
-                      setSection5Footer(false);
-                      trackClick();
-                      trackDistraction();
-                    }}
-                    className="px-4 py-2 text-sm bg-white text-gray-900 hover:bg-gray-100"
-                  >
-                    Accept All
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
         )}
 
-        {/* Section 6: Pressure & Micro-stress */}
+        {/* Section 6: Pressure & Scarcity */}
         {currentSection === 6 && (
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="bg-white border border-gray-300 p-8">
-              <div className="flex items-start justify-between mb-6">
-                <div>
-                  <h2 className="text-2xl mb-2">Section 6: Pressure & Micro-stress</h2>
-                  <p className="text-gray-600">Complete the form before time runs out</p>
-                </div>
-                <div className={`text-lg px-4 py-2 border ${
-                  section6Timer > 10 ? 'bg-gray-100 border-gray-300 text-gray-700' :
-                  section6Timer > 5 ? 'bg-yellow-100 border-yellow-300 text-yellow-800' :
-                  'bg-red-100 border-red-300 text-red-800'
-                }`}>
-                  {section6Timer > 0 ? `⏱ ${section6Timer}s remaining` : '⏱ Time expired'}
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="glass-panel p-10 md:p-16 relative overflow-hidden">
+              <div className="absolute top-0 right-0 p-8">
+                <div className={`text-2xl px-8 py-4 rounded-2xl font-black border backdrop-blur-xl transition-all duration-500 shadow-2xl ${section6Timer > 15
+                  ? 'bg-emerald-50 text-emerald-600 border-emerald-100'
+                  : section6Timer > 5
+                    ? 'bg-orange-50 text-orange-600 border-orange-100 animate-pulse'
+                    : 'bg-red-50 text-red-600 border-red-200 animate-[bounce_1s_infinite]'
+                  }`}>
+                  {section6Timer > 0 ? `⏱ 00:${section6Timer.toString().padStart(2, '0')}` : '⚠️ SESSION EXPIRED'}
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-6">
-                {section6Timer <= 10 && section6Timer > 0 && (
-                  <div className="bg-red-50 border border-red-300 p-4 mb-6">
-                    <p className="text-sm text-red-800 flex items-start gap-2">
-                      <span className="text-lg">⚠️</span>
-                      <span>
-                        <strong>Hurry!</strong> Limited time remaining. Complete this form now or lose your progress.
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
+                <div>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 06: Pressure & Scarcity</h2>
+                  <p className="text-lg text-slate-500 font-medium italic">Artificial urgency and social-proof manipulation.</p>
+                </div>
+                <div className="px-4 py-2 rounded-xl bg-red-50 border border-red-100 text-red-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                  Pattern: Temporal Pressure
+                </div>
+              </div>
+
+              <div className="space-y-10">
+                <div className="glass-panel bg-white/40 border-slate-200/60 p-10 shadow-inner">
+                  <div className="flex items-center justify-between mb-8">
+                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Final Compliance Verification</h3>
+                    <div className="flex items-center gap-2">
+                      <div className="flex -space-x-3">
+                        {[11, 12, 13, 14, 15].map(i => (
+                          <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm">
+                            <img src={`https://i.pravatar.cc/100?img=${i}`} alt="active user" />
+                          </div>
+                        ))}
+                      </div>
+                      <span className="text-[10px] font-black text-red-600 uppercase tracking-widest animate-pulse ml-2">
+                        124 Users viewing now
                       </span>
-                    </p>
+                    </div>
                   </div>
-                )}
 
-                <p className="text-gray-800 mb-6 leading-relaxed">
-                  This section demonstrates how artificial time pressure and guilt-based messaging 
-                  create unnecessary stress. Complete the form to proceed, but notice how the countdown affects your behavior.
-                </p>
+                  <div className="max-w-2xl mx-auto space-y-6">
+                    <label className="flex items-start gap-5 p-6 rounded-2xl bg-white/50 border border-slate-200 hover:border-slate-300 transition-all cursor-pointer group">
+                      <div className="relative flex items-center h-6">
+                        <input
+                          type="checkbox"
+                          className="w-6 h-6 rounded-lg border-2 border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all cursor-pointer"
+                          checked={section6Agreement}
+                          onChange={(e) => { setSection6Agreement(e.target.checked); trackClick(); }}
+                        />
+                      </div>
+                      <span className="text-sm font-bold leading-relaxed text-slate-700">
+                        I hereby acknowledge the <span className="underline decoration-indigo-500/30 underline-offset-4 text-indigo-600 cursor-help">Mandatory Arbitration Clause</span> and agree to the perpetual auto-renewal of all sub-licensed data processing scripts.
+                      </span>
+                    </label>
 
-                <div className="bg-gray-50 border border-gray-300 p-6 mb-6">
-                  <h3 className="text-sm mb-4 text-gray-700">Required Information</h3>
+                    <label className="flex items-start gap-5 p-6 rounded-2xl bg-white/50 border border-slate-200 hover:border-slate-300 transition-all cursor-pointer group">
+                      <div className="relative flex items-center h-6">
+                        <input
+                          type="checkbox"
+                          className="w-6 h-6 rounded-lg border-2 border-slate-300 text-red-600 focus:ring-red-500 transition-all cursor-pointer"
+                          checked={!section6NewsletterOptOut}
+                          onChange={(e) => { setSection6NewsletterOptOut(!e.target.checked); trackClick(); }}
+                        />
+                      </div>
+                      <span className="text-sm font-bold leading-relaxed text-slate-700">
+                        Do <span className="text-red-600 font-black italic underline decoration-red-500/20 underline-offset-4">not</span> unsubscribe me from the three-times-daily marketing pulse, partner data-shares, and experimental psychological updates.
+                      </span>
+                    </label>
+                  </div>
+                </div>
 
-                  <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="glass-panel bg-red-500/5 border-l-4 border-l-red-500 p-8 flex gap-6">
+                    <div className="text-3xl text-red-600">⏱</div>
                     <div>
-                      <label className="text-sm text-gray-700 mb-2 block flex items-center gap-2">
-                        Email Address
-                        <span className="text-red-600">*</span>
-                        <span className="text-xs text-gray-500">(Required)</span>
-                      </label>
-                      <input 
-                        type="email"
-                        className="w-full border border-gray-400 p-2 bg-white text-sm"
-                        placeholder="you@example.com"
-                        onChange={() => {
-                          trackClick();
-                          increaseAnxiety(1);
-                        }}
-                      />
-                      <div className="text-xs text-gray-500 mt-1">
-                        We'll never share your email. Promise! 🤞
-                      </div>
-                    </div>
-
-                    <div className="border-t border-gray-200 pt-4">
-                      <div className="space-y-3">
-                        <label className="flex items-start gap-2 cursor-pointer hover:bg-gray-100 p-2 -m-2">
-                          <input
-                            type="checkbox"
-                            checked={section6Agreement}
-                            onChange={(e) => {
-                              setSection6Agreement(e.target.checked);
-                              trackClick();
-                              increaseAnxiety(1);
-                            }}
-                            className="mt-1"
-                          />
-                          <div className="text-sm text-gray-800">
-                            I agree to the <button className="text-blue-600 underline">Terms of Service</button> and <button className="text-blue-600 underline">Privacy Policy</button>
-                            <span className="text-red-600 ml-1">*</span>
-                            <div className="text-xs text-gray-500 mt-1">
-                              (By checking this, you consent to everything. It's a long document we know you won't read.)
-                            </div>
-                          </div>
-                        </label>
-
-                        <label className="flex items-start gap-2 cursor-pointer hover:bg-gray-100 p-2 -m-2 bg-yellow-50">
-                          <input
-                            type="checkbox"
-                            checked={section6NewsletterOptOut}
-                            onChange={(e) => {
-                              setSection6NewsletterOptOut(e.target.checked);
-                              trackClick();
-                              increaseAnxiety(1);
-                            }}
-                            className="mt-1"
-                          />
-                          <div className="text-sm text-gray-800">
-                            I don't want to receive helpful tips, exclusive offers, and important updates
-                            <div className="text-xs text-gray-500 mt-1">
-                              (Are you sure? You'll miss out on amazing content!)
-                            </div>
-                          </div>
-                        </label>
-
-                        <label className="flex items-start gap-2 cursor-pointer hover:bg-gray-100 p-2 -m-2">
-                          <input
-                            type="checkbox"
-                            defaultChecked
-                            onChange={() => {
-                              trackClick();
-                              increaseAnxiety(1);
-                            }}
-                            className="mt-1"
-                          />
-                          <div className="text-sm text-gray-800">
-                            Share my data with trusted partners for personalized experiences
-                            <div className="text-xs text-gray-500 mt-1">
-                              (Pre-selected for your convenience)
-                            </div>
-                          </div>
-                        </label>
-                      </div>
-                    </div>
-
-                    <div className="bg-orange-50 border border-orange-300 p-4">
-                      <p className="text-sm text-orange-800">
-                        <strong>⚡ Special Offer:</strong> Only 3 spots left at this price! 127 people are viewing this page right now.
+                      <h4 className="font-black text-red-900 text-sm uppercase tracking-tight mb-1">Pattern: Artificial Scarcity</h4>
+                      <p className="text-sm text-red-800/80 font-medium leading-relaxed">
+                        Countdown timers and "low stock" indicators bypass the rational prefrontal cortex, triggering a "fight or flight" response that forces quick, uncritical decisions.
                       </p>
                     </div>
                   </div>
-
-                  <div className="flex items-center justify-between mt-6 pt-6 border-t border-gray-200">
-                    <div className="text-xs text-gray-600">
-                      {!section6Agreement && 'You must agree to the terms to continue'}
-                    </div>
-                    <div className="flex gap-3">
-                      <button
-                        onClick={() => {
-                          trackClick();
-                          trackRetry();
-                        }}
-                        className="px-4 py-2 text-sm text-gray-600 underline"
-                      >
-                        No thanks, I'll pass
-                      </button>
-                      <button
-                        onClick={handleSection6Submit}
-                        disabled={section6Completed}
-                        className={`px-6 py-3 border ${
-                          section6Completed
-                            ? 'bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed'
-                            : 'bg-black text-white border-black hover:bg-gray-900'
-                        }`}
-                      >
-                        {section6Completed ? 'Submitted ✓' : 'Complete Registration'}
-                      </button>
+                  <div className="glass-panel bg-blue-500/5 border-l-4 border-l-blue-500 p-8 flex gap-6">
+                    <div className="text-3xl text-blue-600">🔀</div>
+                    <div>
+                      <h4 className="font-black text-blue-900 text-sm uppercase tracking-tight mb-1">Pattern: Double Negatives</h4>
+                      <p className="text-sm text-blue-800/80 font-medium leading-relaxed">
+                        Linguistic ambiguity (e.g. "Do not unsubscribe") subverts the user's intent, leading to accidental consent. This is a primary tool for "dark" subscription growth.
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-red-50 border border-red-300 p-4">
-                    <p className="text-sm text-red-800 flex items-start gap-2">
-                      <span className="text-lg">⚠️</span>
-                      <span>
-                        <strong>Scarcity Messaging:</strong> Creating false urgency increases pressure and 
-                        forces hasty decisions without proper consideration.
-                      </span>
-                    </p>
-                  </div>
-
-                  <div className="bg-blue-50 border border-blue-300 p-4">
-                    <p className="text-sm text-blue-800 flex items-start gap-2">
-                      <span className="text-lg">💡</span>
-                      <span>
-                        <strong>Dark Pattern:</strong> Pre-selected checkboxes and confusing opt-out wording 
-                        manipulate users into unwanted agreements.
-                      </span>
-                    </p>
-                  </div>
+                <div className="flex items-center justify-between pt-6">
+                  <button
+                    onClick={() => setCurrentSection(5)}
+                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                  >
+                    ← Back
+                  </button>
+                  <button
+                    onClick={handleSection6Submit}
+                    disabled={section6Completed}
+                    className={`glass-button px-10 py-4 font-black transition-all ${section6Completed
+                      ? 'bg-green-500 text-white cursor-not-allowed'
+                      : 'bg-slate-900 text-white shadow-xl shadow-slate-900/20 hover:-translate-y-1'
+                      }`}
+                  >
+                    {section6Completed ? 'Compliance Validated ✓' : 'Complete Action'}
+                  </button>
                 </div>
-
-                {section6Completed && (
-                  <div className="flex justify-between items-center bg-green-50 border border-green-300 p-4">
-                    <button
-                      onClick={() => setCurrentSection(5)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
-                    <p className="text-sm text-green-700">
-                      Section complete. Continue to explore more friction patterns.
-                    </p>
-                    <button
-                      onClick={() => setCurrentSection(7)}
-                      className="px-6 py-3 bg-black text-white hover:bg-gray-900"
-                    >
-                      Continue to Section 7 →
-                    </button>
-                  </div>
-                )}
-                {!section6Completed && (
-                  <div className="flex justify-start">
-                    <button
-                      onClick={() => setCurrentSection(5)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
-                  </div>
-                )}
               </div>
+
+              {section6Completed && (
+                <div className="flex justify-end pt-8">
+                  <button
+                    onClick={() => setCurrentSection(7)}
+                    className="glass-button px-12 py-5 font-black text-xl bg-indigo-600 text-white shadow-2xl shadow-indigo-500/30 hover:scale-105 transition-all"
+                  >
+                    Proceed to Protocol 07 →
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         )}
 
         {/* Section 7: False Progress Feedback */}
         {currentSection === 7 && (
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="bg-white border border-gray-300 p-8">
-              <div className="flex items-start justify-between mb-6">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="glass-panel p-10 md:p-16">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-2xl mb-2">Section 7: False Progress Feedback</h2>
-                  <p className="text-gray-600">Start the loading process</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 07: False Progress Feedback</h2>
+                  <p className="text-lg text-slate-500 font-medium italic">Analyzing the psychological impact of non-linear wait times.</p>
                 </div>
-                <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 border border-gray-300">
+                <div className="px-4 py-2 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Deceptive Progress
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-6">
-                <p className="text-gray-800 mb-6 leading-relaxed">
-                  This section shows how progress bars can deceive users. The bar will move quickly at first, 
-                  then slow down dramatically without explanation.
-                </p>
+              <div className="space-y-12">
+                <div className="glass-panel bg-white/40 border-slate-200/60 p-12 text-center shadow-inner">
+                  <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-10">System Synchronization Laboratory</h3>
 
-                <div className="bg-gray-50 border border-gray-300 p-6 mb-6">
-                  <h3 className="text-sm mb-4 text-gray-700">Loading Process</h3>
-                  
-                  <button
-                    onClick={handleSection7Start}
-                    disabled={section7Waiting || section7Completed}
-                    className={`px-6 py-3 border mb-6 ${
-                      section7Completed
-                        ? 'bg-green-100 text-green-800 border-green-400 cursor-not-allowed'
-                        : section7Waiting
-                        ? 'bg-gray-200 text-gray-500 border-gray-300 cursor-not-allowed'
-                        : 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'
-                    }`}
-                  >
-                    {section7Completed ? 'Complete ✓' : section7Waiting ? 'Loading...' : 'Start Loading'}
-                  </button>
+                  <div className="flex justify-center mb-12">
+                    <button
+                      onClick={handleSection7Start}
+                      disabled={section7Waiting || section7Completed}
+                      className={`glass-button px-12 py-5 font-black text-lg transition-all ${section7Waiting || section7Completed
+                        ? 'opacity-50 cursor-not-allowed grayscale'
+                        : 'bg-indigo-600 text-white shadow-xl shadow-indigo-500/20 hover:-translate-y-1'
+                        }`}
+                    >
+                      {section7Completed ? 'Synchronization Complete ✓' : section7Waiting ? 'Calibrating Data Streams...' : 'Initialize Secure Sync'}
+                    </button>
+                  </div>
 
                   {(section7Waiting || section7Completed) && (
-                    <div className="mb-4">
-                      <div className="flex items-center justify-between mb-2 text-sm">
-                        <span className="text-gray-700">Progress</span>
-                        <span className="text-gray-700">{Math.floor(section7Progress)}%</span>
+                    <div className="max-w-xl mx-auto space-y-6">
+                      <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-slate-500">
+                        <span>Task Status: {section7Progress >= 100 ? 'Verified' : 'Active'}</span>
+                        <span className="text-indigo-600">Integrity: {Math.floor(section7Progress)}%</span>
                       </div>
-                      <div className="w-full h-4 bg-gray-300 border border-gray-400 overflow-hidden">
-                        <div 
-                          className="h-full bg-blue-600 transition-all"
-                          style={{ 
+
+                      <div className="w-full h-4 bg-slate-200/50 rounded-2xl overflow-hidden p-1 border border-slate-200/60">
+                        <div
+                          className="h-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-xl transition-all relative overflow-hidden"
+                          style={{
                             width: `${section7Progress}%`,
-                            transitionDuration: section7Progress < 85 ? '0.1s' : '0.5s'
+                            transitionDuration: section7Progress < 85 ? '300ms' : '2000ms'
                           }}
-                        />
+                        >
+                          <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.2)_50%,transparent_75%)] bg-[length:40px_40px] animate-[shimmer_2s_linear_infinite]" />
+                        </div>
                       </div>
+
                       {section7Waiting && section7Progress >= 85 && section7Progress < 100 && (
-                        <div className="text-xs text-gray-600 mt-2">
-                          Processing... this may take a moment
+                        <div className="bg-orange-50 border border-orange-100 p-4 rounded-xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2">
+                          <span className="text-xl">⚠️</span>
+                          <span className="text-[10px] font-black text-orange-600 uppercase tracking-widest leading-normal">
+                            Congestion detected in the synaptic layer... optimizing handshake packets.
+                          </span>
                         </div>
                       )}
                     </div>
                   )}
+                </div>
 
-                  <div className="flex items-center justify-between text-xs text-gray-600 pt-4 border-t border-gray-200">
-                    <span>Wait time: {section7WaitTime}s</span>
-                    {section7Clicks > 0 && (
-                      <span className="text-orange-600">Clicks during loading: {section7Clicks}</span>
-                    )}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="glass-panel bg-blue-500/5 border-l-4 border-l-blue-500 p-8 flex gap-6">
+                    <div className="text-3xl text-blue-600">🧠</div>
+                    <div>
+                      <h4 className="font-black text-blue-900 text-sm uppercase tracking-tight mb-1">Behavioral Analysis: Waiting Anxiety</h4>
+                      <p className="text-sm text-blue-800/80 font-medium leading-relaxed">
+                        Non-linear progress bars exploit the "End-Peak Rule." When a task slows down at 99%, it creates significant psychological friction, making the last 1% feel more taxing than the preceding 99%.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="glass-panel bg-slate-500/5 border-l-4 border-l-slate-400 p-8">
+                    <div className="flex justify-between items-center mb-4">
+                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Protocol Metrics</span>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-end">
+                        <span className="text-xs font-bold text-slate-500">Wait Duration:</span>
+                        <span className="text-2xl font-black text-slate-800">{section7WaitTime.toFixed(1)}s</span>
+                      </div>
+                      <div className="flex justify-between items-end">
+                        <span className="text-xs font-bold text-slate-500">Frustration Events:</span>
+                        <span className="text-2xl font-black text-red-600">{section7Clicks}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                <div className="bg-blue-50 border border-blue-300 p-4 mb-6">
-                  <p className="text-sm text-blue-800 flex items-start gap-2">
-                    <span className="text-lg">ℹ️</span>
-                    <span>
-                      <strong>Pattern:</strong> Progress bars that move quickly to 80-90% then slow dramatically 
-                      create false expectations and increase waiting anxiety.
-                    </span>
-                  </p>
-                </div>
-
-                {section7Completed && (
-                  <div className="flex justify-between">
-                    <button
-                      onClick={() => setCurrentSection(6)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
+                <div className="flex items-center justify-between pt-6">
+                  <button
+                    onClick={() => setCurrentSection(6)}
+                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                  >
+                    ← Back
+                  </button>
+                  {section7Completed && (
                     <button
                       onClick={() => setCurrentSection(8)}
-                      className="px-6 py-3 bg-black text-white hover:bg-gray-900"
+                      className="glass-button px-10 py-4 font-black bg-indigo-600 text-white shadow-xl shadow-indigo-500/20"
                     >
-                      Continue to Section 8 →
+                      Protocol 08 →
                     </button>
-                  </div>
-                )}
-                {!section7Completed && (
-                  <div className="flex justify-start">
-                    <button
-                      onClick={() => setCurrentSection(6)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -2040,927 +1591,649 @@ export default function App() {
 
         {/* Section 8: Ambiguous CTA */}
         {currentSection === 8 && (
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="bg-white border border-gray-300 p-8">
-              <div className="flex items-start justify-between mb-6">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="glass-panel p-10 md:p-16">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-2xl mb-2">Section 8: Ambiguous Call-to-Action</h2>
-                  <p className="text-gray-600">Choose an option to continue</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 08: Ambiguous CTA</h2>
+                  <p className="text-lg text-slate-500 font-medium italic">Measuring decision latency through vague affordances.</p>
                 </div>
-                <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 border border-gray-300">
+                <div className="px-4 py-2 rounded-xl bg-orange-50 border border-orange-100 text-orange-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Unclear Intent
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-6">
-                <p className="text-gray-800 mb-6 leading-relaxed">
-                  This section demonstrates buttons with vague labels that don't clearly explain what will happen. 
-                  All buttons look equally important, creating hesitation.
-                </p>
+              <div className="space-y-12">
+                <div className="glass-panel bg-white/40 border-slate-200/60 p-16 text-center shadow-inner">
+                  <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-12">Decision Matrix: Select Primary Action</h3>
 
-                <div className="bg-gray-50 border border-gray-300 p-8 mb-6">
-                  <h3 className="text-sm mb-6 text-gray-700">Select an Action</h3>
-                  
-                  <div className="flex gap-4 justify-center items-center mb-6">
-                    <button
-                      onClick={() => handleSection8Button('continue')}
-                      onMouseEnter={() => setSection8Hovering('continue')}
-                      onMouseLeave={() => setSection8Hovering('')}
-                      disabled={section8Completed}
-                      className="px-8 py-4 border border-gray-400 bg-white hover:bg-gray-100 text-gray-800"
-                    >
-                      Continue
-                    </button>
-
-                    <button
-                      onClick={() => handleSection8Button('proceed')}
-                      onMouseEnter={() => setSection8Hovering('proceed')}
-                      onMouseLeave={() => setSection8Hovering('')}
-                      disabled={section8Completed}
-                      className="px-8 py-4 border border-gray-400 bg-white hover:bg-gray-100 text-gray-800"
-                    >
-                      Proceed
-                    </button>
-
-                    <button
-                      onClick={() => handleSection8Button('next')}
-                      onMouseEnter={() => setSection8Hovering('next')}
-                      onMouseLeave={() => setSection8Hovering('')}
-                      disabled={section8Completed}
-                      className="px-8 py-4 border border-gray-400 bg-white hover:bg-gray-100 text-gray-800"
-                    >
-                      Next
-                    </button>
+                  <div className="flex flex-wrap gap-8 justify-center items-center mb-12">
+                    {['Continue', 'Proceed', 'Next'].map((label) => (
+                      <button
+                        key={label}
+                        onClick={() => handleSection8Button(label.toLowerCase())}
+                        onMouseEnter={() => setSection8Hovering(label.toLowerCase())}
+                        onMouseLeave={() => setSection8Hovering('')}
+                        disabled={section8Completed}
+                        className={`glass-button px-12 py-6 text-xl font-black min-w-[220px] transition-all duration-300 ${section8Hovering === label.toLowerCase()
+                          ? 'scale-110 shadow-2xl ring-4 ring-indigo-500/20 bg-indigo-50 text-indigo-700'
+                          : 'bg-white text-slate-700'
+                          } ${section8Completed ? 'opacity-50 grayscale cursor-not-allowed' : ''}`}
+                      >
+                        {label}
+                      </button>
+                    ))}
                   </div>
 
-                  <div className="text-center text-xs text-gray-500 mb-4">
-                    {section8Hovering ? `Hovering over: ${section8Hovering}` : 'Hover to see... nothing helpful'}
-                  </div>
-
-                  {section8Completed && (
-                    <div className="p-3 bg-green-50 border border-green-300 text-sm text-green-800 text-center">
-                      Success! Notice how long it took to decide without clear labels.
-                    </div>
-                  )}
-
-                  <div className="text-xs text-gray-600 pt-4 border-t border-gray-200 text-center">
-                    Attempts: {section8Attempts}
-                  </div>
-                </div>
-
-                <div className="bg-yellow-50 border border-yellow-300 p-4 mb-6">
-                  <p className="text-sm text-yellow-800 flex items-start gap-2">
-                    <span className="text-lg">⚠️</span>
-                    <span>
-                      <strong>Observation:</strong> Buttons labeled "Continue," "Proceed," or "Next" without 
-                      context force users to guess, increasing cognitive load and hesitation.
+                  <div className="h-10 flex items-center justify-center">
+                    <span className="text-xs font-black text-slate-400 uppercase tracking-[0.3em] animate-pulse">
+                      {section8Hovering ? `Potential State: ${section8Hovering.toUpperCase()}` : 'SYSTEM WAITING FOR INPUT...'}
                     </span>
-                  </p>
+                  </div>
+
+                  <div className="mt-12 pt-8 border-t border-slate-200/60">
+                    <div className="flex justify-center items-center gap-12 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                      <span>Decision Latency Events: <span className="text-slate-900">{section8Attempts}</span></span>
+                      <span>Confidence Score: <span className="text-slate-900">{section8Completed ? '9% (Low)' : '---'}</span></span>
+                    </div>
+                  </div>
                 </div>
 
-                {section8Completed && (
-                  <div className="flex justify-between">
-                    <button
-                      onClick={() => setCurrentSection(7)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
+                <div className="glass-panel bg-orange-500/5 border-l-4 border-l-orange-500 p-10 flex gap-8">
+                  <div className="text-4xl text-orange-600">⚖️</div>
+                  <div>
+                    <h4 className="font-black text-orange-900 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: The Illusion of Choice</h4>
+                    <p className="text-sm text-orange-800/80 font-medium leading-relaxed">
+                      When multiple interactive elements share identical visual weight and vague labeling (e.g., "Continue", "Proceed"), the user experiences "Hick's Law" overload. This decision paralysis increases cognitive strain, often leading the user to click almost at random, subverting deliberate intent.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-6">
+                  <button
+                    onClick={() => setCurrentSection(7)}
+                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                  >
+                    ← Back
+                  </button>
+                  {section8Completed && (
                     <button
                       onClick={() => setCurrentSection(9)}
-                      className="px-6 py-3 bg-black text-white hover:bg-gray-900"
+                      className="glass-button px-12 py-5 font-black bg-slate-900 text-white shadow-2xl shadow-slate-900/20 hover:scale-105 transition-all"
                     >
-                      Continue to Section 9 →
+                      Protocol 09 →
                     </button>
-                  </div>
-                )}
-                {!section8Completed && (
-                  <div className="flex justify-start">
-                    <button
-                      onClick={() => setCurrentSection(7)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* Section 9: Delayed Error Disclosure */}
+        {/* Section 9: Delayed Feedback */}
         {currentSection === 9 && (
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="bg-white border border-gray-300 p-8">
-              <div className="flex items-start justify-between mb-6">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="glass-panel p-10 md:p-16">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-2xl mb-2">Section 9: Delayed Error Disclosure</h2>
-                  <p className="text-gray-600">Fill out the form correctly</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 09: Delayed Feedback</h2>
+                  <p className="text-lg text-slate-500 font-medium italic">Obscuring validation errors to increase temporal cost.</p>
                 </div>
-                <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 border border-gray-300">
-                  Pattern: Late Validation
+                <div className="px-4 py-2 rounded-xl bg-red-50 border border-red-100 text-red-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                  Pattern: Post-Action Validation
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-6">
-                <p className="text-gray-800 mb-6 leading-relaxed">
-                  This form won't tell you what's wrong until after you submit. 
-                  Even then, the error messages are vague and unhelpful.
-                </p>
+              <div className="space-y-12">
+                <div className="glass-panel bg-white/40 border-slate-200/60 p-12 shadow-inner">
+                  <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-10 text-center">Identity Verification Schema</h3>
 
-                <div className="bg-gray-50 border border-gray-300 p-6 mb-6">
-                  <h3 className="text-sm mb-4 text-gray-700">Registration Form</h3>
-                  
-                  <div className="space-y-4 mb-6">
-                    <div>
-                      <label className="text-sm text-gray-700 mb-2 block">Full Name</label>
-                      <input
-                        type="text"
-                        value={section9FormData.field1}
-                        onChange={(e) => {
-                          setSection9FormData(prev => ({ ...prev, field1: e.target.value }));
-                          setSection9FieldEdits(prev => prev + 1);
-                        }}
-                        className="w-full border border-gray-400 p-2 bg-white text-sm"
-                        placeholder="Enter your name"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="text-sm text-gray-700 mb-2 block">Username</label>
-                      <input
-                        type="text"
-                        value={section9FormData.field2}
-                        onChange={(e) => {
-                          setSection9FormData(prev => ({ ...prev, field2: e.target.value }));
-                          setSection9FieldEdits(prev => prev + 1);
-                        }}
-                        className="w-full border border-gray-400 p-2 bg-white text-sm"
-                        placeholder="Choose a username"
-                      />
-                    </div>
-
-                    <div>
-                      <label className="text-sm text-gray-700 mb-2 block">Password</label>
-                      <input
-                        type="password"
-                        value={section9FormData.field3}
-                        onChange={(e) => {
-                          setSection9FormData(prev => ({ ...prev, field3: e.target.value }));
-                          setSection9FieldEdits(prev => prev + 1);
-                        }}
-                        className="w-full border border-gray-400 p-2 bg-white text-sm"
-                        placeholder="Create a password"
-                      />
-                    </div>
+                  <div className="max-w-xl mx-auto space-y-8">
+                    {['field1', 'field2', 'field3'].map((field, idx) => (
+                      <div key={field} className="space-y-3">
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-1">
+                          Profile Identifier 0{idx + 1}
+                        </label>
+                        <input
+                          type={field === 'field3' ? 'password' : 'text'}
+                          value={section9FormData[field as keyof typeof section9FormData]}
+                          onChange={(e) => {
+                            setSection9FormData(prev => ({ ...prev, [field]: e.target.value }));
+                            setSection9FieldEdits(prev => prev + 1);
+                          }}
+                          className="glass-input w-full p-5 text-base font-bold bg-white/50 focus:bg-white transition-all shadow-sm"
+                          placeholder="REQUIRED_INPUT_FIELD"
+                        />
+                      </div>
+                    ))}
                   </div>
 
-                  {section9Error && (
-                    <div className="mb-4 p-3 bg-red-50 border border-red-300 text-sm text-red-800">
-                      {section9Error}
-                    </div>
-                  )}
-
-                  <div className="flex items-center justify-between">
-                    <div className="text-xs text-gray-600">
-                      Field edits: {section9FieldEdits} | Submit attempts: {section9Attempts}
+                  <div className="mt-12 pt-10 border-t border-slate-200/60 flex flex-col md:flex-row items-center justify-between gap-8">
+                    <div className="flex gap-8 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                      <span>Schema Mutations: <span className="text-indigo-600">{section9FieldEdits}</span></span>
+                      <span>Retry Cycles: <span className="text-red-600">{section9Attempts}</span></span>
                     </div>
                     <button
                       onClick={handleSection9Submit}
                       disabled={section9Completed}
-                      className={`px-6 py-3 border ${
-                        section9Completed
-                          ? 'bg-green-100 text-green-800 border-green-400 cursor-not-allowed'
-                          : 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'
-                      }`}
+                      className={`glass-button px-12 py-5 font-black text-lg transition-all ${section9Completed
+                        ? 'bg-green-500 text-white shadow-xl shadow-green-500/20'
+                        : 'bg-slate-900 text-white shadow-xl shadow-slate-900/20 hover:-translate-y-1'
+                        }`}
                     >
-                      {section9Completed ? 'Submitted ✓' : 'Submit Form'}
+                      {section9Completed ? 'Payload Accepted ✓' : 'Process Verification'}
                     </button>
                   </div>
-                </div>
 
-                <div className="bg-orange-50 border border-orange-300 p-4 mb-6">
-                  <p className="text-sm text-orange-800 flex items-start gap-2">
-                    <span className="text-lg">⚠️</span>
-                    <span>
-                      <strong>Pattern:</strong> Forms that only show errors after submission—with generic messages 
-                      like "Something is wrong"—force users to guess which fields are problematic.
-                    </span>
-                  </p>
-                </div>
-
-                {section9Completed && (
-                  <div className="flex justify-between">
-                    <button
-                      onClick={() => setCurrentSection(8)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
-                    <button
-                      onClick={() => setCurrentSection(10)}
-                      className="px-6 py-3 bg-black text-white hover:bg-gray-900"
-                    >
-                      Continue to Section 10 →
-                    </button>
-                  </div>
-                )}
-                {!section9Completed && (
-                  <div className="flex justify-start">
-                    <button
-                      onClick={() => setCurrentSection(8)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Section 10: Hover Deception */}
-        {currentSection === 10 && (
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="bg-white border border-gray-300 p-8">
-              <div className="flex items-start justify-between mb-6">
-                <div>
-                  <h2 className="text-2xl mb-2">Section 10: Hover Deception</h2>
-                  <p className="text-gray-600">Click the interactive element</p>
-                </div>
-                <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 border border-gray-300">
-                  Pattern: False Affordance
-                </div>
-              </div>
-
-              <div className="border-t border-gray-200 pt-6">
-                <p className="text-gray-800 mb-6 leading-relaxed">
-                  This element looks clickable when you hover over it, but clicking produces no immediate response. 
-                  The feedback is delayed, making you question whether it worked.
-                </p>
-
-                <div className="bg-gray-50 border border-gray-300 p-12 mb-6 flex items-center justify-center" style={{ minHeight: '250px' }}>
-                  <div className="text-center">
-                    <button
-                      onClick={handleSection10Click}
-                      disabled={section10Completed}
-                      className={`px-12 py-6 border text-lg cursor-pointer hover:border-blue-600 hover:text-blue-600 transition-colors ${
-                        section10Completed
-                          ? 'bg-green-100 text-green-800 border-green-400 cursor-not-allowed'
-                          : 'bg-white text-gray-700 border-gray-400'
-                      }`}
-                    >
-                      {section10Completed ? 'Activated ✓' : 'Click Me'}
-                    </button>
-                    <div className="text-xs text-gray-600 mt-4">
-                      Hover-click loops: {section10HoverLoops} | Attempts: {section10Attempts}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-blue-50 border border-blue-300 p-4 mb-6">
-                  <p className="text-sm text-blue-800 flex items-start gap-2">
-                    <span className="text-lg">ℹ️</span>
-                    <span>
-                      <strong>Pattern:</strong> Elements that appear clickable on hover but don't respond immediately 
-                      create confusion and repeated attempts.
-                    </span>
-                  </p>
-                </div>
-
-                {section10Completed && (
-                  <div className="flex justify-between">
-                    <button
-                      onClick={() => setCurrentSection(9)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
-                    <button
-                      onClick={() => setCurrentSection(11)}
-                      className="px-6 py-3 bg-black text-white hover:bg-gray-900"
-                    >
-                      Continue to Section 11 →
-                    </button>
-                  </div>
-                )}
-                {!section10Completed && (
-                  <div className="flex justify-start">
-                    <button
-                      onClick={() => setCurrentSection(9)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Section 11: Tiny Click Target */}
-        {currentSection === 11 && (
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="bg-white border border-gray-300 p-8">
-              <div className="flex items-start justify-between mb-6">
-                <div>
-                  <h2 className="text-2xl mb-2">Section 11: Tiny Click Target</h2>
-                  <p className="text-gray-600">Close the notification</p>
-                </div>
-                <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 border border-gray-300">
-                  Pattern: Small Hit Area
-                </div>
-              </div>
-
-              <div className="border-t border-gray-200 pt-6">
-                <p className="text-gray-800 mb-6 leading-relaxed">
-                  Try to close the notification below by clicking the small X icon. 
-                  The hit area is intentionally small and unforgiving.
-                </p>
-
-                <div 
-                  className="bg-gray-50 border border-gray-300 p-12 mb-6 relative flex items-center justify-center cursor-pointer" 
-                  style={{ minHeight: '250px' }}
-                  onClick={handleSection11AreaClick}
-                >
-                  {!section11Completed ? (
-                    <div className="bg-blue-600 text-white p-4 border border-blue-700 max-w-md relative">
-                      <p className="text-sm pr-8">
-                        This is an important notification. Click the X to dismiss it.
-                      </p>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleSection11Success();
-                        }}
-                        className="absolute top-1 right-1 text-white text-xs w-4 h-4 flex items-center justify-center hover:bg-blue-700"
-                        style={{ fontSize: '10px' }}
-                      >
-                        ✕
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="text-center">
-                      <div className="text-green-700 text-lg mb-2">✓ Notification Closed</div>
-                      <div className="text-sm text-gray-600">After {section11MissedClicks} missed clicks</div>
+                  {section9Error && (
+                    <div className="mt-8 p-6 rounded-2xl bg-red-50 border border-red-100 flex items-center gap-4 animate-in slide-in-from-top-4">
+                      <span className="text-2xl">❌</span>
+                      <div className="text-xs font-black text-red-600 uppercase tracking-widest leading-normal">
+                        System Error: {section9Error}
+                      </div>
                     </div>
                   )}
                 </div>
 
-                <div className="bg-yellow-50 border border-yellow-300 p-4 mb-6">
-                  <p className="text-sm text-yellow-800 flex items-start gap-2">
-                    <span className="text-lg">⚠️</span>
-                    <span>
-                      <strong>Pattern:</strong> Tiny close buttons on modals, ads, and notifications 
-                      require precision and create frustration, especially on mobile devices.
-                    </span>
-                  </p>
+                <div className="glass-panel bg-red-500/5 border-l-4 border-l-red-500 p-10 flex gap-8">
+                  <div className="text-4xl text-red-600">⚠️</div>
+                  <div>
+                    <h4 className="font-black text-red-900 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Reactive Validation</h4>
+                    <p className="text-sm text-red-800/80 font-medium leading-relaxed">
+                      Post-action validation (only showing errors after submission) is a high-friction pattern that increases user anxiety and cognitive load. By withholding real-time feedback, the system forces users into a "Trial and Error" loop, making them feel incompetent and frustrated.
+                    </p>
+                  </div>
                 </div>
 
-                <div className="text-xs text-gray-600 text-center mb-6">
-                  Missed clicks: {section11MissedClicks}
+                <div className="flex items-center justify-between pt-6">
+                  <button
+                    onClick={() => setCurrentSection(8)}
+                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                  >
+                    ← Back
+                  </button>
+                  {section9Completed && (
+                    <button
+                      onClick={() => setCurrentSection(10)}
+                      className="glass-button px-12 py-5 font-black bg-indigo-600 text-white shadow-2xl shadow-indigo-500/20 hover:scale-105 transition-all"
+                    >
+                      Protocol 10 →
+                    </button>
+                  )}
                 </div>
-
-                {section11Completed && (
-                  <div className="flex justify-between">
-                    <button
-                      onClick={() => setCurrentSection(10)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
-                    <button
-                      onClick={() => setCurrentSection(12)}
-                      className="px-6 py-3 bg-black text-white hover:bg-gray-900"
-                    >
-                      Continue to Section 12 →
-                    </button>
-                  </div>
-                )}
-                {!section11Completed && (
-                  <div className="flex justify-start">
-                    <button
-                      onClick={() => setCurrentSection(10)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
-                  </div>
-                )}
               </div>
             </div>
           </div>
         )}
 
-        {/* Section 12: Moving Target */}
-        {currentSection === 12 && (
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="bg-white border border-gray-300 p-8">
-              <div className="flex items-start justify-between mb-6">
+        {/* Section 10: Interaction Deception */}
+        {currentSection === 10 && (
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="glass-panel p-10 md:p-16">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-2xl mb-2">Section 12: Moving Target</h2>
-                  <p className="text-gray-600">Click the shifting button</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 10: Interaction Deception</h2>
+                  <p className="text-lg text-slate-500 font-medium italic">Conflicting affordances and behavioral glitching.</p>
                 </div>
-                <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 border border-gray-300">
-                  Pattern: Shifty Elements
+                <div className="px-4 py-2 rounded-xl bg-pink-50 border border-pink-100 text-pink-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                  Pattern: Affordance Conflict
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-6">
-                <p className="text-gray-800 mb-6 leading-relaxed">
-                  This button shifts position slightly when you hover or focus on it. 
-                  The movement is subtle but enough to cause missed clicks.
-                </p>
+              <div className="space-y-12">
+                <div className="glass-panel bg-white/40 border-slate-200/60 p-20 flex flex-col items-center justify-center shadow-inner backdrop-blur-md min-h-[450px]">
+                  <button
+                    onClick={handleSection10Click}
+                    disabled={section10Completed}
+                    className={`px-24 py-12 text-3xl font-black border-4 transition-all duration-700 rounded-[2.5rem] shadow-2xl relative group ${section10Completed
+                      ? 'bg-emerald-50 text-emerald-600 border-emerald-100 cursor-default scale-95'
+                      : 'bg-white/50 text-slate-300 border-slate-200/50 cursor-not-allowed hover:cursor-pointer hover:border-indigo-500/30 hover:text-indigo-600/40 hover:bg-indigo-50/30'
+                      }`}
+                  >
+                    <span className="relative z-10">{section10Completed ? 'Authorization Success ✓' : 'Engage Secondary Layer'}</span>
+                    {!section10Completed && (
+                      <div className="absolute inset-0 bg-indigo-500/0 group-hover:bg-indigo-500/5 transition-all duration-700 rounded-[2.3rem]" />
+                    )}
+                  </button>
 
-                <div className="bg-gray-50 border border-gray-300 p-12 mb-6 relative" style={{ minHeight: '300px' }}>
-                  <div 
-                    className="absolute top-1/2 left-1/2"
+                  <div className="mt-16 text-center space-y-4">
+                    <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
+                      Synaptic Loop State: <span className={section10HoverLoops > 0 ? 'text-indigo-600 animate-pulse' : ''}>{section10HoverLoops > 0 ? 'ACTIVE_CONFLICT_RECOVERED' : 'IDLE_WAITING'}</span>
+                    </div>
+                    <div className="flex gap-8 justify-center items-center text-[10px] font-black uppercase tracking-widest text-slate-400">
+                      <span>Rage Events: <span className="text-red-500">{section10Attempts}</span></span>
+                      <span>Loop Iterations: <span className="text-indigo-600">{section10HoverLoops}</span></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="glass-panel bg-indigo-500/5 border-l-4 border-l-indigo-600 p-10 flex gap-8">
+                  <div className="text-4xl text-indigo-600">💡</div>
+                  <div>
+                    <h4 className="font-black text-indigo-900 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: False Affordances</h4>
+                    <p className="text-sm text-indigo-800/80 font-medium leading-relaxed">
+                      By presenting a `not-allowed` cursor alongside positive hover states (color shifts, scaling), the UI induces a specialized type of cognitive dissonance. The visual brain recognizes an interactive element, but the functional brain is told it's disabled. This conflict inevitably leads to "Rage Clicking" as users attempt to bypass the perceived system error.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-6">
+                  <button
+                    onClick={() => setCurrentSection(9)}
+                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                  >
+                    ← Back
+                  </button>
+                  {section10Completed && (
+                    <button
+                      onClick={() => setCurrentSection(11)}
+                      className="glass-button px-12 py-5 font-black bg-slate-900 text-white shadow-2xl shadow-slate-900/20 hover:scale-105 transition-all"
+                    >
+                      Protocol 11 →
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Section 11: Precision Targeting */}
+        {currentSection === 11 && (
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="glass-panel p-10 md:p-16">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
+                <div>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 11: Precision Targeting</h2>
+                  <p className="text-lg text-slate-500 font-medium italic">Testing neuromuscular control via micro-hit areas.</p>
+                </div>
+                <div className="px-4 py-2 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                  Pattern: Tiny Click Target
+                </div>
+              </div>
+
+              <div className="space-y-12">
+                <div
+                  className="glass-panel bg-white/40 border-slate-200/60 p-20 flex flex-col items-center justify-center shadow-inner backdrop-blur-md min-h-[450px] cursor-crosshair relative overflow-hidden"
+                  onClick={handleSection11AreaClick}
+                >
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.03)_0%,transparent_70%)]" />
+
+                  <div className="relative w-full max-w-sm z-10">
+                    {!section11Completed ? (
+                      <div className="glass-panel bg-white/80 border-white p-10 pr-16 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.15)] animate-in zoom-in-95 duration-500 relative ring-1 ring-black/5">
+                        <div className="flex items-center gap-3 mb-4">
+                          <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+                          <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">System Priority Alert</h4>
+                        </div>
+                        <p className="text-base font-bold text-slate-700 leading-relaxed mb-6">
+                          High-velocity data stream detected. Please acknowledge the synaptic update to prevent session termination.
+                        </p>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleSection11Success();
+                          }}
+                          className="absolute top-4 right-4 w-5 h-5 rounded bg-slate-100 hover:bg-red-500 hover:text-white transition-all duration-300 flex items-center justify-center text-[10px] border border-slate-200 hover:border-red-400 group"
+                        >
+                          <span className="group-hover:rotate-90 transition-transform">✕</span>
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="text-center space-y-6 animate-in fade-in zoom-in-90 duration-700">
+                        <div className="w-24 h-24 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto border-2 border-emerald-500/20 shadow-xl shadow-emerald-500/10">
+                          <span className="text-4xl text-emerald-600">✓</span>
+                        </div>
+                        <div>
+                          <div className="text-3xl font-black text-slate-800 tracking-tight">Handshake Verified</div>
+                          <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mt-2">Protocol Metrics Logged</div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-12 text-[10px] font-black uppercase tracking-widest text-slate-400 text-center">
+                    <span>Precision Deviations: <span className="text-red-500">{section11MissedClicks}</span></span>
+                    <span>Target Resolution: <span className="text-blue-600">4px</span></span>
+                  </div>
+                </div>
+
+                <div className="glass-panel bg-blue-500/5 border-l-4 border-l-blue-600 p-10 flex gap-8">
+                  <div className="text-4xl text-blue-600">🎯</div>
+                  <div>
+                    <h4 className="font-black text-blue-900 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Fitts's Law Disruption</h4>
+                    <p className="text-sm text-blue-800/80 font-medium leading-relaxed">
+                      Fitts's Law states that the time to acquire a target is a function of the distance to and size of the target. By intentionally minimizing click targets (like small 'X' buttons), interfaces dramatically increase the "error rate" and time cost, often used to discourage users from dismissing intrusive elements.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-6">
+                  <button
+                    onClick={() => setCurrentSection(10)}
+                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                  >
+                    ← Back
+                  </button>
+                  {section11Completed && (
+                    <button
+                      onClick={() => setCurrentSection(12)}
+                      className="glass-button px-12 py-5 font-black bg-indigo-600 text-white shadow-2xl shadow-indigo-500/20 hover:scale-105 transition-all text-sm uppercase tracking-widest"
+                    >
+                      Protocol 12 →
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Section 12: Shifting Targets */}
+        {currentSection === 12 && (
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="glass-panel p-10 md:p-16">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
+                <div>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 12: Shifting Targets</h2>
+                  <p className="text-lg text-slate-500 font-medium italic">Measuring kinetic frustration via layout instability.</p>
+                </div>
+                <div className="px-4 py-2 rounded-xl bg-pink-50 border border-pink-100 text-pink-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                  Pattern: Layout Shift
+                </div>
+              </div>
+
+              <div className="space-y-12">
+                <div className="glass-panel bg-white/40 border-slate-200/60 p-16 mb-8 relative shadow-inner backdrop-blur-md overflow-hidden min-h-[450px] flex items-center justify-center">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(236,72,153,0.03)_0%,transparent_70%)]" />
+
+                  <div
                     style={{
-                      transform: `translate(calc(-50% + ${section12ButtonPos}px), -50%)`,
-                      transition: 'transform 0.2s ease-out'
+                      transform: `translate(${section12ButtonPos}px, 0)`,
+                      transition: 'transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1)'
                     }}
+                    className="relative z-10"
                   >
                     <button
                       onMouseEnter={handleSection12Hover}
                       onClick={handleSection12Click}
                       disabled={section12Completed}
-                      className={`px-8 py-4 border ${
-                        section12Completed
-                          ? 'bg-green-600 text-white border-green-600 cursor-not-allowed'
-                          : 'bg-blue-600 text-white border-blue-600 hover:bg-blue-700'
-                      }`}
+                      className={`glass-button px-16 py-8 text-2xl font-black shadow-2xl transition-all duration-300 ${section12Completed
+                        ? 'bg-emerald-600 text-white'
+                        : 'bg-white text-slate-700 hover:ring-8 hover:ring-indigo-500/10 active:scale-90'
+                        }`}
                     >
-                      {section12Completed ? 'Success ✓' : 'Click to Continue'}
+                      {section12Completed ? 'Interface Captured ✓' : 'Engage Static Layer'}
                     </button>
                   </div>
 
-                  {!section12Completed && section12Attempts > 0 && (
-                    <div className="absolute bottom-4 left-4 right-4 text-center text-sm text-gray-600 bg-white border border-gray-300 p-2">
-                      Failed attempts: {section12Attempts} - {section12Attempts >= 2 ? 'Button will stabilize now' : 'Try again'}
-                    </div>
-                  )}
+                  <div className="absolute bottom-10 flex gap-12 text-[10px] font-black uppercase tracking-widest text-slate-400">
+                    <span>Evasion Events: <span className="text-red-500">{section12Attempts}</span></span>
+                    <span>Kinetic Friction: <span className="text-indigo-600">{section12Attempts > 0 ? 'HIGH' : 'LOW'}</span></span>
+                  </div>
                 </div>
 
-                <div className="bg-red-50 border border-red-300 p-4 mb-6">
-                  <p className="text-sm text-red-800 flex items-start gap-2">
-                    <span className="text-lg">⚠️</span>
-                    <span>
-                      <strong>Pattern:</strong> Buttons that shift when hovered or focused violate user expectations 
-                      and are especially common in ads designed to generate accidental clicks.
-                    </span>
-                  </p>
+                <div className="glass-panel bg-pink-500/5 border-l-4 border-l-pink-600 p-10 flex gap-8">
+                  <div className="text-4xl text-pink-600">🏃</div>
+                  <div>
+                    <h4 className="font-black text-pink-900 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Kinetic Obstruction</h4>
+                    <p className="text-sm text-pink-800/80 font-medium leading-relaxed">
+                      Layout shifts—intentional or accidental—break the user's "mental map" of the interface. When targets shift just before a click (kinetic obstruction), it triggers an immediate stress response and erodes system trust. This pattern is commonly seen in ad-heavy layouts that load content asynchronously to force accidental clicks.
+                    </p>
+                  </div>
                 </div>
 
-                {section12Completed && (
-                  <div className="flex justify-between">
-                    <button
-                      onClick={() => setCurrentSection(11)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
+                <div className="flex items-center justify-between pt-6">
+                  <button
+                    onClick={() => setCurrentSection(11)}
+                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                  >
+                    ← Back
+                  </button>
+                  {section12Completed && (
                     <button
                       onClick={() => setCurrentSection(13)}
-                      className="px-6 py-3 bg-black text-white hover:bg-gray-900"
+                      className="glass-button px-12 py-5 font-black bg-indigo-600 text-white shadow-2xl shadow-indigo-500/20 hover:scale-105 transition-all text-sm uppercase tracking-widest"
                     >
-                      Continue to Section 13 →
+                      Protocol 13 →
                     </button>
-                  </div>
-                )}
-                {!section12Completed && (
-                  <div className="flex justify-start">
-                    <button
-                      onClick={() => setCurrentSection(11)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
-                    >
-                      ← Back
-                    </button>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* Section 13: Auto-Advancing Content */}
+        {/* Section 13: Forced Pacing */}
         {currentSection === 13 && (
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="bg-white border border-gray-300 p-8">
-              <div className="flex items-start justify-between mb-6">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="glass-panel p-10 md:p-16">
+              <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-2xl mb-2">Section 13: Auto-Advancing Content</h2>
-                  <p className="text-gray-600">Try to read the content before it changes</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 13: Forced Pacing</h2>
+                  <p className="text-lg text-slate-500 font-medium italic">Measuring temporal subversion via gated content streams.</p>
                 </div>
-                <div className="text-sm text-gray-500 bg-gray-100 px-3 py-1 border border-gray-300">
-                  Pattern: Forced Pace
+                <div className="px-4 py-2 rounded-xl bg-orange-50 border border-orange-100 text-orange-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                  Pattern: Content Gating
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-6">
-                <p className="text-gray-800 mb-6 leading-relaxed">
-                  This content automatically advances to the next slide every few seconds, 
-                  regardless of whether you've finished reading. There's no pause button.
-                </p>
+              <div className="space-y-12">
+                <div className="glass-panel bg-white/40 border-slate-200/60 p-12 mb-8 shadow-inner backdrop-blur-md min-h-[500px] flex flex-col">
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between mb-12 pb-6 border-b border-slate-200/60">
+                      <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 text-center">Protocol Documentation Stream</h3>
+                      <div className="flex gap-2">
+                        {[0, 1, 2, 3].map((i) => (
+                          <div
+                            key={i}
+                            className="w-12 h-1.5 rounded-full overflow-hidden bg-slate-200/50"
+                          >
+                            {i === section13CurrentSlide && (
+                              <div className="h-full bg-indigo-600 animate-[progress_5s_linear_forwards]" />
+                            )}
+                            {i < section13CurrentSlide && (
+                              <div className="h-full bg-indigo-600/30" />
+                            )}
+                          </div>
+                        ))}
+                      </div>
+                    </div>
 
-                <div className="bg-gray-50 border border-gray-300 p-8 mb-6" style={{ minHeight: '300px' }}>
-                  <div className="mb-4 flex items-center justify-between">
-                    <h3 className="text-sm text-gray-700">Auto-Advancing Tutorial</h3>
-                    <div className="text-xs text-gray-500">
-                      Slide {section13CurrentSlide + 1} of 4
+                    <div className="animate-in slide-in-from-right-8 duration-700 max-w-3xl mx-auto">
+                      {section13CurrentSlide === 0 && (
+                        <div className="space-y-6">
+                          <h4 className="text-3xl font-black text-slate-800 tracking-tight">Phase 01: Synaptic Tuning</h4>
+                          <p className="text-xl text-slate-600 leading-relaxed font-medium">
+                            To ensure optimal parity, the interface must calibrate its response latency to your specific neural patterns. This process is mandatory and cannot be bypassed.
+                          </p>
+                          <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 rounded-lg text-[10px] font-black text-indigo-600 uppercase tracking-widest border border-indigo-100 animate-pulse">
+                            Status: Initializing handshake...
+                          </div>
+                        </div>
+                      )}
+
+                      {section13CurrentSlide === 1 && (
+                        <div className="space-y-6">
+                          <h4 className="text-3xl font-black text-slate-800 tracking-tight">Phase 02: Payload Verification</h4>
+                          <p className="text-xl text-slate-600 leading-relaxed font-medium">
+                            Verifying incoming data packets across multiple shards. Forced serialization ensures that every byte is accounted for before the interface becomes interactive.
+                          </p>
+                          <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 rounded-lg text-[10px] font-black text-indigo-600 uppercase tracking-widest border border-indigo-100 animate-pulse">
+                            Status: Running checksums v2.4...
+                          </div>
+                        </div>
+                      )}
+
+                      {section13CurrentSlide === 2 && (
+                        <div className="space-y-6">
+                          <h4 className="text-3xl font-black text-slate-800 tracking-tight">Phase 03: State Resolution</h4>
+                          <p className="text-xl text-slate-600 leading-relaxed font-medium">
+                            Committing experimental findings to the persistent ledger. This involves complex merging of behavioral matrices to ensure future sessions are appropriately difficult.
+                          </p>
+                          <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 rounded-lg text-[10px] font-black text-indigo-600 uppercase tracking-widest border border-indigo-100 animate-pulse">
+                            Status: Merging persistent state...
+                          </div>
+                        </div>
+                      )}
+
+                      {section13CurrentSlide >= 3 && (
+                        <div className="text-center space-y-8 py-12">
+                          <div className="w-24 h-24 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto text-emerald-600 text-4xl shadow-xl border border-emerald-500/20 animate-bounce">
+                            ✓
+                          </div>
+                          <div>
+                            <h4 className="text-4xl font-black text-slate-800 tracking-tight">Sequence Complete</h4>
+                            <p className="text-xl text-slate-500 font-medium mt-4">The gated content has been successfully processed.</p>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
 
-                  <div className="prose">
-                    {section13CurrentSlide === 0 && (
-                      <div>
-                        <h4 className="text-lg mb-3">Step 1: Understanding the Basics</h4>
-                        <p className="text-sm text-gray-700 leading-relaxed mb-3">
-                          Welcome to this tutorial. Before you can fully read and understand this content, 
-                          it will automatically advance to the next slide. This pattern is common in 
-                          slideshow ads, onboarding flows, and carousel interfaces.
-                        </p>
-                        <p className="text-sm text-gray-700 leading-relaxed">
-                          Notice how you feel rushed to finish reading before the content disappears. 
-                          This creates unnecessary cognitive pressure and reduces comprehension.
-                        </p>
-                      </div>
-                    )}
-                    
-                    {section13CurrentSlide === 1 && (
-                      <div>
-                        <h4 className="text-lg mb-3">Step 2: Advanced Concepts</h4>
-                        <p className="text-sm text-gray-700 leading-relaxed mb-3">
-                          The previous slide likely changed before you finished reading it. 
-                          Now you're on a new topic without being ready. This disrupts the natural 
-                          learning flow and forces you to adapt to the interface's pace rather than your own.
-                        </p>
-                        <p className="text-sm text-gray-700 leading-relaxed">
-                          Users often try to scroll back or look for a pause button, only to find none exists.
-                        </p>
-                      </div>
-                    )}
-                    
-                    {section13CurrentSlide === 2 && (
-                      <div>
-                        <h4 className="text-lg mb-3">Step 3: Implementation Details</h4>
-                        <p className="text-sm text-gray-700 leading-relaxed mb-3">
-                          By now you may have missed important information from previous slides. 
-                          Auto-advancing content prioritizes the designer's pacing over user needs, 
-                          often resulting in confusion and frustration.
-                        </p>
-                        <p className="text-sm text-gray-700 leading-relaxed">
-                          This pattern is especially problematic for users who read at different speeds 
-                          or need time to process complex information.
-                        </p>
-                      </div>
-                    )}
-                    
-                    {section13CurrentSlide >= 3 && (
-                      <div>
-                        <h4 className="text-lg mb-3 text-green-700">Complete</h4>
-                        <p className="text-sm text-gray-700 leading-relaxed mb-3">
-                          The slideshow has ended. You spent {section13ReadTime} seconds trying to keep up 
-                          with content that advanced automatically. Did you feel in control of your learning?
-                        </p>
-                        <p className="text-sm text-gray-700 leading-relaxed">
-                          Good interfaces let users control the pace. Bad interfaces control users.
-                        </p>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="mt-6 flex justify-center gap-2">
-                    {[0, 1, 2, 3].map((i) => (
-                      <div
-                        key={i}
-                        className={`w-2 h-2 rounded-full ${
-                          i === section13CurrentSlide ? 'bg-blue-600' : 'bg-gray-300'
-                        }`}
-                      />
-                    ))}
+                  <div className="mt-12 pt-8 border-t border-slate-200/60 flex items-center justify-center">
+                    <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-6 py-2 bg-slate-50 rounded-full border border-slate-100">
+                      Temporal Resistance: <span className="text-indigo-600">{section13ReadTime}s</span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="bg-orange-50 border border-orange-300 p-4 mb-6">
-                  <p className="text-sm text-orange-800 flex items-start gap-2">
-                    <span className="text-lg">⚠️</span>
-                    <span>
-                      <strong>Pattern:</strong> Auto-advancing content removes user control and creates anxiety. 
-                      Users can't pause to think, can't go back to review, and can't progress at their own pace.
-                    </span>
+                <div className="glass-panel bg-orange-500/5 border-l-4 border-l-orange-500 p-10 flex gap-8">
+                  <div className="text-4xl text-orange-600">⌛</div>
+                  <div>
+                    <h4 className="font-black text-orange-900 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Subverted Autonomy</h4>
+                    <p className="text-sm text-orange-800/80 font-medium leading-relaxed">
+                      Forced pacing (or "Railroading") intentionally breaks the user's natural reading and processing speed. By withholding the "Next" button or forcing a timed slide transition, the UI asserts dominance over the user's time, often used to hide critical information or force engagement with secondary content.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between pt-6">
+                  <button
+                    onClick={() => setCurrentSection(12)}
+                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                  >
+                    ← Back
+                  </button>
+                  {section13Completed && (
+                    <button
+                      onClick={() => setCurrentSection(14)}
+                      className="glass-button px-12 py-5 font-black bg-slate-900 text-white shadow-2xl shadow-slate-900/20 hover:scale-105 transition-all text-sm uppercase tracking-widest"
+                    >
+                      Final Results →
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Section 14: Final Reflection */}
+        {currentSection === 14 && (
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="glass-panel p-12 shadow-2xl relative overflow-hidden">
+              <div className="absolute -top-24 -right-24 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
+              <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
+
+              <div className="relative z-10">
+                <div className="mb-12">
+                  <h1 className="text-7xl font-black mb-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tighter">
+                    Experiment Conclusion
+                  </h1>
+                  <p className="text-3xl text-slate-800 font-bold tracking-tight">This is the biological cost of friction.</p>
+                  <p className="text-xl text-slate-400 italic mt-6 font-medium border-l-4 border-indigo-500/20 pl-8 leading-relaxed max-w-2xl">
+                    Anxiety level is calculated based on micro-interactions, missed targets, and hesitation loops detected throughout the 13 investigative protocols.
                   </p>
                 </div>
 
-                {section13Completed && (
-                  <div className="flex justify-between items-center bg-green-50 border border-green-300 p-4">
-                    <button
-                      onClick={() => setCurrentSection(12)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
+                <div className="glass-panel bg-white p-12 mb-12 shadow-xl border-slate-200/60 ring-1 ring-black/5">
+                  <div className="flex items-center justify-between mb-12">
+                    <div>
+                      <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-2">Behavioral Anxiety Matrix</h3>
+                      <div className="text-2xl font-black text-slate-800">System Resonance State</div>
+                    </div>
+                    <div className="text-7xl font-black text-indigo-600 tracking-tighter">{anxietyLevel}<span className="text-3xl text-slate-300 ml-1">/100</span></div>
+                  </div>
+
+                  <div className="w-full h-10 bg-slate-100 rounded-2xl overflow-hidden mb-10 p-1.5 border border-slate-200/60">
+                    <div
+                      className="h-full transition-all duration-2000 ease-out rounded-xl relative shadow-[0_0_40px_rgba(79,70,229,0.3)]"
+                      style={{
+                        width: `${anxietyLevel}%`,
+                        background: `linear-gradient(90deg, #4f46e5, #9333ea, #db2777)`,
+                      }}
                     >
-                      ← Back
-                    </button>
-                    <p className="text-sm text-green-700">
-                      You've completed all friction sections. See your results.
-                    </p>
+                      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.2)_50%,transparent_75%)] bg-[length:50px_50px] animate-[pulse_3s_infinite]" />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-4 gap-4 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 text-center">
+                    <div className={anxietyLevel < 25 ? 'text-indigo-600 scale-110 transition-transform' : ''}>Quiescent</div>
+                    <div className={anxietyLevel >= 25 && anxietyLevel < 50 ? 'text-purple-600 scale-110 transition-transform' : ''}>Elevated</div>
+                    <div className={anxietyLevel >= 50 && anxietyLevel < 75 ? 'text-orange-600 scale-110 transition-transform' : ''}>Distressed</div>
+                    <div className={anxietyLevel >= 75 ? 'text-pink-600 scale-110 transition-transform' : ''}>Critical</div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                  {[
+                    { label: 'Total Interaction Events', value: stats.totalClicks, color: 'text-indigo-600', icon: '🖱️' },
+                    { label: 'Cognitive Hesitations', value: stats.hesitations + stats.cursorHesitations, color: 'text-purple-600', icon: '❓' },
+                    { label: 'Goal Obstructions', value: stats.retries, color: 'text-orange-500', icon: '🚫' },
+                    { label: 'Temporal Investment', value: `${stats.timeSpent}s`, color: 'text-blue-600', icon: '⏳' },
+                    { label: 'Precision Failures', value: stats.missedClicks, color: 'text-pink-600', icon: '🎯' },
+                    { label: 'Reactive Frustration', value: stats.rageClicks, color: 'text-red-600', icon: '💢' },
+                  ].map((stat, i) => (
+                    <div key={i} className="glass-panel bg-white/50 border-white hover:bg-white hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 p-10 group shadow-sm">
+                      <div className="text-4xl mb-6 group-hover:scale-125 transition-transform duration-500">{stat.icon}</div>
+                      <div className={`text-5xl font-black mb-3 ${stat.color} tracking-tighter`}>{stat.value}</div>
+                      <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{stat.label}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="glass-panel bg-slate-900 border-none p-16 mb-16 shadow-3xl relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 p-12 opacity-5 pointer-events-none group-hover:opacity-10 transition-opacity">
+                    <div className="text-[200px] leading-none text-white italic tracking-tighter font-serif">"</div>
+                  </div>
+                  <p className="text-4xl leading-[1.1] mb-12 text-white font-black max-w-4xl relative z-10 tracking-tight">
+                    "Friction isn't just a hurdle; it's a tax on the human spirit. Every missed click and every
+                    forced delay erodes the user's sense of agency, transforming a tool into an adversary."
+                  </p>
+                  <div className="h-1 w-24 bg-indigo-500 mb-12" />
+                  <p className="text-xl text-slate-400 font-medium leading-relaxed max-w-2xl relative z-10">
+                    The results confirm that interaction design is fundamentally an ethical practice. Every pixel either respects the user's intent or actively subverts it. Human-centric design is the aggressive reduction of friction.
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-8 items-center justify-between">
+                  <div className="flex gap-6">
                     <button
-                      onClick={() => setCurrentSection(14)}
-                      className="px-6 py-3 bg-black text-white hover:bg-gray-900"
+                      onClick={handleRestart}
+                      className="glass-button px-14 py-7 text-2xl font-black bg-indigo-600 text-white shadow-3xl shadow-indigo-500/30 hover:scale-105 transition-all active:scale-95"
                     >
-                      View Results →
+                      Reset Experiment
                     </button>
-                  </div>
-                )}
-                {!section13Completed && (
-                  <div className="flex justify-start">
                     <button
-                      onClick={() => setCurrentSection(12)}
-                      className="px-6 py-3 border border-gray-400 bg-white hover:bg-gray-100"
+                      onClick={() => setCurrentSection(1)}
+                      className="px-12 py-6 border-2 border-slate-200 bg-white/50 hover:bg-white rounded-[2rem] transition-all font-black text-xl backdrop-blur-md shadow-xl text-slate-800"
                     >
-                      ← Back
+                      Review Protocols
                     </button>
                   </div>
-                )}
-              </div>
-            </div>
-          </div>
-        )}
 
-        {/* Final Reflection Screen */}
-        {currentSection === 14 && (
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="bg-white border border-gray-300 p-12">
-              <h1 className="text-4xl mb-3">Experiment Complete</h1>
-              <p className="text-xl text-gray-600 mb-2">This is how users feel on badly designed websites.</p>
-              <p className="text-lg text-gray-500 mb-8 italic">Anxiety based entirely on your behavior—not time spent.</p>
-
-              <div className="bg-red-50 border-2 border-red-400 p-6 mb-8">
-                <h3 className="text-lg mb-3">Your Final Anxiety Level: {anxietyLevel}/100 — {getAnxietyState()}</h3>
-                <div className="w-full h-4 bg-gray-200 border border-gray-300 rounded-sm overflow-hidden mb-3">
-                  <div 
-                    className="h-full"
-                    style={{ 
-                      width: `${anxietyLevel}%`,
-                      backgroundColor: anxietyLevel < 25 ? '#22c55e' : anxietyLevel < 50 ? '#eab308' : anxietyLevel < 75 ? '#f97316' : '#dc2626'
-                    }}
-                  />
-                </div>
-                <p className="text-sm text-red-800">
-                  Different users will end with different anxiety levels. Yours was shaped by your hesitations, 
-                  repeated clicks, missed targets, and moments of frustration—not by the clock.
-                </p>
-              </div>
-
-              <div className="mb-8">
-                <h3 className="text-lg mb-4">What Your Behavior Revealed:</h3>
-                <div className="grid grid-cols-2 gap-4">
-                  {stats.cursorHesitations > 5 && (
-                    <div className="flex items-start bg-gray-50 border border-gray-200 p-3">
-                      <span className="mr-3 text-lg">⏸️</span>
-                      <span className="text-sm">You hesitated frequently—your cursor stopped {stats.cursorHesitations} times for more than 2 seconds, showing uncertainty.</span>
-                    </div>
-                  )}
-                  
-                  {stats.retries > 3 && (
-                    <div className="flex items-start bg-gray-50 border border-gray-200 p-3">
-                      <span className="mr-3 text-lg">🔄</span>
-                      <span className="text-sm">You retried actions {stats.retries} times—repeatedly attempting failed interactions shows lost confidence.</span>
-                    </div>
-                  )}
-                  
-                  {stats.missedClicks > 0 && (
-                    <div className="flex items-start bg-gray-50 border border-gray-200 p-3">
-                      <span className="mr-3 text-lg">🎯</span>
-                      <span className="text-sm">You missed {stats.missedClicks} click targets, indicating poor interface affordances.</span>
-                    </div>
-                  )}
-                  
-                  {stats.rageClicks > 0 && (
-                    <div className="flex items-start bg-gray-50 border border-gray-200 p-3">
-                      <span className="mr-3 text-lg">💢</span>
-                      <span className="text-sm">You rage-clicked {stats.rageClicks} times—clicking rapidly out of frustration when things didn't work.</span>
-                    </div>
-                  )}
-                  
-                  {stats.distractions > 0 && (
-                    <div className="flex items-start bg-gray-50 border border-gray-200 p-3">
-                      <span className="mr-3 text-lg">🚨</span>
-                      <span className="text-sm">You were interrupted {stats.distractions} times, breaking your focus and forcing context switches.</span>
-                    </div>
-                  )}
-
-                  {stats.pressureResponses > 0 && (
-                    <div className="flex items-start bg-gray-50 border border-gray-200 p-3">
-                      <span className="mr-3 text-lg">⏰</span>
-                      <span className="text-sm">You made {stats.pressureResponses} decisions under artificial pressure and time constraints.</span>
-                    </div>
-                  )}
-
-                  {anxietyLevel < 30 && (
-                    <div className="flex items-start bg-gray-50 border border-gray-200 p-3">
-                      <span className="mr-3 text-lg">😌</span>
-                      <span className="text-sm">You stayed relatively calm—completing tasks smoothly with few mistakes or hesitations.</span>
-                    </div>
-                  )}
-
-                  {anxietyLevel >= 70 && (
-                    <div className="flex items-start bg-gray-50 border border-gray-200 p-3">
-                      <span className="mr-3 text-lg">😤</span>
-                      <span className="text-sm">Your anxiety peaked high—indicating significant friction, confusion, and repeated failures throughout.</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                <div className="border border-gray-300 p-6 bg-gray-50">
-                  <div className="text-3xl mb-2">{stats.totalClicks}</div>
-                  <div className="text-sm text-gray-600 mb-1">Total Clicks</div>
-                  <div className="text-xs text-gray-500">All interactions tracked</div>
-                </div>
-                <div className="border border-gray-300 p-6 bg-gray-50">
-                  <div className="text-3xl mb-2">{stats.hesitations + stats.cursorHesitations}</div>
-                  <div className="text-sm text-gray-600 mb-1">Hesitations</div>
-                  <div className="text-xs text-gray-500">Pauses and uncertainty</div>
-                </div>
-                <div className="border border-gray-300 p-6 bg-gray-50">
-                  <div className="text-3xl mb-2">{stats.retries}</div>
-                  <div className="text-sm text-gray-600 mb-1">Retries</div>
-                  <div className="text-xs text-gray-500">Failed attempts</div>
-                </div>
-                <div className="border border-gray-300 p-6 bg-gray-50">
-                  <div className="text-3xl mb-2">{stats.timeSpent}s</div>
-                  <div className="text-sm text-gray-600 mb-1">Time Spent</div>
-                  <div className="text-xs text-gray-500">Total duration</div>
-                </div>
-                <div className="border border-gray-300 p-6 bg-gray-50">
-                  <div className="text-3xl mb-2">{stats.missedClicks}</div>
-                  <div className="text-sm text-gray-600 mb-1">Missed Clicks</div>
-                  <div className="text-xs text-gray-500">Outside targets</div>
-                </div>
-                <div className="border border-gray-300 p-6 bg-gray-50">
-                  <div className="text-3xl mb-2">{stats.rageClicks}</div>
-                  <div className="text-sm text-gray-600 mb-1">Rage Clicks</div>
-                  <div className="text-xs text-gray-500">Rapid frustration</div>
-                </div>
-              </div>
-
-              <div className="border-t-2 border-gray-900 pt-8 mb-8">
-                <h3 className="text-lg mb-4">The Friction Patterns You Experienced:</h3>
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="border border-gray-300 p-4 bg-gray-50">
-                    <h4 className="mb-2 flex items-center gap-2">
-                      <span className="text-lg">⏳</span>
-                      <span>Delayed Feedback</span>
-                    </h4>
-                    <p className="text-sm text-gray-700">Uncertain wait times without clear progress indicators.</p>
+                  <div className="text-right">
+                    <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Simulated Environment</div>
+                    <div className="text-sm font-bold text-slate-600">Protocol 14: Final_Reflection_v1.0.4</div>
                   </div>
-                  <div className="border border-gray-300 p-4 bg-gray-50">
-                    <h4 className="mb-2 flex items-center gap-2">
-                      <span className="text-lg">🎯</span>
-                      <span>Unclear Affordances</span>
-                    </h4>
-                    <p className="text-sm text-gray-700">Buttons that don't look or behave as expected.</p>
-                  </div>
-                  <div className="border border-gray-300 p-4 bg-gray-50">
-                    <h4 className="mb-2 flex items-center gap-2">
-                      <span className="text-lg">📍</span>
-                      <span>Unstable Interfaces</span>
-                    </h4>
-                    <p className="text-sm text-gray-700">Moving targets and shifting layouts.</p>
-                  </div>
-                  <div className="border border-gray-300 p-4 bg-gray-50">
-                    <h4 className="mb-2 flex items-center gap-2">
-                      <span className="text-lg">🧠</span>
-                      <span>Cognitive Overload</span>
-                    </h4>
-                    <p className="text-sm text-gray-700">Too many choices without clear guidance.</p>
-                  </div>
-                  <div className="border border-gray-300 p-4 bg-gray-50">
-                    <h4 className="mb-2 flex items-center gap-2">
-                      <span className="text-lg">🔔</span>
-                      <span>Interruptions</span>
-                    </h4>
-                    <p className="text-sm text-gray-700">Constant notifications breaking focus.</p>
-                  </div>
-                  <div className="border border-gray-300 p-4 bg-gray-50">
-                    <h4 className="mb-2 flex items-center gap-2">
-                      <span className="text-lg">⏰</span>
-                      <span>Artificial Pressure</span>
-                    </h4>
-                    <p className="text-sm text-gray-700">Fake scarcity and countdown timers.</p>
-                  </div>
-                  <div className="border border-gray-300 p-4 bg-gray-50">
-                    <h4 className="mb-2 flex items-center gap-2">
-                      <span className="text-lg">📊</span>
-                      <span>False Progress</span>
-                    </h4>
-                    <p className="text-sm text-gray-700">Progress bars that mislead and stall.</p>
-                  </div>
-                  <div className="border border-gray-300 p-4 bg-gray-50">
-                    <h4 className="mb-2 flex items-center gap-2">
-                      <span className="text-lg">❓</span>
-                      <span>Ambiguous CTAs</span>
-                    </h4>
-                    <p className="text-sm text-gray-700">Buttons with unclear intent and labels.</p>
-                  </div>
-                  <div className="border border-gray-300 p-4 bg-gray-50">
-                    <h4 className="mb-2 flex items-center gap-2">
-                      <span className="text-lg">❌</span>
-                      <span>Delayed Errors</span>
-                    </h4>
-                    <p className="text-sm text-gray-700">Late validation with vague messages.</p>
-                  </div>
-                  <div className="border border-gray-300 p-4 bg-gray-50">
-                    <h4 className="mb-2 flex items-center gap-2">
-                      <span className="text-lg">👻</span>
-                      <span>Hover Deception</span>
-                    </h4>
-                    <p className="text-sm text-gray-700">Elements that look clickable but aren't.</p>
-                  </div>
-                  <div className="border border-gray-300 p-4 bg-gray-50">
-                    <h4 className="mb-2 flex items-center gap-2">
-                      <span className="text-lg">🔍</span>
-                      <span>Tiny Targets</span>
-                    </h4>
-                    <p className="text-sm text-gray-700">Small hit areas requiring precision.</p>
-                  </div>
-                  <div className="border border-gray-300 p-4 bg-gray-50">
-                    <h4 className="mb-2 flex items-center gap-2">
-                      <span className="text-lg">↔️</span>
-                      <span>Moving Targets</span>
-                    </h4>
-                    <p className="text-sm text-gray-700">Buttons that shift on hover or focus.</p>
-                  </div>
-                  <div className="border border-gray-300 p-4 bg-gray-50">
-                    <h4 className="mb-2 flex items-center gap-2">
-                      <span className="text-lg">⏭️</span>
-                      <span>Auto-Advancing</span>
-                    </h4>
-                    <p className="text-sm text-gray-700">Content that changes before you finish.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-gray-900 text-white p-8 mb-8">
-                <p className="text-lg leading-relaxed mb-4">
-                  "These patterns exist in real products every day. Users abandon shopping carts, 
-                  quit signup flows, and delete apps—not because they don't want the product, 
-                  but because the interface makes them feel stupid, frustrated, and exhausted."
-                </p>
-                <p className="text-sm text-gray-400">
-                  The cumulative effect of these "small" design decisions creates massive user churn and 
-                  damages brand trust. What feels like friction to designers is experienced as genuine stress by users.
-                </p>
-              </div>
-
-              <div className="flex gap-4 mb-6">
-                <button
-                  onClick={handleRestart}
-                  className="px-8 py-4 bg-black text-white hover:bg-gray-900"
-                >
-                  Restart Experiment
-                </button>
-                <button
-                  onClick={() => setCurrentSection(1)}
-                  className="px-8 py-4 border border-gray-400 bg-white hover:bg-gray-100"
-                >
-                  Replay Sections
-                </button>
-                <button
-                  className="px-8 py-4 border border-gray-400 bg-white hover:bg-gray-100"
-                  onClick={() => {
-                    trackClick();
-                    alert('Results copied to clipboard! (Simulated)');
-                  }}
-                >
-                  Share Results
-                </button>
-              </div>
-
-              <div className="bg-blue-50 border border-blue-300 p-4">
-                <p className="text-sm text-blue-800">
-                  <strong>📚 Learn More:</strong> This experiment was designed to make invisible friction visible. 
-                  Share it with designers, developers, and product managers to spark conversations about user experience 
-                  and the real impact of design decisions.
-                </p>
-              </div>
-
-              <div className="mt-8 text-sm text-gray-600 border-t border-gray-200 pt-6">
-                <p className="mb-2">Want to dive deeper? Explore these resources:</p>
-                <div className="flex gap-4 text-blue-600">
-                  <button className="underline">UX Research Papers</button>
-                  <button className="underline">Dark Patterns Database</button>
-                  <button className="underline">Design Ethics Guidelines</button>
                 </div>
               </div>
             </div>
           </div>
         )}
-
       </div>
     </div>
   );
 }
+
