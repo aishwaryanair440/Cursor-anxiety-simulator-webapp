@@ -705,11 +705,11 @@ export default function App() {
         <header className="fixed top-6 left-1/2 -translate-x-1/2 z-[90] w-full max-w-5xl px-4 pointer-events-none">
           <div className="glass-panel px-6 py-3 flex items-center justify-between shadow-2xl pointer-events-auto border-white/40 ring-1 ring-black/5">
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-700 flex items-center justify-center text-white shadow-lg shadow-blue-500/20">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/40">
                 <span className="font-black text-xs">UX</span>
               </div>
               <div>
-                <h3 className="text-sm font-black tracking-tight text-slate-800 uppercase">Friction Lab</h3>
+                <h3 className="text-sm font-black tracking-tight text-slate-100 uppercase">Friction Lab</h3>
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Protocol {currentSection} / 13</span>
                 </div>
@@ -753,12 +753,12 @@ export default function App() {
               <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600" />
 
               <div className="relative z-10">
-                <h1 className="text-7xl font-black tracking-tighter mb-6 bg-gradient-to-b from-slate-900 to-slate-700 bg-clip-text text-transparent transform transition-all">
+                <h1 className="text-7xl font-black tracking-tighter mb-6 bg-gradient-to-b from-slate-100 via-purple-300 to-blue-400 bg-clip-text text-transparent transform transition-all">
                   Cursor Anxiety Stimulator
                 </h1>
 
-                <p className="text-2xl text-slate-500 mb-12 max-w-2xl mx-auto font-medium leading-normal">
-                  An interactive deep-dive into the <span className="text-indigo-600 font-bold italic underline decoration-blue-500/30 underline-offset-8">Dark Patterns</span> that define the modern web.
+                <p className="text-2xl text-slate-300 mb-12 max-w-2xl mx-auto font-medium leading-normal">
+                  An interactive deep-dive into the <span className="text-purple-400 font-bold italic underline decoration-purple-400/30 underline-offset-8">Dark Patterns</span> that define the modern web.
                 </p>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left mb-16">
@@ -768,11 +768,11 @@ export default function App() {
                     { title: "Hostile Patterns", desc: "13 curated sections of intentional digital obstruction.", icon: "⚔️" },
                     { title: "Final Exposure", desc: "Receive a full cognitive analysis of your performance.", icon: "📊" }
                   ].map((item, i) => (
-                    <div key={i} className="glass-panel bg-white/50 border-white/80 p-6 flex gap-4 hover:shadow-xl transition-all duration-300">
+                    <div key={i} className="glass-panel border-white/10 p-6 flex gap-4 hover:shadow-xl transition-all duration-300 hover:border-purple-500/30">
                       <div className="text-3xl">{item.icon}</div>
                       <div>
-                        <h4 className="font-black text-slate-800 text-sm uppercase tracking-tight mb-1">{item.title}</h4>
-                        <p className="text-sm text-slate-500 font-medium leading-relaxed">{item.desc}</p>
+                        <h4 className="font-black text-slate-100 text-sm uppercase tracking-tight mb-1">{item.title}</h4>
+                        <p className="text-sm text-slate-300 font-medium leading-relaxed">{item.desc}</p>
                       </div>
                     </div>
                   ))}
@@ -780,7 +780,7 @@ export default function App() {
 
                 <button
                   onClick={() => setCurrentSection(1)}
-                  className="glass-button px-14 py-6 text-2xl font-black shadow-2xl hover:scale-105 active:scale-95 transition-all bg-blue-600 text-white relative overflow-hidden group/btn"
+                  className="glass-button px-14 py-6 text-2xl font-black shadow-2xl hover:scale-105 active:scale-95 transition-all bg-gradient-to-r from-purple-600 to-blue-600 text-white relative overflow-hidden group/btn"
                 >
                   <span className="relative z-10 flex items-center gap-3">
                     Initialize Protocol
@@ -788,7 +788,7 @@ export default function App() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-indigo-800 opacity-0 group-hover/btn:opacity-100 transition-opacity" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-700 to-blue-700 opacity-0 group-hover/btn:opacity-100 transition-opacity" />
                 </button>
 
                 <p className="text-[10px] text-slate-400 mt-10 font-black uppercase tracking-[0.3em]">
@@ -806,8 +806,8 @@ export default function App() {
             <div className="glass-panel p-10 md:p-16">
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 01: Latency Frustration</h2>
-                  <p className="text-lg text-slate-500 font-medium italic">Delayed feedback and uncertain system states.</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-100 mb-2">Protocol 01: Latency Frustration</h2>
+                  <p className="text-lg text-slate-300 font-medium italic">Delayed feedback and uncertain system states.</p>
                 </div>
                 <div className="px-4 py-2 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Feedback Gap
