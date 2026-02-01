@@ -25,6 +25,8 @@ export default function App() {
   const lastClickedElement = useRef<string | null>(null);
   const clickTimestamps = useRef<number[]>([]);
   const mouseIdleTimer = useRef<NodeJS.Timeout | null>(null);
+  const mainContentRef = useRef<HTMLDivElement>(null);
+
 
   // Section 1 - Delayed Feedback
   const [section1Status, setSection1Status] = useState('');
@@ -685,6 +687,11 @@ export default function App() {
       const elapsed = Math.floor((Date.now() - startTime.current) / 1000);
       setStats(prev => ({ ...prev, timeSpent: elapsed }));
     }
+
+    // Scroll content to top when switching sections
+    if (mainContentRef.current) {
+      mainContentRef.current.scrollTo(0, 0);
+    }
   }, [currentSection]);
 
   return (
@@ -744,7 +751,10 @@ export default function App() {
         </header>
       )}
 
-      <div className={currentSection > 0 && currentSection < 14 ? 'flex-1 overflow-y-auto pt-24 pb-6 px-3' : 'flex-1 overflow-y-auto py-4 px-3'}>
+      <div
+        ref={mainContentRef}
+        className={currentSection > 0 && currentSection < 14 ? 'flex-1 overflow-y-auto pt-24 pb-6 px-3' : 'flex-1 overflow-y-auto py-4 px-3'}
+      >
 
         {/* Introduction Screen */}
         {currentSection === 0 && (
