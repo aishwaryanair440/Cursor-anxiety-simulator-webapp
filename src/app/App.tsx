@@ -719,7 +719,7 @@ export default function App() {
             <div className="hidden md:flex flex-1 max-w-xs mx-12 flex-col gap-1.5">
               <div className="flex items-center justify-between px-1">
                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Bio-Stress Level</span>
-                <span className={`text-[10px] font-black uppercase tracking-widest ${anxietyLevel > 70 ? 'text-red-500 animate-pulse' : 'text-blue-400'}`}>
+                <span className={`text-[10px] font-black uppercase tracking-widest ${anxietyLevel > 70 ? 'text-red-400 animate-pulse' : 'text-blue-400'}`}>
                   {getAnxietyState()}
                 </span>
               </div>
@@ -736,7 +736,7 @@ export default function App() {
 
             <button
               onClick={handleRestart}
-              className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-red-500 transition-all border-l border-slate-600 ml-4 pl-4 hover:scale-105"
+              className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-red-400 transition-all border-l border-slate-600 ml-4 pl-4 hover:scale-105"
             >
               Terminate
             </button>
@@ -986,7 +986,7 @@ export default function App() {
               </div>
 
               <div className="space-y-10">
-                <div className="glass-panel bg-white/10 border-slate-600/60 p-12 shadow-inner relative overflow-hidden h-[400px]">
+                <div className="glass-panel bg-slate-800/10 border-slate-600/60 p-12 shadow-inner relative overflow-hidden h-[400px]">
                   <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-8 text-center relative z-10">Capture the primary trigger</h3>
 
                   <div className="absolute inset-0 pointer-events-none">
@@ -1032,7 +1032,7 @@ export default function App() {
                       </div>
                       <div className="flex flex-col">
                         <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Attempts</span>
-                        <span className={`text-xs font-bold ${section3Attempts > 2 ? 'text-red-500' : 'text-slate-300'}`}>{section3Attempts}</span>
+                        <span className={`text-xs font-bold ${section3Attempts > 2 ? 'text-red-400' : 'text-slate-300'}`}>{section3Attempts}</span>
                       </div>
                     </div>
                     <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 italic">
@@ -1088,7 +1088,7 @@ export default function App() {
               </div>
 
               <div className="space-y-10">
-                <div className="glass-panel bg-white/10 border-slate-600/60 p-10 shadow-inner">
+                <div className="glass-panel bg-slate-800/10 border-slate-600/60 p-10 shadow-inner">
                   <div className="flex items-center justify-between mb-8 border-b border-slate-600/60 pb-6">
                     <div>
                       <h3 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Status Report</h3>
@@ -1115,7 +1115,7 @@ export default function App() {
                           { label: 'Allow location tracking', info: 'Personalized' },
                           { label: 'Enable push notifications', info: null },
                         ].map((option, idx) => (
-                          <label key={idx} className="flex items-start gap-4 p-4 rounded-xl hover:bg-white/60 transition-colors cursor-pointer group">
+                          <label key={idx} className="flex items-start gap-4 p-4 rounded-xl hover:bg-slate-800/50 transition-colors cursor-pointer group">
                             <div className="relative flex items-center">
                               <input
                                 type="checkbox"
@@ -1145,7 +1145,7 @@ export default function App() {
                                 className={`w-12 h-6 rounded-full transition-all duration-300 relative ${section4Toggles[setting] ? 'bg-indigo-600 shadow-lg shadow-indigo-500/30' : 'bg-slate-300'
                                   }`}
                               >
-                                <div className={`absolute top-1 left-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 ${section4Toggles[setting] ? 'translate-x-6' : 'translate-x-0'
+                                <div className={`absolute top-1 left-1 w-4 h-4 bg-slate-800/50 rounded-full transition-transform duration-300 ${section4Toggles[setting] ? 'translate-x-6' : 'translate-x-0'
                                   }`} />
                               </button>
                             </div>
@@ -1158,7 +1158,7 @@ export default function App() {
                         <select
                           value={section4Dropdown}
                           onChange={(e) => setSection4Dropdown(e.target.value)}
-                          className="w-full bg-white/10 border border-slate-600 rounded-xl p-4 text-sm font-bold text-slate-200 outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                          className="w-full bg-slate-800/10 border border-slate-600 rounded-xl p-4 text-sm font-bold text-slate-200 outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all"
                         >
                           <option value="">Select frequency...</option>
                           <option value="realtime">Real-time / Instant</option>
@@ -1171,7 +1171,7 @@ export default function App() {
                   </div>
 
                   {section4Status && (
-                    <div className="mt-10 p-4 rounded-xl bg-orange-500/20 border border-orange-100 text-orange-300 text-xs font-bold animate-in slide-in-from-bottom-2 duration-300">
+                    <div className="mt-10 p-4 rounded-xl bg-orange-500/20 border border-orange-500/30 text-orange-300 text-xs font-bold animate-in slide-in-from-bottom-2 duration-300">
                       {section4Status}
                     </div>
                   )}
@@ -1198,7 +1198,7 @@ export default function App() {
                   <div className="flex gap-4">
                     <button
                       onClick={() => increaseAnxiety(5)}
-                      className="px-6 py-3 border border-slate-600 text-slate-400 font-bold text-xs uppercase tracking-widest hover:text-red-500 transition-colors"
+                      className="px-6 py-3 border border-slate-600 text-slate-400 font-bold text-xs uppercase tracking-widest hover:text-red-400 transition-colors"
                     >
                       Reset Defaults
                     </button>
@@ -1245,7 +1245,7 @@ export default function App() {
                     trackDistraction();
                     increaseAnxiety(2);
                   }}
-                  className="text-white/80 hover:text-white hover:bg-white/20 rounded-full p-1 transition-colors"
+                  className="text-white/80 hover:text-white hover:bg-slate-800/50 rounded-full p-1 transition-colors"
                 >
                   ✕
                 </button>
@@ -1258,7 +1258,7 @@ export default function App() {
                   <h2 className="text-2xl font-bold mb-1 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Section 5: Interruptions & Distractions</h2>
                   <p className="text-muted-foreground">Complete the task while managing interruptions</p>
                 </div>
-                <div className="text-xs font-medium text-purple-700 bg-purple-100/50 px-3 py-1 rounded-full border border-purple-200/50 backdrop-blur-sm">
+                <div className="text-xs font-medium text-purple-300 bg-purple-100/50 px-3 py-1 rounded-full border border-purple-200/50 backdrop-blur-sm">
                   Pattern: Attention Hijacking
                 </div>
               </div>
@@ -1268,7 +1268,7 @@ export default function App() {
                   Try to complete the task below. You will be interrupted by various UI elements designed to break your focus.
                 </p>
 
-                <div className="bg-white/10 border border-white/50 rounded-lg p-3 mb-3 shadow-sm backdrop-blur-md">
+                <div className="bg-slate-800/10 border border-white/50 rounded-lg p-3 mb-3 shadow-sm backdrop-blur-md">
                   <h3 className="text-xs font-semibold mb-2 text-foreground/80 uppercase tracking-wider">Simple Task: User Feedback</h3>
 
                   <div className="mb-2">
@@ -1293,7 +1293,7 @@ export default function App() {
                 <div className="flex items-center justify-between mb-6">
                   <button
                     onClick={() => setCurrentSection(4)}
-                    className="px-6 py-3 border border-gray-300 bg-white/10 hover:bg-white rounded-lg transition-colors font-medium"
+                    className="px-6 py-3 border border-gray-300 bg-slate-800/10 hover:bg-slate-800/50 rounded-lg transition-colors font-medium"
                   >
                     ← Back
                   </button>
@@ -1347,10 +1347,10 @@ export default function App() {
             <div className="glass-panel p-10 md:p-16 relative overflow-hidden">
               <div className="absolute top-0 right-0 p-8">
                 <div className={`text-2xl px-8 py-4 rounded-2xl font-black border backdrop-blur-xl transition-all duration-500 shadow-2xl ${section6Timer > 15
-                  ? 'bg-emerald-50 text-emerald-600 border-emerald-100'
+                  ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
                   : section6Timer > 5
-                    ? 'bg-orange-500/20 text-orange-400 border-orange-100 animate-pulse'
-                    : 'bg-red-50 text-red-400 border-red-200 animate-[bounce_1s_infinite]'
+                    ? 'bg-orange-500/20 text-orange-400 border-orange-500/30 animate-pulse'
+                    : 'bg-red-500/10 text-red-400 border-red-200 animate-[bounce_1s_infinite]'
                   }`}>
                   {section6Timer > 0 ? `⏱ 00:${section6Timer.toString().padStart(2, '0')}` : '⚠️ SESSION EXPIRED'}
                 </div>
@@ -1361,13 +1361,13 @@ export default function App() {
                   <h2 className="text-4xl font-black tracking-tight text-slate-100 mb-2">Protocol 06: Pressure & Scarcity</h2>
                   <p className="text-lg text-slate-300 font-medium italic">Artificial urgency and social-proof manipulation.</p>
                 </div>
-                <div className="px-4 py-2 rounded-xl bg-red-50 border border-red-100 text-red-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                <div className="px-4 py-2 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Temporal Pressure
                 </div>
               </div>
 
               <div className="space-y-10">
-                <div className="glass-panel bg-white/10 border-slate-600/60 p-10 shadow-inner">
+                <div className="glass-panel bg-slate-800/10 border-slate-600/60 p-10 shadow-inner">
                   <div className="flex items-center justify-between mb-8">
                     <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Final Compliance Verification</h3>
                     <div className="flex items-center gap-2">
@@ -1385,7 +1385,7 @@ export default function App() {
                   </div>
 
                   <div className="max-w-2xl mx-auto space-y-6">
-                    <label className="flex items-start gap-5 p-6 rounded-2xl bg-white/10 border border-slate-600 hover:border-slate-600 transition-all cursor-pointer group">
+                    <label className="flex items-start gap-5 p-6 rounded-2xl bg-slate-800/10 border border-slate-600 hover:border-slate-600 transition-all cursor-pointer group">
                       <div className="relative flex items-center h-6">
                         <input
                           type="checkbox"
@@ -1399,7 +1399,7 @@ export default function App() {
                       </span>
                     </label>
 
-                    <label className="flex items-start gap-5 p-6 rounded-2xl bg-white/10 border border-slate-600 hover:border-slate-600 transition-all cursor-pointer group">
+                    <label className="flex items-start gap-5 p-6 rounded-2xl bg-slate-800/10 border border-slate-600 hover:border-slate-600 transition-all cursor-pointer group">
                       <div className="relative flex items-center h-6">
                         <input
                           type="checkbox"
@@ -1419,8 +1419,8 @@ export default function App() {
                   <div className="glass-panel bg-red-500/5 border-l-4 border-l-red-500 p-8 flex gap-6">
                     <div className="text-3xl text-red-400">⏱</div>
                     <div>
-                      <h4 className="font-black text-red-900 text-sm uppercase tracking-tight mb-1">Pattern: Artificial Scarcity</h4>
-                      <p className="text-sm text-red-800/80 font-medium leading-relaxed">
+                      <h4 className="font-black text-red-300 text-sm uppercase tracking-tight mb-1">Pattern: Artificial Scarcity</h4>
+                      <p className="text-sm text-red-200/80 font-medium leading-relaxed">
                         Countdown timers and "low stock" indicators bypass the rational prefrontal cortex, triggering a "fight or flight" response that forces quick, uncritical decisions.
                       </p>
                     </div>
@@ -1485,7 +1485,7 @@ export default function App() {
               </div>
 
               <div className="space-y-12">
-                <div className="glass-panel bg-white/10 border-slate-600/60 p-12 text-center shadow-inner">
+                <div className="glass-panel bg-slate-800/10 border-slate-600/60 p-12 text-center shadow-inner">
                   <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-10">System Synchronization Laboratory</h3>
 
                   <div className="flex justify-center mb-12">
@@ -1521,7 +1521,7 @@ export default function App() {
                       </div>
 
                       {section7Waiting && section7Progress >= 85 && section7Progress < 100 && (
-                        <div className="bg-orange-500/20 border border-orange-100 p-4 rounded-xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2">
+                        <div className="bg-orange-500/20 border border-orange-500/30 p-4 rounded-xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2">
                           <span className="text-xl">⚠️</span>
                           <span className="text-[10px] font-black text-orange-400 uppercase tracking-widest leading-normal">
                             Congestion detected in the synaptic layer... optimizing handshake packets.
@@ -1542,7 +1542,7 @@ export default function App() {
                       </p>
                     </div>
                   </div>
-                  <div className="glass-panel bg-slate-800/300/5 border-l-4 border-l-slate-400 p-8">
+                  <div className="glass-panel bg-slate-800/30 border-l-4 border-l-slate-400 p-8">
                     <div className="flex justify-between items-center mb-4">
                       <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Protocol Metrics</span>
                     </div>
@@ -1589,13 +1589,13 @@ export default function App() {
                   <h2 className="text-4xl font-black tracking-tight text-slate-100 mb-2">Protocol 08: Ambiguous CTA</h2>
                   <p className="text-lg text-slate-300 font-medium italic">Measuring decision latency through vague affordances.</p>
                 </div>
-                <div className="px-4 py-2 rounded-xl bg-orange-500/20 border border-orange-100 text-orange-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                <div className="px-4 py-2 rounded-xl bg-orange-500/20 border border-orange-500/30 text-orange-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Unclear Intent
                 </div>
               </div>
 
               <div className="space-y-12">
-                <div className="glass-panel bg-white/10 border-slate-600/60 p-16 text-center shadow-inner">
+                <div className="glass-panel bg-slate-800/10 border-slate-600/60 p-16 text-center shadow-inner">
                   <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-12">Decision Matrix: Select Primary Action</h3>
 
                   <div className="flex flex-wrap gap-8 justify-center items-center mb-12">
@@ -1607,8 +1607,8 @@ export default function App() {
                         onMouseLeave={() => setSection8Hovering('')}
                         disabled={section8Completed}
                         className={`glass-button px-12 py-6 text-xl font-black min-w-[220px] transition-all duration-300 ${section8Hovering === label.toLowerCase()
-                          ? 'scale-110 shadow-2xl ring-4 ring-indigo-500/20 bg-indigo-500/20 text-indigo-700'
-                          : 'bg-white text-slate-200'
+                          ? 'scale-110 shadow-2xl ring-4 ring-indigo-500/20 bg-indigo-500/20 text-indigo-300'
+                          : 'bg-slate-800/50 text-slate-200'
                           } ${section8Completed ? 'opacity-50 grayscale cursor-not-allowed' : ''}`}
                       >
                         {label}
@@ -1633,7 +1633,7 @@ export default function App() {
                 <div className="glass-panel bg-orange-500/5 border-l-4 border-l-orange-500 p-10 flex gap-8">
                   <div className="text-4xl text-orange-400">⚖️</div>
                   <div>
-                    <h4 className="font-black text-orange-900 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: The Illusion of Choice</h4>
+                    <h4 className="font-black text-orange-300 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: The Illusion of Choice</h4>
                     <p className="text-sm text-orange-200/80 font-medium leading-relaxed">
                       When multiple interactive elements share identical visual weight and vague labeling (e.g., "Continue", "Proceed"), the user experiences "Hick's Law" overload. This decision paralysis increases cognitive strain, often leading the user to click almost at random, subverting deliberate intent.
                     </p>
@@ -1670,13 +1670,13 @@ export default function App() {
                   <h2 className="text-4xl font-black tracking-tight text-slate-100 mb-2">Protocol 09: Delayed Feedback</h2>
                   <p className="text-lg text-slate-300 font-medium italic">Obscuring validation errors to increase temporal cost.</p>
                 </div>
-                <div className="px-4 py-2 rounded-xl bg-red-50 border border-red-100 text-red-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                <div className="px-4 py-2 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Post-Action Validation
                 </div>
               </div>
 
               <div className="space-y-12">
-                <div className="glass-panel bg-white/10 border-slate-600/60 p-12 shadow-inner">
+                <div className="glass-panel bg-slate-800/10 border-slate-600/60 p-12 shadow-inner">
                   <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-10 text-center">Identity Verification Schema</h3>
 
                   <div className="max-w-xl mx-auto space-y-8">
@@ -1692,7 +1692,7 @@ export default function App() {
                             setSection9FormData(prev => ({ ...prev, [field]: e.target.value }));
                             setSection9FieldEdits(prev => prev + 1);
                           }}
-                          className="glass-input w-full p-5 text-base font-bold bg-white/10 focus:bg-white transition-all shadow-sm"
+                          className="glass-input w-full p-5 text-base font-bold bg-slate-800/10 focus:bg-slate-800/50 transition-all shadow-sm"
                           placeholder="REQUIRED_INPUT_FIELD"
                         />
                       </div>
@@ -1717,7 +1717,7 @@ export default function App() {
                   </div>
 
                   {section9Error && (
-                    <div className="mt-8 p-6 rounded-2xl bg-red-50 border border-red-100 flex items-center gap-4 animate-in slide-in-from-top-4">
+                    <div className="mt-8 p-6 rounded-2xl bg-red-500/10 border border-red-500/30 flex items-center gap-4 animate-in slide-in-from-top-4">
                       <span className="text-2xl">❌</span>
                       <div className="text-xs font-black text-red-400 uppercase tracking-widest leading-normal">
                         System Error: {section9Error}
@@ -1729,8 +1729,8 @@ export default function App() {
                 <div className="glass-panel bg-red-500/5 border-l-4 border-l-red-500 p-10 flex gap-8">
                   <div className="text-4xl text-red-400">⚠️</div>
                   <div>
-                    <h4 className="font-black text-red-900 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Reactive Validation</h4>
-                    <p className="text-sm text-red-800/80 font-medium leading-relaxed">
+                    <h4 className="font-black text-red-300 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Reactive Validation</h4>
+                    <p className="text-sm text-red-200/80 font-medium leading-relaxed">
                       Post-action validation (only showing errors after submission) is a high-friction pattern that increases user anxiety and cognitive load. By withholding real-time feedback, the system forces users into a "Trial and Error" loop, making them feel incompetent and frustrated.
                     </p>
                   </div>
@@ -1772,13 +1772,13 @@ export default function App() {
               </div>
 
               <div className="space-y-12">
-                <div className="glass-panel bg-white/10 border-slate-600/60 p-20 flex flex-col items-center justify-center shadow-inner backdrop-blur-md min-h-[450px]">
+                <div className="glass-panel bg-slate-800/10 border-slate-600/60 p-20 flex flex-col items-center justify-center shadow-inner backdrop-blur-md min-h-[450px]">
                   <button
                     onClick={handleSection10Click}
                     disabled={section10Completed}
                     className={`px-24 py-12 text-3xl font-black border-4 transition-all duration-700 rounded-[2.5rem] shadow-2xl relative group ${section10Completed
-                      ? 'bg-emerald-50 text-emerald-600 border-emerald-100 cursor-default scale-95'
-                      : 'bg-white/10 text-slate-300 border-slate-600/50 cursor-not-allowed hover:cursor-pointer hover:border-indigo-500/30 hover:text-indigo-400/40 hover:bg-indigo-500/20/30'
+                      ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30 cursor-default scale-95'
+                      : 'bg-slate-800/10 text-slate-300 border-slate-600/50 cursor-not-allowed hover:cursor-pointer hover:border-indigo-500/30 hover:text-indigo-400/40 hover:bg-indigo-500/20'
                       }`}
                   >
                     <span className="relative z-10">{section10Completed ? 'Authorization Success ✓' : 'Engage Secondary Layer'}</span>
@@ -1792,7 +1792,7 @@ export default function App() {
                       Synaptic Loop State: <span className={section10HoverLoops > 0 ? 'text-indigo-400 animate-pulse' : ''}>{section10HoverLoops > 0 ? 'ACTIVE_CONFLICT_RECOVERED' : 'IDLE_WAITING'}</span>
                     </div>
                     <div className="flex gap-8 justify-center items-center text-[10px] font-black uppercase tracking-widest text-slate-400">
-                      <span>Rage Events: <span className="text-red-500">{section10Attempts}</span></span>
+                      <span>Rage Events: <span className="text-red-400">{section10Attempts}</span></span>
                       <span>Loop Iterations: <span className="text-indigo-400">{section10HoverLoops}</span></span>
                     </div>
                   </div>
@@ -1845,14 +1845,14 @@ export default function App() {
 
               <div className="space-y-12">
                 <div
-                  className="glass-panel bg-white/10 border-slate-600/60 p-20 flex flex-col items-center justify-center shadow-inner backdrop-blur-md min-h-[450px] cursor-crosshair relative overflow-hidden"
+                  className="glass-panel bg-slate-800/10 border-slate-600/60 p-20 flex flex-col items-center justify-center shadow-inner backdrop-blur-md min-h-[450px] cursor-crosshair relative overflow-hidden"
                   onClick={handleSection11AreaClick}
                 >
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.03)_0%,transparent_70%)]" />
 
                   <div className="relative w-full max-w-sm z-10">
                     {!section11Completed ? (
-                      <div className="glass-panel bg-white/80 border-white p-10 pr-16 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.15)] animate-in zoom-in-95 duration-500 relative ring-1 ring-black/5">
+                      <div className="glass-panel bg-slate-800/50 border-white p-10 pr-16 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.15)] animate-in zoom-in-95 duration-500 relative ring-1 ring-black/5">
                         <div className="flex items-center gap-3 mb-4">
                           <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
                           <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">System Priority Alert</h4>
@@ -1873,7 +1873,7 @@ export default function App() {
                     ) : (
                       <div className="text-center space-y-6 animate-in fade-in zoom-in-90 duration-700">
                         <div className="w-24 h-24 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto border-2 border-emerald-500/20 shadow-xl shadow-emerald-500/10">
-                          <span className="text-4xl text-emerald-600">✓</span>
+                          <span className="text-4xl text-emerald-400">✓</span>
                         </div>
                         <div>
                           <div className="text-3xl font-black text-slate-100 tracking-tight">Handshake Verified</div>
@@ -1884,7 +1884,7 @@ export default function App() {
                   </div>
 
                   <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-12 text-[10px] font-black uppercase tracking-widest text-slate-400 text-center">
-                    <span>Precision Deviations: <span className="text-red-500">{section11MissedClicks}</span></span>
+                    <span>Precision Deviations: <span className="text-red-400">{section11MissedClicks}</span></span>
                     <span>Target Resolution: <span className="text-blue-400">4px</span></span>
                   </div>
                 </div>
@@ -1935,7 +1935,7 @@ export default function App() {
               </div>
 
               <div className="space-y-12">
-                <div className="glass-panel bg-white/10 border-slate-600/60 p-16 mb-8 relative shadow-inner backdrop-blur-md overflow-hidden min-h-[450px] flex items-center justify-center">
+                <div className="glass-panel bg-slate-800/10 border-slate-600/60 p-16 mb-8 relative shadow-inner backdrop-blur-md overflow-hidden min-h-[450px] flex items-center justify-center">
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(236,72,153,0.03)_0%,transparent_70%)]" />
 
                   <div
@@ -1951,7 +1951,7 @@ export default function App() {
                       disabled={section12Completed}
                       className={`glass-button px-16 py-8 text-2xl font-black shadow-2xl transition-all duration-300 ${section12Completed
                         ? 'bg-emerald-600 text-white'
-                        : 'bg-white text-slate-200 hover:ring-8 hover:ring-indigo-500/10 active:scale-90'
+                        : 'bg-slate-800/50 text-slate-200 hover:ring-8 hover:ring-indigo-500/10 active:scale-90'
                         }`}
                     >
                       {section12Completed ? 'Interface Captured ✓' : 'Engage Static Layer'}
@@ -1959,7 +1959,7 @@ export default function App() {
                   </div>
 
                   <div className="absolute bottom-10 flex gap-12 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                    <span>Evasion Events: <span className="text-red-500">{section12Attempts}</span></span>
+                    <span>Evasion Events: <span className="text-red-400">{section12Attempts}</span></span>
                     <span>Kinetic Friction: <span className="text-indigo-400">{section12Attempts > 0 ? 'HIGH' : 'LOW'}</span></span>
                   </div>
                 </div>
@@ -2004,13 +2004,13 @@ export default function App() {
                   <h2 className="text-4xl font-black tracking-tight text-slate-100 mb-2">Protocol 13: Forced Pacing</h2>
                   <p className="text-lg text-slate-300 font-medium italic">Measuring temporal subversion via gated content streams.</p>
                 </div>
-                <div className="px-4 py-2 rounded-xl bg-orange-500/20 border border-orange-100 text-orange-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                <div className="px-4 py-2 rounded-xl bg-orange-500/20 border border-orange-500/30 text-orange-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Content Gating
                 </div>
               </div>
 
               <div className="space-y-12">
-                <div className="glass-panel bg-white/10 border-slate-600/60 p-12 mb-8 shadow-inner backdrop-blur-md min-h-[500px] flex flex-col">
+                <div className="glass-panel bg-slate-800/10 border-slate-600/60 p-12 mb-8 shadow-inner backdrop-blur-md min-h-[500px] flex flex-col">
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-12 pb-6 border-b border-slate-600/60">
                       <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 text-center">Protocol Documentation Stream</h3>
@@ -2070,7 +2070,7 @@ export default function App() {
 
                       {section13CurrentSlide >= 3 && (
                         <div className="text-center space-y-8 py-12">
-                          <div className="w-24 h-24 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto text-emerald-600 text-4xl shadow-xl border border-emerald-500/20 animate-bounce">
+                          <div className="w-24 h-24 bg-emerald-500/10 rounded-full flex items-center justify-center mx-auto text-emerald-400 text-4xl shadow-xl border border-emerald-500/20 animate-bounce">
                             ✓
                           </div>
                           <div>
@@ -2092,7 +2092,7 @@ export default function App() {
                 <div className="glass-panel bg-orange-500/5 border-l-4 border-l-orange-500 p-10 flex gap-8">
                   <div className="text-4xl text-orange-400">⌛</div>
                   <div>
-                    <h4 className="font-black text-orange-900 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Subverted Autonomy</h4>
+                    <h4 className="font-black text-orange-300 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Subverted Autonomy</h4>
                     <p className="text-sm text-orange-200/80 font-medium leading-relaxed">
                       Forced pacing (or "Railroading") intentionally breaks the user's natural reading and processing speed. By withholding the "Next" button or forcing a timed slide transition, the UI asserts dominance over the user's time, often used to hide critical information or force engagement with secondary content.
                     </p>
@@ -2138,7 +2138,7 @@ export default function App() {
                   </p>
                 </div>
 
-                <div className="glass-panel bg-white p-12 mb-12 shadow-xl border-slate-600/60 ring-1 ring-black/5">
+                <div className="glass-panel bg-slate-800/50 p-12 mb-12 shadow-xl border-slate-600/60 ring-1 ring-black/5">
                   <div className="flex items-center justify-between mb-12">
                     <div>
                       <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-2">Behavioral Anxiety Matrix</h3>
@@ -2171,12 +2171,12 @@ export default function App() {
                   {[
                     { label: 'Total Interaction Events', value: stats.totalClicks, color: 'text-indigo-400', icon: '🖱️' },
                     { label: 'Cognitive Hesitations', value: stats.hesitations + stats.cursorHesitations, color: 'text-purple-400', icon: '❓' },
-                    { label: 'Goal Obstructions', value: stats.retries, color: 'text-orange-500', icon: '🚫' },
+                    { label: 'Goal Obstructions', value: stats.retries, color: 'text-orange-400', icon: '🚫' },
                     { label: 'Temporal Investment', value: `${stats.timeSpent}s`, color: 'text-blue-400', icon: '⏳' },
                     { label: 'Precision Failures', value: stats.missedClicks, color: 'text-pink-400', icon: '🎯' },
                     { label: 'Reactive Frustration', value: stats.rageClicks, color: 'text-red-400', icon: '💢' },
                   ].map((stat, i) => (
-                    <div key={i} className="glass-panel bg-white/10 border-white hover:bg-white hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 p-10 group shadow-sm">
+                    <div key={i} className="glass-panel bg-slate-800/10 border-white hover:bg-slate-800/50 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 p-10 group shadow-sm">
                       <div className="text-4xl mb-6 group-hover:scale-125 transition-transform duration-500">{stat.icon}</div>
                       <div className={`text-5xl font-black mb-3 ${stat.color} tracking-tighter`}>{stat.value}</div>
                       <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{stat.label}</div>
@@ -2208,7 +2208,7 @@ export default function App() {
                     </button>
                     <button
                       onClick={() => setCurrentSection(1)}
-                      className="px-12 py-6 border-2 border-slate-600 bg-white/10 hover:bg-white rounded-[2rem] transition-all font-black text-xl backdrop-blur-md shadow-xl text-slate-100"
+                      className="px-12 py-6 border-2 border-slate-600 bg-slate-800/10 hover:bg-slate-800/50 rounded-[2rem] transition-all font-black text-xl backdrop-blur-md shadow-xl text-slate-100"
                     >
                       Review Protocols
                     </button>
@@ -2227,6 +2227,10 @@ export default function App() {
     </div>
   );
 }
+
+
+
+
 
 
 
