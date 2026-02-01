@@ -1852,12 +1852,12 @@ export default function App() {
 
                   <div className="relative w-full max-w-sm z-10">
                     {!section11Completed ? (
-                      <div className="glass-panel bg-slate-800/50 border-white p-10 pr-16 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.15)] animate-in zoom-in-95 duration-500 relative ring-1 ring-black/5">
+                      <div className="glass-panel bg-slate-900/80 border-white/20 p-10 pr-16 shadow-[0_32px_64px_-12px_rgba(0,0,0,0.3)] animate-in zoom-in-95 duration-500 relative ring-1 ring-white/10">
                         <div className="flex items-center gap-3 mb-4">
-                          <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
-                          <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">System Priority Alert</h4>
+                          <div className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                          <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300">System Priority Alert</h4>
                         </div>
-                        <p className="text-base font-bold text-slate-200 leading-relaxed mb-6">
+                        <p className="text-base font-bold text-slate-100 leading-relaxed mb-6">
                           High-velocity data stream detected. Please acknowledge the synaptic update to prevent session termination.
                         </p>
                         <button
@@ -1865,9 +1865,9 @@ export default function App() {
                             e.stopPropagation();
                             handleSection11Success();
                           }}
-                          className="absolute top-4 right-4 w-5 h-5 rounded bg-slate-700/30 hover:bg-red-500 hover:text-white transition-all duration-300 flex items-center justify-center text-[10px] border border-slate-600 hover:border-red-400 group"
+                          className="absolute top-4 right-4 w-6 h-6 rounded bg-red-500/40 hover:bg-red-600 text-white transition-all duration-300 flex items-center justify-center text-xs border border-red-400/50 hover:border-red-400 group shadow-lg"
                         >
-                          <span className="group-hover:rotate-90 transition-transform">✕</span>
+                          <span className="group-hover:rotate-90 transition-transform font-black text-white">✕</span>
                         </button>
                       </div>
                     ) : (
@@ -2138,32 +2138,129 @@ export default function App() {
                   </p>
                 </div>
 
-                <div className="glass-panel bg-slate-800/50 p-12 mb-12 shadow-xl border-slate-600/60 ring-1 ring-black/5">
-                  <div className="flex items-center justify-between mb-12">
-                    <div>
-                      <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-2">Behavioral Anxiety Matrix</h3>
-                      <div className="text-2xl font-black text-slate-100">System Resonance State</div>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                  <div className="glass-panel bg-slate-800/50 p-10 shadow-xl border-slate-600/60 ring-1 ring-black/5 flex flex-col items-center justify-center">
+                    <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-8 self-start">Psychological Load Profile</h3>
+
+                    <div className="relative w-full aspect-square max-w-[320px]">
+                      <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-[0_0_15px_rgba(79,70,229,0.2)]">
+                        {/* Background Hexagons */}
+                        {[0.2, 0.4, 0.6, 0.8, 1].map((p) => {
+                          const r = 45 * p;
+                          const points = [0, 1, 2, 3, 4].map(i => {
+                            const angle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
+                            return `${50 + r * Math.cos(angle)},${50 + r * Math.sin(angle)}`;
+                          }).join(' ');
+                          return (
+                            <polygon
+                              key={p}
+                              points={points}
+                              fill="none"
+                              stroke="var(--border)"
+                              strokeWidth="0.2"
+                              opacity={0.3}
+                            />
+                          );
+                        })}
+
+                        {/* Axis Lines */}
+                        {[0, 1, 2, 3, 4].map(i => {
+                          const angle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
+                          return (
+                            <line
+                              key={i}
+                              x1="50" y1="50"
+                              x2={50 + 45 * Math.cos(angle)}
+                              y2={50 + 45 * Math.sin(angle)}
+                              stroke="var(--border)"
+                              strokeWidth="0.2"
+                              opacity={0.3}
+                            />
+                          );
+                        })}
+
+                        {/* Data Polygon */}
+                        {(() => {
+                          const data = [
+                            { n: 'Precision', v: Math.min(1, (stats.missedClicks / 15)) },
+                            { n: 'Tempo', v: Math.min(1, (stats.timeSpent / 300)) },
+                            { n: 'Control', v: Math.min(1, ((stats.hesitations + stats.cursorHesitations) / 40)) },
+                            { n: 'Agitation', v: Math.min(1, (stats.rageClicks / 10)) },
+                            { n: 'Friction', v: Math.min(1, (stats.retries / 5)) }
+                          ];
+                          const points = data.map((d, i) => {
+                            const angle = (i * 2 * Math.PI) / 5 - Math.PI / 2;
+                            const r = 45 * d.v;
+                            return `${50 + r * Math.cos(angle)},${50 + r * Math.sin(angle)}`;
+                          }).join(' ');
+
+                          return (
+                            <>
+                              <polygon
+                                points={points}
+                                fill="url(#radarGradient)"
+                                fillOpacity="0.4"
+                                stroke="#6366f1"
+                                strokeWidth="1"
+                                className="animate-in fade-in duration-1000"
+                              />
+                              <defs>
+                                <linearGradient id="radarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                  <stop offset="0%" stopColor="#4f46e5" />
+                                  <stop offset="100%" stopColor="#ec4899" />
+                                </linearGradient>
+                              </defs>
+                            </>
+                          );
+                        })()}
+                      </svg>
+
+                      {/* Labels */}
+                      {[
+                        { n: 'Precision', x: 50, y: 2 },
+                        { n: 'Tempo', x: 95, y: 35 },
+                        { n: 'Control', x: 75, y: 92 },
+                        { n: 'Agitation', x: 25, y: 92 },
+                        { n: 'Friction', x: 5, y: 35 }
+                      ].map((l, i) => (
+                        <div
+                          key={i}
+                          className="absolute text-[8px] font-black uppercase tracking-widest text-slate-400 whitespace-nowrap"
+                          style={{ top: `${l.y}%`, left: `${l.x}%`, transform: 'translate(-50%, -50%)' }}
+                        >
+                          {l.n}
+                        </div>
+                      ))}
                     </div>
-                    <div className="text-7xl font-black text-indigo-400 tracking-tighter">{anxietyLevel}<span className="text-3xl text-slate-300 ml-1">/100</span></div>
                   </div>
 
-                  <div className="w-full h-10 bg-slate-700/30 rounded-2xl overflow-hidden mb-10 p-1.5 border border-slate-600/60">
-                    <div
-                      className="h-full transition-all duration-2000 ease-out rounded-xl relative shadow-[0_0_40px_rgba(79,70,229,0.3)]"
-                      style={{
-                        width: `${anxietyLevel}%`,
-                        background: `linear-gradient(90deg, #4f46e5, #9333ea, #db2777)`,
-                      }}
-                    >
-                      <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.2)_50%,transparent_75%)] bg-[length:50px_50px] animate-[pulse_3s_infinite]" />
+                  <div className="glass-panel bg-slate-800/50 p-10 shadow-xl border-slate-600/60 ring-1 ring-black/5">
+                    <div className="flex items-center justify-between mb-12">
+                      <div>
+                        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-2">Behavioral Anxiety Matrix</h3>
+                        <div className="text-2xl font-black text-slate-100">System Resonance State</div>
+                      </div>
+                      <div className="text-7xl font-black text-indigo-400 tracking-tighter">{anxietyLevel}<span className="text-3xl text-slate-300 ml-1">/100</span></div>
                     </div>
-                  </div>
 
-                  <div className="grid grid-cols-4 gap-4 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 text-center">
-                    <div className={anxietyLevel < 25 ? 'text-indigo-400 scale-110 transition-transform' : ''}>Quiescent</div>
-                    <div className={anxietyLevel >= 25 && anxietyLevel < 50 ? 'text-purple-400 scale-110 transition-transform' : ''}>Elevated</div>
-                    <div className={anxietyLevel >= 50 && anxietyLevel < 75 ? 'text-orange-400 scale-110 transition-transform' : ''}>Distressed</div>
-                    <div className={anxietyLevel >= 75 ? 'text-pink-400 scale-110 transition-transform' : ''}>Critical</div>
+                    <div className="w-full h-10 bg-slate-700/30 rounded-2xl overflow-hidden mb-10 p-1.5 border border-slate-600/60">
+                      <div
+                        className="h-full transition-all duration-2000 ease-out rounded-xl relative shadow-[0_0_40px_rgba(79,70,229,0.3)]"
+                        style={{
+                          width: `${anxietyLevel}%`,
+                          background: `linear-gradient(90deg, #4f46e5, #9333ea, #db2777)`,
+                        }}
+                      >
+                        <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.2)_50%,transparent_75%)] bg-[length:50px_50px] animate-[pulse_3s_infinite]" />
+                      </div>
+                    </div>
+
+                    <div className="grid grid-cols-4 gap-4 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 text-center">
+                      <div className={anxietyLevel < 25 ? 'text-indigo-400 scale-110 transition-transform' : ''}>Quiescent</div>
+                      <div className={anxietyLevel >= 25 && anxietyLevel < 50 ? 'text-purple-400 scale-110 transition-transform' : ''}>Elevated</div>
+                      <div className={anxietyLevel >= 50 && anxietyLevel < 75 ? 'text-orange-400 scale-110 transition-transform' : ''}>Distressed</div>
+                      <div className={anxietyLevel >= 75 ? 'text-pink-400 scale-110 transition-transform' : ''}>Critical</div>
+                    </div>
                   </div>
                 </div>
 
