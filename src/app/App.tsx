@@ -871,15 +871,7 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="glass-panel bg-amber-500/10 border-l-4 border-l-amber-400 p-4 flex gap-4">
-                    <div className="text-2xl">⚠️</div>
-                    <div>
-                      <h4 className="font-black text-amber-300 text-xs uppercase tracking-tight mb-1">Behavioral Analysis</h4>
-                      <p className="text-xs text-amber-200/80 font-medium leading-relaxed">
-                        Uncertain wait times cause stress. Users lose agency and resort to <span className="font-bold underline">repetitive clicking</span>.
-                      </p>
-                    </div>
-                  </div>
+
 
                   {section1Completed && (
                     <div className="flex justify-end">
@@ -955,15 +947,7 @@ export default function App() {
                     </div>
                   </div>
 
-                  <div className="glass-panel bg-purple-500/10 border-l-4 border-l-purple-400 p-4 flex gap-4">
-                    <div className="text-2xl">🧠</div>
-                    <div>
-                      <h4 className="font-black text-purple-300 text-xs uppercase tracking-tight mb-1">False Affordance</h4>
-                      <p className="text-xs text-purple-200/80 font-medium leading-relaxed">
-                        When elements look inactive but work, users resort to trial-and-error, eroding interface trust.
-                      </p>
-                    </div>
-                  </div>
+
 
                   {section2Completed && (
                     <div className="flex justify-end">
@@ -1051,16 +1035,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="glass-panel bg-pink-500/5 border-l-4 border-l-pink-500 p-8 flex gap-6">
-                  <div className="text-3xl text-pink-400">⚙️</div>
-                  <div>
-                    <h4 className="font-black text-pink-300 text-sm uppercase tracking-tight mb-1">Behavioral Analysis: Mechanical Friction</h4>
-                    <p className="text-sm text-pink-200/80 font-medium leading-relaxed">
-                      Kinetic obstruction subverts the user's motor planning. When an interface element moves <span className="italic">at the moment of intent</span>,
-                      it creates a profound sense of powerlessness and irritation. This pattern is commonly used in intrusive ads to force accidental clicks on surrounding elements.
-                    </p>
-                  </div>
-                </div>
+
 
                 <div className="flex items-center justify-between pt-6">
                   <button
@@ -1187,16 +1162,7 @@ export default function App() {
                   )}
                 </div>
 
-                <div className="glass-panel bg-indigo-500/5 border-l-4 border-l-indigo-500 p-8 flex gap-6">
-                  <div className="text-3xl text-indigo-400">🧠</div>
-                  <div>
-                    <h4 className="font-black text-indigo-300 text-sm uppercase tracking-tight mb-1">Behavioral Analysis: Decision Fatigue</h4>
-                    <p className="text-sm text-indigo-200/80 font-medium leading-relaxed">
-                      This pattern creates "Decision Fatigue" by presenting too many non-essential choices.
-                      When overwhelmed, users often abandon the process or revert to defaults, which are often configured to benefit the platform rather than the user (the "Default Effect").
-                    </p>
-                  </div>
-                </div>
+
 
                 <div className="flex items-center justify-between pt-6">
                   <button
@@ -1425,26 +1391,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="glass-panel bg-red-500/5 border-l-4 border-l-red-500 p-8 flex gap-6">
-                    <div className="text-3xl text-red-400">⏱</div>
-                    <div>
-                      <h4 className="font-black text-red-300 text-sm uppercase tracking-tight mb-1">Pattern: Artificial Scarcity</h4>
-                      <p className="text-sm text-red-200/80 font-medium leading-relaxed">
-                        Countdown timers and "low stock" indicators bypass the rational prefrontal cortex, triggering a "fight or flight" response that forces quick, uncritical decisions.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="glass-panel bg-blue-500/5 border-l-4 border-l-blue-500 p-8 flex gap-6">
-                    <div className="text-3xl text-blue-400">🔀</div>
-                    <div>
-                      <h4 className="font-black text-blue-300 text-sm uppercase tracking-tight mb-1">Pattern: Double Negatives</h4>
-                      <p className="text-sm text-blue-200/80 font-medium leading-relaxed">
-                        Linguistic ambiguity (e.g. "Do not unsubscribe") subverts the user's intent, leading to accidental consent. This is a primary tool for "dark" subscription growth.
-                      </p>
-                    </div>
-                  </div>
-                </div>
+
 
                 <div className="flex items-center justify-between pt-6">
                   <button
@@ -1543,15 +1490,7 @@ export default function App() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="glass-panel bg-blue-500/5 border-l-4 border-l-blue-500 p-8 flex gap-6">
-                    <div className="text-3xl text-blue-400">🧠</div>
-                    <div>
-                      <h4 className="font-black text-blue-300 text-sm uppercase tracking-tight mb-1">Behavioral Analysis: Waiting Anxiety</h4>
-                      <p className="text-sm text-blue-200/80 font-medium leading-relaxed">
-                        Non-linear progress bars exploit the "End-Peak Rule." When a task slows down at 99%, it creates significant psychological friction, making the last 1% feel more taxing than the preceding 99%.
-                      </p>
-                    </div>
-                  </div>
+
                   <div className="glass-panel bg-slate-800/30 border-l-4 border-l-slate-400 p-8">
                     <div className="flex justify-between items-center mb-4">
                       <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Protocol Metrics</span>
@@ -1640,15 +1579,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="glass-panel bg-orange-500/5 border-l-4 border-l-orange-500 p-10 flex gap-8">
-                  <div className="text-4xl text-orange-400">⚖️</div>
-                  <div>
-                    <h4 className="font-black text-orange-300 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: The Illusion of Choice</h4>
-                    <p className="text-sm text-orange-200/80 font-medium leading-relaxed">
-                      When multiple interactive elements share identical visual weight and vague labeling (e.g., "Continue", "Proceed"), the user experiences "Hick's Law" overload. This decision paralysis increases cognitive strain, often leading the user to click almost at random, subverting deliberate intent.
-                    </p>
-                  </div>
-                </div>
+
 
                 <div className="flex items-center justify-between pt-6">
                   <button
@@ -1736,15 +1667,7 @@ export default function App() {
                   )}
                 </div>
 
-                <div className="glass-panel bg-red-500/5 border-l-4 border-l-red-500 p-10 flex gap-8">
-                  <div className="text-4xl text-red-400">⚠️</div>
-                  <div>
-                    <h4 className="font-black text-red-300 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Reactive Validation</h4>
-                    <p className="text-sm text-red-200/80 font-medium leading-relaxed">
-                      Post-action validation (only showing errors after submission) is a high-friction pattern that increases user anxiety and cognitive load. By withholding real-time feedback, the system forces users into a "Trial and Error" loop, making them feel incompetent and frustrated.
-                    </p>
-                  </div>
-                </div>
+
 
                 <div className="flex items-center justify-between pt-6">
                   <button
@@ -1808,15 +1731,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="glass-panel bg-indigo-500/5 border-l-4 border-l-indigo-600 p-10 flex gap-8">
-                  <div className="text-4xl text-indigo-400">💡</div>
-                  <div>
-                    <h4 className="font-black text-indigo-300 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: False Affordances</h4>
-                    <p className="text-sm text-indigo-200/80 font-medium leading-relaxed">
-                      By presenting a `not-allowed` cursor alongside positive hover states (color shifts, scaling), the UI induces a specialized type of cognitive dissonance. The visual brain recognizes an interactive element, but the functional brain is told it's disabled. This conflict inevitably leads to "Rage Clicking" as users attempt to bypass the perceived system error.
-                    </p>
-                  </div>
-                </div>
+
 
                 <div className="flex items-center justify-between pt-6">
                   <button
@@ -1899,15 +1814,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="glass-panel bg-blue-500/5 border-l-4 border-l-blue-600 p-10 flex gap-8">
-                  <div className="text-4xl text-blue-400">🎯</div>
-                  <div>
-                    <h4 className="font-black text-blue-300 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Fitts's Law Disruption</h4>
-                    <p className="text-sm text-blue-200/80 font-medium leading-relaxed">
-                      Fitts's Law states that the time to acquire a target is a function of the distance to and size of the target. By intentionally minimizing click targets (like small 'X' buttons), interfaces dramatically increase the "error rate" and time cost, often used to discourage users from dismissing intrusive elements.
-                    </p>
-                  </div>
-                </div>
+
 
                 <div className="flex items-center justify-between pt-6">
                   <button
@@ -1974,15 +1881,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="glass-panel bg-pink-500/5 border-l-4 border-l-pink-600 p-10 flex gap-8">
-                  <div className="text-4xl text-pink-400">🏃</div>
-                  <div>
-                    <h4 className="font-black text-pink-300 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Kinetic Obstruction</h4>
-                    <p className="text-sm text-pink-200/80 font-medium leading-relaxed">
-                      Layout shifts—intentional or accidental—break the user's "mental map" of the interface. When targets shift just before a click (kinetic obstruction), it triggers an immediate stress response and erodes system trust. This pattern is commonly seen in ad-heavy layouts that load content asynchronously to force accidental clicks.
-                    </p>
-                  </div>
-                </div>
+
 
                 <div className="flex items-center justify-between pt-6">
                   <button
@@ -2099,15 +1998,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="glass-panel bg-orange-500/5 border-l-4 border-l-orange-500 p-10 flex gap-8">
-                  <div className="text-4xl text-orange-400">⌛</div>
-                  <div>
-                    <h4 className="font-black text-orange-300 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Subverted Autonomy</h4>
-                    <p className="text-sm text-orange-200/80 font-medium leading-relaxed">
-                      Forced pacing (or "Railroading") intentionally breaks the user's natural reading and processing speed. By withholding the "Next" button or forcing a timed slide transition, the UI asserts dominance over the user's time, often used to hide critical information or force engagement with secondary content.
-                    </p>
-                  </div>
-                </div>
+
 
                 <div className="flex items-center justify-between pt-6">
                   <button
