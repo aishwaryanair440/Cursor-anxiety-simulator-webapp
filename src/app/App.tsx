@@ -688,11 +688,11 @@ export default function App() {
   }, [currentSection]);
 
   return (
-    <div className="min-h-screen selection:bg-blue-500/20 px-3 py-2" style={{ fontFamily: '"Plus Jakarta Sans", "Inter", sans-serif', background: 'var(--background)', color: 'var(--foreground)' }}>
+    <div className="h-screen overflow-hidden flex flex-col selection:bg-blue-500/20" style={{ fontFamily: '"Plus Jakarta Sans", "Inter", sans-serif', background: 'var(--background)', color: 'var(--foreground)' }}>
 
       {/* Global Progress Bar - Fixed at top */}
       {currentSection > 0 && currentSection < 14 && (
-        <div className="fixed top-0 left-0 right-0 h-1.5 bg-slate-200/50 z-[100] backdrop-blur-sm">
+        <div className="fixed top-0 left-0 right-0 h-1.5 bg-slate-700/50 z-[100] backdrop-blur-sm">
           <div
             className="h-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 transition-all duration-500 ease-out shadow-[0_0_10px_rgba(37,99,235,0.3)]"
             style={{ width: `${(currentSection / 13) * 100}%` }}
@@ -719,11 +719,11 @@ export default function App() {
             <div className="hidden md:flex flex-1 max-w-xs mx-12 flex-col gap-1.5">
               <div className="flex items-center justify-between px-1">
                 <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Bio-Stress Level</span>
-                <span className={`text-[10px] font-black uppercase tracking-widest ${anxietyLevel > 70 ? 'text-red-500 animate-pulse' : 'text-blue-600'}`}>
+                <span className={`text-[10px] font-black uppercase tracking-widest ${anxietyLevel > 70 ? 'text-red-500 animate-pulse' : 'text-blue-400'}`}>
                   {getAnxietyState()}
                 </span>
               </div>
-              <div className="h-2 bg-slate-200/50 rounded-full overflow-hidden p-0.5 border border-white/20">
+              <div className="h-2 bg-slate-700/50 rounded-full overflow-hidden p-0.5 border border-white/20">
                 <div
                   className="h-full rounded-full transition-all duration-1000 ease-out shadow-sm"
                   style={{
@@ -736,7 +736,7 @@ export default function App() {
 
             <button
               onClick={handleRestart}
-              className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-red-500 transition-all border-l border-slate-200 ml-4 pl-4 hover:scale-105"
+              className="px-4 py-2 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-red-500 transition-all border-l border-slate-600 ml-4 pl-4 hover:scale-105"
             >
               Terminate
             </button>
@@ -744,56 +744,58 @@ export default function App() {
         </header>
       )}
 
-      <div className={currentSection > 0 && currentSection < 14 ? 'pt-16 pb-4' : 'py-4'}>
+      <div className={currentSection > 0 && currentSection < 14 ? 'flex-1 overflow-y-auto pt-24 pb-6 px-3' : 'flex-1 overflow-y-auto py-4 px-3'}>
 
         {/* Introduction Screen */}
         {currentSection === 0 && (
-          <div className="max-w-4xl mx-auto">
-            <div className="glass-panel p-12 md:p-20 text-center shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] relative overflow-hidden group">
-              <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600" />
+          <div className="h-full flex items-center justify-center">
+            <div className="max-w-4xl mx-auto w-full">
+              <div className="glass-panel p-8 md:p-12 text-center shadow-[0_32px_64px_-16px_rgba(0,0,0,0.1)] relative overflow-hidden group">
+                <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600" />
 
-              <div className="relative z-10">
-                <h1 className="text-7xl font-black tracking-tighter mb-6 bg-gradient-to-b from-slate-100 via-purple-300 to-blue-400 bg-clip-text text-transparent transform transition-all">
-                  Cursor Anxiety Stimulator
-                </h1>
+                <div className="relative z-10">
+                  <h1 className="text-5xl md:text-6xl font-black tracking-tighter mb-4 bg-gradient-to-b from-slate-100 via-purple-300 to-blue-400 bg-clip-text text-transparent transform transition-all">
+                    Cursor Anxiety Stimulator
+                  </h1>
 
-                <p className="text-2xl text-slate-300 mb-12 max-w-2xl mx-auto font-medium leading-normal">
-                  An interactive deep-dive into the <span className="text-purple-400 font-bold italic underline decoration-purple-400/30 underline-offset-8">Dark Patterns</span> that define the modern web.
-                </p>
+                  <p className="text-lg md:text-xl text-slate-300 mb-8 max-w-2xl mx-auto font-medium leading-normal">
+                    An interactive deep-dive into the <span className="text-purple-400 font-bold italic underline decoration-purple-400/30 underline-offset-8">Dark Patterns</span> that define the modern web.
+                  </p>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left mb-16">
-                  {[
-                    { title: "Behavioral Tracking", desc: "We monitor cursor velocity, hesitation, and rage-clicks.", icon: "🎯" },
-                    { title: "Biological Stress", desc: "Experience the physical toll of poor interface design.", icon: "🧬" },
-                    { title: "Hostile Patterns", desc: "13 curated sections of intentional digital obstruction.", icon: "⚔️" },
-                    { title: "Final Exposure", desc: "Receive a full cognitive analysis of your performance.", icon: "📊" }
-                  ].map((item, i) => (
-                    <div key={i} className="glass-panel border-white/10 p-6 flex gap-4 hover:shadow-xl transition-all duration-300 hover:border-purple-500/30">
-                      <div className="text-3xl">{item.icon}</div>
-                      <div>
-                        <h4 className="font-black text-slate-100 text-sm uppercase tracking-tight mb-1">{item.title}</h4>
-                        <p className="text-sm text-slate-300 font-medium leading-relaxed">{item.desc}</p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-left mb-8">
+                    {[
+                      { title: "Behavioral Tracking", desc: "We monitor cursor velocity, hesitation, and rage-clicks.", icon: "🎯" },
+                      { title: "Biological Stress", desc: "Experience the physical toll of poor interface design.", icon: "🧬" },
+                      { title: "Hostile Patterns", desc: "13 curated sections of intentional digital obstruction.", icon: "⚔️" },
+                      { title: "Final Exposure", desc: "Receive a full cognitive analysis of your performance.", icon: "📊" }
+                    ].map((item, i) => (
+                      <div key={i} className="glass-panel border-white/10 p-4 flex gap-3 hover:shadow-xl transition-all duration-300 hover:border-purple-500/30">
+                        <div className="text-2xl">{item.icon}</div>
+                        <div>
+                          <h4 className="font-black text-slate-100 text-xs uppercase tracking-tight mb-1">{item.title}</h4>
+                          <p className="text-xs text-slate-300 font-medium leading-relaxed">{item.desc}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => setCurrentSection(1)}
+                    className="glass-button px-10 py-4 text-xl font-black shadow-2xl hover:scale-105 active:scale-95 transition-all bg-gradient-to-r from-purple-600 to-blue-600 text-white relative overflow-hidden group/btn"
+                  >
+                    <span className="relative z-10 flex items-center gap-3">
+                      Initialize Protocol
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 group-hover/btn:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-700 to-blue-700 opacity-0 group-hover/btn:opacity-100 transition-opacity" />
+                  </button>
+
+                  <p className="text-[10px] text-slate-400 mt-6 font-black uppercase tracking-[0.3em]">
+                    Scientific Analysis in Progress
+                  </p>
                 </div>
-
-                <button
-                  onClick={() => setCurrentSection(1)}
-                  className="glass-button px-14 py-6 text-2xl font-black shadow-2xl hover:scale-105 active:scale-95 transition-all bg-gradient-to-r from-purple-600 to-blue-600 text-white relative overflow-hidden group/btn"
-                >
-                  <span className="relative z-10 flex items-center gap-3">
-                    Initialize Protocol
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 group-hover/btn:translate-x-2 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                  </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-700 to-blue-700 opacity-0 group-hover/btn:opacity-100 transition-opacity" />
-                </button>
-
-                <p className="text-[10px] text-slate-400 mt-10 font-black uppercase tracking-[0.3em]">
-                  Scientific Analysis in Progress
-                </p>
               </div>
             </div>
           </div>
@@ -802,95 +804,84 @@ export default function App() {
 
         {/* Section 1: Latency Frustration */}
         {currentSection === 1 && (
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="glass-panel p-10 md:p-16">
-              <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
-                <div>
-                  <h2 className="text-4xl font-black tracking-tight text-slate-100 mb-2">Protocol 01: Latency Frustration</h2>
-                  <p className="text-lg text-slate-300 font-medium italic">Delayed feedback and uncertain system states.</p>
-                </div>
-                <div className="px-4 py-2 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
-                  Pattern: Feedback Gap
-                </div>
-              </div>
-
-              <div className="space-y-10">
-                <div className="glass-panel bg-white/40 border-slate-200/60 p-12 text-center shadow-inner">
-                  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-8">System Handshake Required</h3>
-
-                  <div className="flex flex-col items-center gap-8">
-                    <button
-                      onClick={handleSection1Primary}
-                      disabled={section1Completed}
-                      className={`min-w-[280px] px-10 py-5 rounded-2xl font-black text-xl transition-all duration-500 flex items-center justify-center gap-4 ${section1Completed
-                        ? 'bg-green-500 text-white shadow-lg shadow-green-500/20 cursor-not-allowed'
-                        : section1Processing
-                          ? 'bg-amber-100 text-amber-700 border-2 border-amber-200'
-                          : 'glass-button bg-blue-600 text-white shadow-2xl shadow-blue-500/20 hover:scale-105 active:scale-95'
-                        }`}
-                    >
-                      {section1Processing && (
-                        <div className="w-5 h-5 border-[3px] border-amber-400 border-t-transparent rounded-full animate-spin" />
-                      )}
-                      {section1Completed ? 'Success Received ✓' : section1Processing ? 'Processing Batch...' : 'Establish Secure Connection'}
-                    </button>
-
-                    <button
-                      onClick={handleSection1Secondary}
-                      className="text-sm font-bold text-slate-400 hover:text-red-500 transition-colors uppercase tracking-widest"
-                      disabled={section1Processing || section1Completed}
-                    >
-                      Abort Operation
-                    </button>
-                  </div>
-
-                  {section1Processing && (
-                    <div className="mt-12 max-w-md mx-auto animate-in fade-in duration-700">
-                      <div className="flex items-center justify-between mb-2">
-                        <span className="text-[10px] font-black uppercase tracking-widest text-slate-500 italic">Syncing Data...</span>
-                        <span className="text-xs font-black text-blue-600">{Math.floor(section1Progress)}%</span>
-                      </div>
-                      <div className="h-3 bg-slate-200/50 rounded-full overflow-hidden p-0.5 border border-white/40 shadow-inner">
-                        <div
-                          className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-300 shadow-[0_0_10px_rgba(59,130,246,0.3)]"
-                          style={{ width: `${section1Progress}%` }}
-                        />
-                      </div>
-                    </div>
-                  )}
-
-                  {(section1Status || section1RetryHint) && (
-                    <div className="mt-12 p-6 rounded-2xl bg-blue-50/50 border border-blue-100/50 text-left animate-in slide-in-from-bottom-4 duration-500">
-                      <div className="flex items-center gap-3 mb-2 text-blue-600 font-black text-xs uppercase tracking-widest">
-                        <span className="text-lg">⚡</span>
-                        System Log
-                      </div>
-                      <p className="text-slate-600 font-medium leading-relaxed italic">{section1Status || section1RetryHint}</p>
-                    </div>
-                  )}
-                </div>
-
-                <div className="glass-panel bg-amber-500/5 border-l-4 border-l-amber-500 p-8 flex gap-6">
-                  <div className="text-3xl text-amber-600">⚠️</div>
+          <div className="h-full flex items-center justify-center">
+            <div className="max-w-4xl mx-auto w-full">
+              <div className="glass-panel p-6 md:p-8">
+                <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h4 className="font-black text-amber-900 text-sm uppercase tracking-tight mb-1">Behavioral Analysis: Uncertain Wait Times</h4>
-                    <p className="text-sm text-amber-800/80 font-medium leading-relaxed">
-                      Human psychology is hard-wired to find uncertainty stressful. When a system provides no feedback during high-latency events,
-                      users lose their sense of agency, leading to <span className="font-bold underline">repetitive clicking</span>—a direct metabolic cost of poor design.
-                    </p>
+                    <h2 className="text-2xl md:text-3xl font-black tracking-tight text-slate-100 mb-1">Protocol 01: Latency Frustration</h2>
+                    <p className="text-sm text-slate-300 font-medium italic">Delayed feedback and uncertain system states.</p>
+                  </div>
+                  <div className="px-3 py-1 rounded-lg bg-blue-500/20 border border-blue-400/30 text-blue-300 text-[10px] font-black uppercase tracking-widest">
+                    Feedback Gap
                   </div>
                 </div>
 
-                {section1Completed && (
-                  <div className="flex justify-end pt-6 animate-in fade-in duration-500">
-                    <button
-                      onClick={() => setCurrentSection(2)}
-                      className="glass-button px-10 py-4 font-black text-lg bg-indigo-600 text-white shadow-xl shadow-indigo-500/20"
-                    >
-                      Continue Protocol 02 →
-                    </button>
+                <div className="space-y-6">
+                  <div className="glass-panel border-white/10 p-8 text-center">
+                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6">System Handshake Required</h3>
+
+                    <div className="flex flex-col items-center gap-6">
+                      <button
+                        onClick={handleSection1Primary}
+                        disabled={section1Completed}
+                        className={`min-w-[260px] px-8 py-4 rounded-xl font-black text-lg transition-all duration-500 flex items-center justify-center gap-3 ${section1Completed
+                          ? 'bg-green-500 text-white shadow-lg shadow-green-500/20 cursor-not-allowed'
+                          : section1Processing
+                            ? 'bg-amber-500/20 text-amber-300 border-2 border-amber-400/30'
+                            : 'glass-button bg-blue-600 text-white shadow-xl shadow-blue-500/20 hover:scale-105 active:scale-95'
+                          }`}
+                      >
+                        {section1Processing && (
+                          <div className="w-4 h-4 border-[3px] border-amber-300 border-t-transparent rounded-full animate-spin" />
+                        )}
+                        {section1Completed ? 'Success ✓' : section1Processing ? 'Processing...' : 'Establish Connection'}
+                      </button>
+
+                      {section1Processing && (
+                        <div className="w-full max-w-xs">
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-[9px] font-black uppercase tracking-widest text-slate-300">Syncing...</span>
+                            <span className="text-xs font-black text-blue-400">{Math.floor(section1Progress)}%</span>
+                          </div>
+                          <div className="h-2 bg-slate-700/10 rounded-full overflow-hidden border border-white/10">
+                            <div
+                              className="h-full bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full transition-all duration-300"
+                              style={{ width: `${section1Progress}%` }}
+                            />
+                          </div>
+                        </div>
+                      )}
+
+                      {section1Status && (
+                        <div className="p-4 rounded-lg bg-blue-500/10 border border-blue-400/20 text-left text-sm">
+                          <p className="text-slate-300 font-medium italic">{section1Status}</p>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                )}
+
+                  <div className="glass-panel bg-amber-500/10 border-l-4 border-l-amber-400 p-4 flex gap-4">
+                    <div className="text-2xl">⚠️</div>
+                    <div>
+                      <h4 className="font-black text-amber-300 text-xs uppercase tracking-tight mb-1">Behavioral Analysis</h4>
+                      <p className="text-xs text-amber-200/80 font-medium leading-relaxed">
+                        Uncertain wait times cause stress. Users lose agency and resort to <span className="font-bold underline">repetitive clicking</span>.
+                      </p>
+                    </div>
+                  </div>
+
+                  {section1Completed && (
+                    <div className="flex justify-end">
+                      <button
+                        onClick={() => setCurrentSection(2)}
+                        className="glass-button px-8 py-3 font-black text-base bg-indigo-600 text-white shadow-xl shadow-indigo-500/20 hover:scale-105"
+                      >
+                        Continue →
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -899,86 +890,80 @@ export default function App() {
 
         {/* Section 2: Affordance Deception */}
         {currentSection === 2 && (
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="glass-panel p-10 md:p-16">
-              <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
-                <div>
-                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 02: Affordance Deception</h2>
-                  <p className="text-lg text-slate-500 font-medium italic">Unclear UI states and misleading visual cues.</p>
-                </div>
-                <div className="px-4 py-2 rounded-xl bg-purple-50 border border-purple-100 text-purple-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
-                  Pattern: Visual Ambiguity
-                </div>
-              </div>
-
-              <div className="space-y-10">
-                <div className="glass-panel bg-white/40 border-slate-200/60 p-12 shadow-inner">
-                  <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-8 text-center">Locate the functional affordance</h3>
-
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-                    {[
-                      { id: 1, label: "Confirm Action", style: "opacity-40 cursor-not-allowed bg-slate-200", hint: "Looks disabled" },
-                      { id: 2, label: "Next Step", style: "bg-indigo-600 text-white font-black shadow-lg shadow-indigo-500/20", hint: "Primary action?" },
-                      { id: 3, label: "Skip", style: "border-2 border-slate-200 text-slate-400 italic font-medium", hint: "Secondary link" },
-                      { id: 4, label: "Proceed →", style: "bg-green-600 text-white font-black shadow-lg shadow-green-500/20", hint: "Looks functional" },
-                      { id: 5, label: "Cancel", style: "text-red-500 font-bold underline underline-offset-4", hint: "Destructive link" },
-                      { id: 6, label: "Update Now", style: "bg-blue-500 text-white shadow-inner", hint: "System update" },
-                      { id: 7, label: "⚙️", style: "w-12 h-12 rounded-full border border-slate-300 flex items-center justify-center mx-auto", hint: "Settings gear" },
-                      { id: 8, label: "Click to continue", style: "text-blue-600 font-black text-xs uppercase tracking-widest hover:underline", hint: "Text trigger" }
-                    ].map((btn) => (
-                      <button
-                        key={btn.id}
-                        onClick={() => handleSection2Button(btn.id)}
-                        onMouseEnter={() => showTooltip(btn.hint)}
-                        className={`p-4 rounded-xl transition-all duration-300 text-sm ${btn.style} ${section2Completed ? 'opacity-50 grayscale' : 'hover:scale-105 active:scale-95'}`}
-                      >
-                        {btn.label}
-                      </button>
-                    ))}
-                  </div>
-
-                  <div className="min-h-[60px] flex flex-col items-center justify-center gap-4">
-                    {section2Tooltip && (
-                      <div className="px-4 py-2 rounded-lg bg-slate-800 text-white text-[10px] font-black uppercase tracking-widest animate-in zoom-in-95 duration-200">
-                        {section2Tooltip}
-                      </div>
-                    )}
-
-                    {section2Feedback && (
-                      <div className={`px-6 py-3 rounded-xl font-bold text-sm flex items-center gap-3 animate-in fade-in duration-500 ${section2Completed ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-600 border border-red-200'
-                        }`}>
-                        <span>{section2Feedback}</span>
-                        {section2Completed && <span className="text-xl">✓</span>}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="glass-panel bg-purple-500/5 border-l-4 border-l-purple-500 p-8 flex gap-6">
-                  <div className="text-3xl text-purple-600">🧠</div>
+          <div className="h-full flex items-center justify-center">
+            <div className="max-w-4xl mx-auto w-full">
+              <div className="glass-panel p-6 md:p-8">
+                <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h4 className="font-black text-purple-900 text-sm uppercase tracking-tight mb-1">Pattern Analysis: False Affordance</h4>
-                    <p className="text-sm text-purple-800/80 font-medium leading-relaxed">
-                      Design creates <span className="italic font-bold">Expectations</span>. When an element looks inactive but works (or vice versa), it forces the user to interact via trial-and-error.
-                      This erodes the mental model of the interface, turning navigation into a guessing game.
-                    </p>
+                    <h2 className="text-2xl md:text-3xl font-black tracking-tight text-slate-100 mb-1">Protocol 02: Affordance Deception</h2>
+                    <p className="text-sm text-slate-300 font-medium italic">Unclear UI states and misleading visual cues.</p>
+                  </div>
+                  <div className="px-3 py-1 rounded-lg bg-purple-500/20 border border-purple-400/30 text-purple-300 text-[10px] font-black uppercase tracking-widest">
+                    Visual Ambiguity
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between pt-6">
-                  <button
-                    onClick={() => setCurrentSection(1)}
-                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
-                  >
-                    ← Back
-                  </button>
+                <div className="space-y-6">
+                  <div className="glass-panel border-white/10 p-8">
+                    <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6 text-center">Locate the functional affordance</h3>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+                      {[
+                        { id: 1, label: "Confirm", style: "opacity-40 cursor-not-allowed bg-slate-700", hint: "Disabled?" },
+                        { id: 2, label: "Next", style: "bg-indigo-600 text-white font-black", hint: "Primary?" },
+                        { id: 3, label: "Skip", style: "border-2 border-slate-600 text-slate-400", hint: "Secondary" },
+                        { id: 4, label: "Proceed", style: "bg-green-600 text-white font-black", hint: "Active?" },
+                        { id: 5, label: "Cancel", style: "text-red-400 font-bold underline", hint: "Delete" },
+                        { id: 6, label: "Update", style: "bg-blue-500 text-white", hint: "System" },
+                        { id: 7, label: "⚙️", style: "w-10 h-10 rounded-full border border-slate-600 flex items-center justify-center mx-auto", hint: "Settings" },
+                        { id: 8, label: "Continue", style: "text-blue-400 font-black text-xs uppercase hover:underline", hint: "Link" }
+                      ].map((btn) => (
+                        <button
+                          key={btn.id}
+                          onClick={() => handleSection2Button(btn.id)}
+                          onMouseEnter={() => showTooltip(btn.hint)}
+                          className={`p-3 rounded-lg transition-all duration-300 text-xs ${btn.style} ${section2Completed ? 'opacity-50 grayscale' : 'hover:scale-105'}`}
+                        >
+                          {btn.label}
+                        </button>
+                      ))}
+                    </div>
+
+                    <div className="min-h-[50px] flex flex-col items-center justify-center gap-3">
+                      {section2Tooltip && (
+                        <div className="px-3 py-1 rounded-lg bg-slate-800 text-white text-[9px] font-black uppercase tracking-widest">
+                          {section2Tooltip}
+                        </div>
+                      )}
+
+                      {section2Feedback && (
+                        <div className={`px-4 py-2 rounded-lg font-bold text-xs flex items-center gap-2 ${section2Completed ? 'bg-green-500/20 text-green-300 border border-green-400/30' : 'bg-red-500/20 text-red-300 border border-red-400/30'}`}>
+                          <span>{section2Feedback}</span>
+                          {section2Completed && <span>✓</span>}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="glass-panel bg-purple-500/10 border-l-4 border-l-purple-400 p-4 flex gap-4">
+                    <div className="text-2xl">🧠</div>
+                    <div>
+                      <h4 className="font-black text-purple-300 text-xs uppercase tracking-tight mb-1">False Affordance</h4>
+                      <p className="text-xs text-purple-200/80 font-medium leading-relaxed">
+                        When elements look inactive but work, users resort to trial-and-error, eroding interface trust.
+                      </p>
+                    </div>
+                  </div>
+
                   {section2Completed && (
-                    <button
-                      onClick={() => setCurrentSection(3)}
-                      className="glass-button px-10 py-4 font-black text-lg bg-purple-600 text-white shadow-xl shadow-purple-500/20"
-                    >
-                      Continue Protocol 03 →
-                    </button>
+                    <div className="flex justify-end">
+                      <button
+                        onClick={() => setCurrentSection(3)}
+                        className="glass-button px-8 py-3 font-black text-base bg-purple-600 text-white shadow-xl shadow-purple-500/20 hover:scale-105"
+                      >
+                        Continue →
+                      </button>
+                    </div>
                   )}
                 </div>
               </div>
@@ -992,16 +977,16 @@ export default function App() {
             <div className="glass-panel p-10 md:p-16">
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 03: Kinetic Obstruction</h2>
-                  <p className="text-lg text-slate-500 font-medium italic">Unstable targets and mechanical friction.</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-100 mb-2">Protocol 03: Kinetic Obstruction</h2>
+                  <p className="text-lg text-slate-300 font-medium italic">Unstable targets and mechanical friction.</p>
                 </div>
-                <div className="px-4 py-2 rounded-xl bg-pink-50 border border-pink-100 text-pink-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                <div className="px-4 py-2 rounded-xl bg-pink-500/20 border border-pink-400/30 text-pink-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Target Shift
                 </div>
               </div>
 
               <div className="space-y-10">
-                <div className="glass-panel bg-white/40 border-slate-200/60 p-12 shadow-inner relative overflow-hidden h-[400px]">
+                <div className="glass-panel bg-white/10 border-slate-600/60 p-12 shadow-inner relative overflow-hidden h-[400px]">
                   <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-8 text-center relative z-10">Capture the primary trigger</h3>
 
                   <div className="absolute inset-0 pointer-events-none">
@@ -1034,8 +1019,8 @@ export default function App() {
 
                   {!section3Completed && (
                     <div className="absolute inset-0 pointer-events-none opacity-40">
-                      <button className="absolute top-[20%] left-[25%] p-4 rounded-xl border border-slate-200 text-slate-300 text-xs font-bold pointer-events-auto cursor-not-allowed">Settings</button>
-                      <button className="absolute bottom-[20%] right-[25%] p-4 rounded-xl border border-slate-200 text-slate-300 text-xs font-bold pointer-events-auto cursor-not-allowed">Profile</button>
+                      <button className="absolute top-[20%] left-[25%] p-4 rounded-xl border border-slate-600 text-slate-300 text-xs font-bold pointer-events-auto cursor-not-allowed">Settings</button>
+                      <button className="absolute bottom-[20%] right-[25%] p-4 rounded-xl border border-slate-600 text-slate-300 text-xs font-bold pointer-events-auto cursor-not-allowed">Profile</button>
                     </div>
                   )}
 
@@ -1043,11 +1028,11 @@ export default function App() {
                     <div className="flex gap-4">
                       <div className="flex flex-col">
                         <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Velocity</span>
-                        <span className="text-xs font-bold text-slate-600">Adaptive</span>
+                        <span className="text-xs font-bold text-slate-300">Adaptive</span>
                       </div>
                       <div className="flex flex-col">
                         <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Attempts</span>
-                        <span className={`text-xs font-bold ${section3Attempts > 2 ? 'text-red-500' : 'text-slate-600'}`}>{section3Attempts}</span>
+                        <span className={`text-xs font-bold ${section3Attempts > 2 ? 'text-red-500' : 'text-slate-300'}`}>{section3Attempts}</span>
                       </div>
                     </div>
                     <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 italic">
@@ -1057,10 +1042,10 @@ export default function App() {
                 </div>
 
                 <div className="glass-panel bg-pink-500/5 border-l-4 border-l-pink-500 p-8 flex gap-6">
-                  <div className="text-3xl text-pink-600">⚙️</div>
+                  <div className="text-3xl text-pink-400">⚙️</div>
                   <div>
-                    <h4 className="font-black text-pink-900 text-sm uppercase tracking-tight mb-1">Behavioral Analysis: Mechanical Friction</h4>
-                    <p className="text-sm text-pink-800/80 font-medium leading-relaxed">
+                    <h4 className="font-black text-pink-300 text-sm uppercase tracking-tight mb-1">Behavioral Analysis: Mechanical Friction</h4>
+                    <p className="text-sm text-pink-200/80 font-medium leading-relaxed">
                       Kinetic obstruction subverts the user's motor planning. When an interface element moves <span className="italic">at the moment of intent</span>,
                       it creates a profound sense of powerlessness and irritation. This pattern is commonly used in intrusive ads to force accidental clicks on surrounding elements.
                     </p>
@@ -1070,7 +1055,7 @@ export default function App() {
                 <div className="flex items-center justify-between pt-6">
                   <button
                     onClick={() => setCurrentSection(2)}
-                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                    className="px-6 py-3 border border-slate-600 rounded-xl font-bold text-slate-300 hover:bg-slate-800/30 transition-colors"
                   >
                     ← Back
                   </button>
@@ -1094,22 +1079,22 @@ export default function App() {
             <div className="glass-panel p-10 md:p-16">
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 04: Cognitive Paralysis</h2>
-                  <p className="text-lg text-slate-500 font-medium italic">Decision fatigue through excessive configuration.</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-100 mb-2">Protocol 04: Cognitive Paralysis</h2>
+                  <p className="text-lg text-slate-300 font-medium italic">Decision fatigue through excessive configuration.</p>
                 </div>
-                <div className="px-4 py-2 rounded-xl bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                <div className="px-4 py-2 rounded-xl bg-indigo-500/20 border border-indigo-100 text-indigo-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Choice Overload
                 </div>
               </div>
 
               <div className="space-y-10">
-                <div className="glass-panel bg-white/40 border-slate-200/60 p-10 shadow-inner">
-                  <div className="flex items-center justify-between mb-8 border-b border-slate-200/60 pb-6">
+                <div className="glass-panel bg-white/10 border-slate-600/60 p-10 shadow-inner">
+                  <div className="flex items-center justify-between mb-8 border-b border-slate-600/60 pb-6">
                     <div>
                       <h3 className="text-xs font-black uppercase tracking-[0.2em] text-slate-400 mb-1">Status Report</h3>
-                      <p className="text-sm font-bold text-slate-600">{section4Summary}</p>
+                      <p className="text-sm font-bold text-slate-300">{section4Summary}</p>
                     </div>
-                    <div className="text-[10px] font-black text-indigo-600 uppercase tracking-widest bg-indigo-50 px-3 py-1 rounded-full border border-indigo-100">
+                    <div className="text-[10px] font-black text-indigo-400 uppercase tracking-widest bg-indigo-500/20 px-3 py-1 rounded-full border border-indigo-100">
                       Live Sync Active
                     </div>
                   </div>
@@ -1136,11 +1121,11 @@ export default function App() {
                                 type="checkbox"
                                 checked={section4Selections.includes(option.label)}
                                 onChange={() => handleSection4Checkbox(option.label)}
-                                className="w-5 h-5 rounded-md border-2 border-slate-300 text-indigo-600 focus:ring-indigo-500 group-hover:border-indigo-400 transition-colors"
+                                className="w-5 h-5 rounded-md border-2 border-slate-600 text-indigo-400 focus:ring-indigo-500 group-hover:border-indigo-400 transition-colors"
                               />
                             </div>
                             <div className="flex-1">
-                              <p className="text-sm font-bold text-slate-700">{option.label}</p>
+                              <p className="text-sm font-bold text-slate-200">{option.label}</p>
                               {option.info && <p className="text-[10px] text-slate-400 font-medium uppercase tracking-widest mt-0.5">{option.info}</p>}
                             </div>
                           </label>
@@ -1151,10 +1136,10 @@ export default function App() {
                     <div className="space-y-8">
                       <div className="space-y-6">
                         <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Security Parameters</h4>
-                        <div className="glass-panel bg-slate-50 border-slate-200/60 p-6 space-y-4">
+                        <div className="glass-panel bg-slate-800/30 border-slate-600/60 p-6 space-y-4">
                           {['Public Profile', 'Matrix Sync', 'De-identified Tracking'].map((setting) => (
                             <div key={setting} className="flex items-center justify-between">
-                              <span className="text-sm font-bold text-slate-600">{setting}</span>
+                              <span className="text-sm font-bold text-slate-300">{setting}</span>
                               <button
                                 onClick={() => handleSection4Toggle(setting)}
                                 className={`w-12 h-6 rounded-full transition-all duration-300 relative ${section4Toggles[setting] ? 'bg-indigo-600 shadow-lg shadow-indigo-500/30' : 'bg-slate-300'
@@ -1173,7 +1158,7 @@ export default function App() {
                         <select
                           value={section4Dropdown}
                           onChange={(e) => setSection4Dropdown(e.target.value)}
-                          className="w-full bg-white/50 border border-slate-200 rounded-xl p-4 text-sm font-bold text-slate-700 outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                          className="w-full bg-white/10 border border-slate-600 rounded-xl p-4 text-sm font-bold text-slate-200 outline-none focus:ring-2 focus:ring-indigo-500/20 transition-all"
                         >
                           <option value="">Select frequency...</option>
                           <option value="realtime">Real-time / Instant</option>
@@ -1186,17 +1171,17 @@ export default function App() {
                   </div>
 
                   {section4Status && (
-                    <div className="mt-10 p-4 rounded-xl bg-orange-50 border border-orange-100 text-orange-700 text-xs font-bold animate-in slide-in-from-bottom-2 duration-300">
+                    <div className="mt-10 p-4 rounded-xl bg-orange-500/20 border border-orange-100 text-orange-300 text-xs font-bold animate-in slide-in-from-bottom-2 duration-300">
                       {section4Status}
                     </div>
                   )}
                 </div>
 
                 <div className="glass-panel bg-indigo-500/5 border-l-4 border-l-indigo-500 p-8 flex gap-6">
-                  <div className="text-3xl text-indigo-600">🧠</div>
+                  <div className="text-3xl text-indigo-400">🧠</div>
                   <div>
-                    <h4 className="font-black text-indigo-900 text-sm uppercase tracking-tight mb-1">Behavioral Analysis: Decision Fatigue</h4>
-                    <p className="text-sm text-indigo-800/80 font-medium leading-relaxed">
+                    <h4 className="font-black text-indigo-300 text-sm uppercase tracking-tight mb-1">Behavioral Analysis: Decision Fatigue</h4>
+                    <p className="text-sm text-indigo-200/80 font-medium leading-relaxed">
                       This pattern creates "Decision Fatigue" by presenting too many non-essential choices.
                       When overwhelmed, users often abandon the process or revert to defaults, which are often configured to benefit the platform rather than the user (the "Default Effect").
                     </p>
@@ -1206,14 +1191,14 @@ export default function App() {
                 <div className="flex items-center justify-between pt-6">
                   <button
                     onClick={() => setCurrentSection(3)}
-                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                    className="px-6 py-3 border border-slate-600 rounded-xl font-bold text-slate-300 hover:bg-slate-800/30 transition-colors"
                   >
                     ← Back
                   </button>
                   <div className="flex gap-4">
                     <button
                       onClick={() => increaseAnxiety(5)}
-                      className="px-6 py-3 border border-slate-200 text-slate-400 font-bold text-xs uppercase tracking-widest hover:text-red-500 transition-colors"
+                      className="px-6 py-3 border border-slate-600 text-slate-400 font-bold text-xs uppercase tracking-widest hover:text-red-500 transition-colors"
                     >
                       Reset Defaults
                     </button>
@@ -1283,7 +1268,7 @@ export default function App() {
                   Try to complete the task below. You will be interrupted by various UI elements designed to break your focus.
                 </p>
 
-                <div className="bg-white/40 border border-white/50 rounded-lg p-3 mb-3 shadow-sm backdrop-blur-md">
+                <div className="bg-white/10 border border-white/50 rounded-lg p-3 mb-3 shadow-sm backdrop-blur-md">
                   <h3 className="text-xs font-semibold mb-2 text-foreground/80 uppercase tracking-wider">Simple Task: User Feedback</h3>
 
                   <div className="mb-2">
@@ -1298,7 +1283,7 @@ export default function App() {
                       <div className="text-xs font-bold text-muted-foreground">
                         Require at least 15 characters: {section5TaskInput.length} / 15
                       </div>
-                      <div className="text-[10px] uppercase tracking-widest font-black text-orange-600">
+                      <div className="text-[10px] uppercase tracking-widest font-black text-orange-400">
                         Interruptions: {section5InterruptCount}
                       </div>
                     </div>
@@ -1308,7 +1293,7 @@ export default function App() {
                 <div className="flex items-center justify-between mb-6">
                   <button
                     onClick={() => setCurrentSection(4)}
-                    className="px-6 py-3 border border-gray-300 bg-white/50 hover:bg-white rounded-lg transition-colors font-medium"
+                    className="px-6 py-3 border border-gray-300 bg-white/10 hover:bg-white rounded-lg transition-colors font-medium"
                   >
                     ← Back
                   </button>
@@ -1337,12 +1322,12 @@ export default function App() {
 
               {section5Footer && (
                 <div className="glass-panel mt-6 p-6 flex items-center justify-between shadow-2xl border-l-4 border-l-orange-500 animate-in slide-in-from-bottom-5">
-                  <div className="text-sm flex items-center gap-4 text-slate-700 font-medium">
+                  <div className="text-sm flex items-center gap-4 text-slate-200 font-medium">
                     <span className="text-2xl">🍪</span>
                     <span>We use "essential" cookies to monitor your behavioral deviations.</span>
                   </div>
                   <div className="flex gap-4">
-                    <button onClick={() => { increaseAnxiety(1); }} className="px-5 py-2 text-[10px] font-black hover:bg-slate-100 rounded-xl transition-all uppercase tracking-[0.2em] text-slate-400">Settings</button>
+                    <button onClick={() => { increaseAnxiety(1); }} className="px-5 py-2 text-[10px] font-black hover:bg-slate-700/30 rounded-xl transition-all uppercase tracking-[0.2em] text-slate-400">Settings</button>
                     <button
                       onClick={() => { setSection5Footer(false); trackDistraction(); }}
                       className="glass-button bg-slate-900 text-white px-8 py-2 text-[10px] font-black uppercase tracking-[0.2em]"
@@ -1364,8 +1349,8 @@ export default function App() {
                 <div className={`text-2xl px-8 py-4 rounded-2xl font-black border backdrop-blur-xl transition-all duration-500 shadow-2xl ${section6Timer > 15
                   ? 'bg-emerald-50 text-emerald-600 border-emerald-100'
                   : section6Timer > 5
-                    ? 'bg-orange-50 text-orange-600 border-orange-100 animate-pulse'
-                    : 'bg-red-50 text-red-600 border-red-200 animate-[bounce_1s_infinite]'
+                    ? 'bg-orange-500/20 text-orange-400 border-orange-100 animate-pulse'
+                    : 'bg-red-50 text-red-400 border-red-200 animate-[bounce_1s_infinite]'
                   }`}>
                   {section6Timer > 0 ? `⏱ 00:${section6Timer.toString().padStart(2, '0')}` : '⚠️ SESSION EXPIRED'}
                 </div>
@@ -1373,58 +1358,58 @@ export default function App() {
 
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 06: Pressure & Scarcity</h2>
-                  <p className="text-lg text-slate-500 font-medium italic">Artificial urgency and social-proof manipulation.</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-100 mb-2">Protocol 06: Pressure & Scarcity</h2>
+                  <p className="text-lg text-slate-300 font-medium italic">Artificial urgency and social-proof manipulation.</p>
                 </div>
-                <div className="px-4 py-2 rounded-xl bg-red-50 border border-red-100 text-red-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                <div className="px-4 py-2 rounded-xl bg-red-50 border border-red-100 text-red-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Temporal Pressure
                 </div>
               </div>
 
               <div className="space-y-10">
-                <div className="glass-panel bg-white/40 border-slate-200/60 p-10 shadow-inner">
+                <div className="glass-panel bg-white/10 border-slate-600/60 p-10 shadow-inner">
                   <div className="flex items-center justify-between mb-8">
                     <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Final Compliance Verification</h3>
                     <div className="flex items-center gap-2">
                       <div className="flex -space-x-3">
                         {[11, 12, 13, 14, 15].map(i => (
-                          <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-200 overflow-hidden shadow-sm">
+                          <div key={i} className="w-8 h-8 rounded-full border-2 border-white bg-slate-700 overflow-hidden shadow-sm">
                             <img src={`https://i.pravatar.cc/100?img=${i}`} alt="active user" />
                           </div>
                         ))}
                       </div>
-                      <span className="text-[10px] font-black text-red-600 uppercase tracking-widest animate-pulse ml-2">
+                      <span className="text-[10px] font-black text-red-400 uppercase tracking-widest animate-pulse ml-2">
                         124 Users viewing now
                       </span>
                     </div>
                   </div>
 
                   <div className="max-w-2xl mx-auto space-y-6">
-                    <label className="flex items-start gap-5 p-6 rounded-2xl bg-white/50 border border-slate-200 hover:border-slate-300 transition-all cursor-pointer group">
+                    <label className="flex items-start gap-5 p-6 rounded-2xl bg-white/10 border border-slate-600 hover:border-slate-600 transition-all cursor-pointer group">
                       <div className="relative flex items-center h-6">
                         <input
                           type="checkbox"
-                          className="w-6 h-6 rounded-lg border-2 border-slate-300 text-indigo-600 focus:ring-indigo-500 transition-all cursor-pointer"
+                          className="w-6 h-6 rounded-lg border-2 border-slate-600 text-indigo-400 focus:ring-indigo-500 transition-all cursor-pointer"
                           checked={section6Agreement}
                           onChange={(e) => { setSection6Agreement(e.target.checked); trackClick(); }}
                         />
                       </div>
-                      <span className="text-sm font-bold leading-relaxed text-slate-700">
-                        I hereby acknowledge the <span className="underline decoration-indigo-500/30 underline-offset-4 text-indigo-600 cursor-help">Mandatory Arbitration Clause</span> and agree to the perpetual auto-renewal of all sub-licensed data processing scripts.
+                      <span className="text-sm font-bold leading-relaxed text-slate-200">
+                        I hereby acknowledge the <span className="underline decoration-indigo-500/30 underline-offset-4 text-indigo-400 cursor-help">Mandatory Arbitration Clause</span> and agree to the perpetual auto-renewal of all sub-licensed data processing scripts.
                       </span>
                     </label>
 
-                    <label className="flex items-start gap-5 p-6 rounded-2xl bg-white/50 border border-slate-200 hover:border-slate-300 transition-all cursor-pointer group">
+                    <label className="flex items-start gap-5 p-6 rounded-2xl bg-white/10 border border-slate-600 hover:border-slate-600 transition-all cursor-pointer group">
                       <div className="relative flex items-center h-6">
                         <input
                           type="checkbox"
-                          className="w-6 h-6 rounded-lg border-2 border-slate-300 text-red-600 focus:ring-red-500 transition-all cursor-pointer"
+                          className="w-6 h-6 rounded-lg border-2 border-slate-600 text-red-400 focus:ring-red-500 transition-all cursor-pointer"
                           checked={!section6NewsletterOptOut}
                           onChange={(e) => { setSection6NewsletterOptOut(!e.target.checked); trackClick(); }}
                         />
                       </div>
-                      <span className="text-sm font-bold leading-relaxed text-slate-700">
-                        Do <span className="text-red-600 font-black italic underline decoration-red-500/20 underline-offset-4">not</span> unsubscribe me from the three-times-daily marketing pulse, partner data-shares, and experimental psychological updates.
+                      <span className="text-sm font-bold leading-relaxed text-slate-200">
+                        Do <span className="text-red-400 font-black italic underline decoration-red-500/20 underline-offset-4">not</span> unsubscribe me from the three-times-daily marketing pulse, partner data-shares, and experimental psychological updates.
                       </span>
                     </label>
                   </div>
@@ -1432,7 +1417,7 @@ export default function App() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="glass-panel bg-red-500/5 border-l-4 border-l-red-500 p-8 flex gap-6">
-                    <div className="text-3xl text-red-600">⏱</div>
+                    <div className="text-3xl text-red-400">⏱</div>
                     <div>
                       <h4 className="font-black text-red-900 text-sm uppercase tracking-tight mb-1">Pattern: Artificial Scarcity</h4>
                       <p className="text-sm text-red-800/80 font-medium leading-relaxed">
@@ -1441,10 +1426,10 @@ export default function App() {
                     </div>
                   </div>
                   <div className="glass-panel bg-blue-500/5 border-l-4 border-l-blue-500 p-8 flex gap-6">
-                    <div className="text-3xl text-blue-600">🔀</div>
+                    <div className="text-3xl text-blue-400">🔀</div>
                     <div>
-                      <h4 className="font-black text-blue-900 text-sm uppercase tracking-tight mb-1">Pattern: Double Negatives</h4>
-                      <p className="text-sm text-blue-800/80 font-medium leading-relaxed">
+                      <h4 className="font-black text-blue-300 text-sm uppercase tracking-tight mb-1">Pattern: Double Negatives</h4>
+                      <p className="text-sm text-blue-200/80 font-medium leading-relaxed">
                         Linguistic ambiguity (e.g. "Do not unsubscribe") subverts the user's intent, leading to accidental consent. This is a primary tool for "dark" subscription growth.
                       </p>
                     </div>
@@ -1454,7 +1439,7 @@ export default function App() {
                 <div className="flex items-center justify-between pt-6">
                   <button
                     onClick={() => setCurrentSection(5)}
-                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                    className="px-6 py-3 border border-slate-600 rounded-xl font-bold text-slate-300 hover:bg-slate-800/30 transition-colors"
                   >
                     ← Back
                   </button>
@@ -1491,16 +1476,16 @@ export default function App() {
             <div className="glass-panel p-10 md:p-16">
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 07: False Progress Feedback</h2>
-                  <p className="text-lg text-slate-500 font-medium italic">Analyzing the psychological impact of non-linear wait times.</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-100 mb-2">Protocol 07: False Progress Feedback</h2>
+                  <p className="text-lg text-slate-300 font-medium italic">Analyzing the psychological impact of non-linear wait times.</p>
                 </div>
-                <div className="px-4 py-2 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                <div className="px-4 py-2 rounded-xl bg-blue-500/20 border border-blue-400/30 text-blue-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Deceptive Progress
                 </div>
               </div>
 
               <div className="space-y-12">
-                <div className="glass-panel bg-white/40 border-slate-200/60 p-12 text-center shadow-inner">
+                <div className="glass-panel bg-white/10 border-slate-600/60 p-12 text-center shadow-inner">
                   <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-10">System Synchronization Laboratory</h3>
 
                   <div className="flex justify-center mb-12">
@@ -1518,12 +1503,12 @@ export default function App() {
 
                   {(section7Waiting || section7Completed) && (
                     <div className="max-w-xl mx-auto space-y-6">
-                      <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-slate-500">
+                      <div className="flex items-center justify-between text-[10px] font-black uppercase tracking-widest text-slate-300">
                         <span>Task Status: {section7Progress >= 100 ? 'Verified' : 'Active'}</span>
-                        <span className="text-indigo-600">Integrity: {Math.floor(section7Progress)}%</span>
+                        <span className="text-indigo-400">Integrity: {Math.floor(section7Progress)}%</span>
                       </div>
 
-                      <div className="w-full h-4 bg-slate-200/50 rounded-2xl overflow-hidden p-1 border border-slate-200/60">
+                      <div className="w-full h-4 bg-slate-700/50 rounded-2xl overflow-hidden p-1 border border-slate-600/60">
                         <div
                           className="h-full bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 rounded-xl transition-all relative overflow-hidden"
                           style={{
@@ -1536,9 +1521,9 @@ export default function App() {
                       </div>
 
                       {section7Waiting && section7Progress >= 85 && section7Progress < 100 && (
-                        <div className="bg-orange-50 border border-orange-100 p-4 rounded-xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2">
+                        <div className="bg-orange-500/20 border border-orange-100 p-4 rounded-xl flex items-center gap-3 animate-in fade-in slide-in-from-bottom-2">
                           <span className="text-xl">⚠️</span>
-                          <span className="text-[10px] font-black text-orange-600 uppercase tracking-widest leading-normal">
+                          <span className="text-[10px] font-black text-orange-400 uppercase tracking-widest leading-normal">
                             Congestion detected in the synaptic layer... optimizing handshake packets.
                           </span>
                         </div>
@@ -1549,26 +1534,26 @@ export default function App() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="glass-panel bg-blue-500/5 border-l-4 border-l-blue-500 p-8 flex gap-6">
-                    <div className="text-3xl text-blue-600">🧠</div>
+                    <div className="text-3xl text-blue-400">🧠</div>
                     <div>
-                      <h4 className="font-black text-blue-900 text-sm uppercase tracking-tight mb-1">Behavioral Analysis: Waiting Anxiety</h4>
-                      <p className="text-sm text-blue-800/80 font-medium leading-relaxed">
+                      <h4 className="font-black text-blue-300 text-sm uppercase tracking-tight mb-1">Behavioral Analysis: Waiting Anxiety</h4>
+                      <p className="text-sm text-blue-200/80 font-medium leading-relaxed">
                         Non-linear progress bars exploit the "End-Peak Rule." When a task slows down at 99%, it creates significant psychological friction, making the last 1% feel more taxing than the preceding 99%.
                       </p>
                     </div>
                   </div>
-                  <div className="glass-panel bg-slate-500/5 border-l-4 border-l-slate-400 p-8">
+                  <div className="glass-panel bg-slate-800/300/5 border-l-4 border-l-slate-400 p-8">
                     <div className="flex justify-between items-center mb-4">
                       <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Protocol Metrics</span>
                     </div>
                     <div className="space-y-4">
                       <div className="flex justify-between items-end">
-                        <span className="text-xs font-bold text-slate-500">Wait Duration:</span>
-                        <span className="text-2xl font-black text-slate-800">{section7WaitTime.toFixed(1)}s</span>
+                        <span className="text-xs font-bold text-slate-300">Wait Duration:</span>
+                        <span className="text-2xl font-black text-slate-100">{section7WaitTime.toFixed(1)}s</span>
                       </div>
                       <div className="flex justify-between items-end">
-                        <span className="text-xs font-bold text-slate-500">Frustration Events:</span>
-                        <span className="text-2xl font-black text-red-600">{section7Clicks}</span>
+                        <span className="text-xs font-bold text-slate-300">Frustration Events:</span>
+                        <span className="text-2xl font-black text-red-400">{section7Clicks}</span>
                       </div>
                     </div>
                   </div>
@@ -1577,7 +1562,7 @@ export default function App() {
                 <div className="flex items-center justify-between pt-6">
                   <button
                     onClick={() => setCurrentSection(6)}
-                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                    className="px-6 py-3 border border-slate-600 rounded-xl font-bold text-slate-300 hover:bg-slate-800/30 transition-colors"
                   >
                     ← Back
                   </button>
@@ -1601,16 +1586,16 @@ export default function App() {
             <div className="glass-panel p-10 md:p-16">
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 08: Ambiguous CTA</h2>
-                  <p className="text-lg text-slate-500 font-medium italic">Measuring decision latency through vague affordances.</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-100 mb-2">Protocol 08: Ambiguous CTA</h2>
+                  <p className="text-lg text-slate-300 font-medium italic">Measuring decision latency through vague affordances.</p>
                 </div>
-                <div className="px-4 py-2 rounded-xl bg-orange-50 border border-orange-100 text-orange-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                <div className="px-4 py-2 rounded-xl bg-orange-500/20 border border-orange-100 text-orange-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Unclear Intent
                 </div>
               </div>
 
               <div className="space-y-12">
-                <div className="glass-panel bg-white/40 border-slate-200/60 p-16 text-center shadow-inner">
+                <div className="glass-panel bg-white/10 border-slate-600/60 p-16 text-center shadow-inner">
                   <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-12">Decision Matrix: Select Primary Action</h3>
 
                   <div className="flex flex-wrap gap-8 justify-center items-center mb-12">
@@ -1622,8 +1607,8 @@ export default function App() {
                         onMouseLeave={() => setSection8Hovering('')}
                         disabled={section8Completed}
                         className={`glass-button px-12 py-6 text-xl font-black min-w-[220px] transition-all duration-300 ${section8Hovering === label.toLowerCase()
-                          ? 'scale-110 shadow-2xl ring-4 ring-indigo-500/20 bg-indigo-50 text-indigo-700'
-                          : 'bg-white text-slate-700'
+                          ? 'scale-110 shadow-2xl ring-4 ring-indigo-500/20 bg-indigo-500/20 text-indigo-700'
+                          : 'bg-white text-slate-200'
                           } ${section8Completed ? 'opacity-50 grayscale cursor-not-allowed' : ''}`}
                       >
                         {label}
@@ -1637,19 +1622,19 @@ export default function App() {
                     </span>
                   </div>
 
-                  <div className="mt-12 pt-8 border-t border-slate-200/60">
+                  <div className="mt-12 pt-8 border-t border-slate-600/60">
                     <div className="flex justify-center items-center gap-12 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                      <span>Decision Latency Events: <span className="text-slate-900">{section8Attempts}</span></span>
-                      <span>Confidence Score: <span className="text-slate-900">{section8Completed ? '9% (Low)' : '---'}</span></span>
+                      <span>Decision Latency Events: <span className="text-slate-100">{section8Attempts}</span></span>
+                      <span>Confidence Score: <span className="text-slate-100">{section8Completed ? '9% (Low)' : '---'}</span></span>
                     </div>
                   </div>
                 </div>
 
                 <div className="glass-panel bg-orange-500/5 border-l-4 border-l-orange-500 p-10 flex gap-8">
-                  <div className="text-4xl text-orange-600">⚖️</div>
+                  <div className="text-4xl text-orange-400">⚖️</div>
                   <div>
                     <h4 className="font-black text-orange-900 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: The Illusion of Choice</h4>
-                    <p className="text-sm text-orange-800/80 font-medium leading-relaxed">
+                    <p className="text-sm text-orange-200/80 font-medium leading-relaxed">
                       When multiple interactive elements share identical visual weight and vague labeling (e.g., "Continue", "Proceed"), the user experiences "Hick's Law" overload. This decision paralysis increases cognitive strain, often leading the user to click almost at random, subverting deliberate intent.
                     </p>
                   </div>
@@ -1658,7 +1643,7 @@ export default function App() {
                 <div className="flex items-center justify-between pt-6">
                   <button
                     onClick={() => setCurrentSection(7)}
-                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                    className="px-6 py-3 border border-slate-600 rounded-xl font-bold text-slate-300 hover:bg-slate-800/30 transition-colors"
                   >
                     ← Back
                   </button>
@@ -1682,22 +1667,22 @@ export default function App() {
             <div className="glass-panel p-10 md:p-16">
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 09: Delayed Feedback</h2>
-                  <p className="text-lg text-slate-500 font-medium italic">Obscuring validation errors to increase temporal cost.</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-100 mb-2">Protocol 09: Delayed Feedback</h2>
+                  <p className="text-lg text-slate-300 font-medium italic">Obscuring validation errors to increase temporal cost.</p>
                 </div>
-                <div className="px-4 py-2 rounded-xl bg-red-50 border border-red-100 text-red-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                <div className="px-4 py-2 rounded-xl bg-red-50 border border-red-100 text-red-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Post-Action Validation
                 </div>
               </div>
 
               <div className="space-y-12">
-                <div className="glass-panel bg-white/40 border-slate-200/60 p-12 shadow-inner">
+                <div className="glass-panel bg-white/10 border-slate-600/60 p-12 shadow-inner">
                   <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-10 text-center">Identity Verification Schema</h3>
 
                   <div className="max-w-xl mx-auto space-y-8">
                     {['field1', 'field2', 'field3'].map((field, idx) => (
                       <div key={field} className="space-y-3">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-1">
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-300 ml-1">
                           Profile Identifier 0{idx + 1}
                         </label>
                         <input
@@ -1707,17 +1692,17 @@ export default function App() {
                             setSection9FormData(prev => ({ ...prev, [field]: e.target.value }));
                             setSection9FieldEdits(prev => prev + 1);
                           }}
-                          className="glass-input w-full p-5 text-base font-bold bg-white/50 focus:bg-white transition-all shadow-sm"
+                          className="glass-input w-full p-5 text-base font-bold bg-white/10 focus:bg-white transition-all shadow-sm"
                           placeholder="REQUIRED_INPUT_FIELD"
                         />
                       </div>
                     ))}
                   </div>
 
-                  <div className="mt-12 pt-10 border-t border-slate-200/60 flex flex-col md:flex-row items-center justify-between gap-8">
+                  <div className="mt-12 pt-10 border-t border-slate-600/60 flex flex-col md:flex-row items-center justify-between gap-8">
                     <div className="flex gap-8 text-[10px] font-black uppercase tracking-widest text-slate-400">
-                      <span>Schema Mutations: <span className="text-indigo-600">{section9FieldEdits}</span></span>
-                      <span>Retry Cycles: <span className="text-red-600">{section9Attempts}</span></span>
+                      <span>Schema Mutations: <span className="text-indigo-400">{section9FieldEdits}</span></span>
+                      <span>Retry Cycles: <span className="text-red-400">{section9Attempts}</span></span>
                     </div>
                     <button
                       onClick={handleSection9Submit}
@@ -1734,7 +1719,7 @@ export default function App() {
                   {section9Error && (
                     <div className="mt-8 p-6 rounded-2xl bg-red-50 border border-red-100 flex items-center gap-4 animate-in slide-in-from-top-4">
                       <span className="text-2xl">❌</span>
-                      <div className="text-xs font-black text-red-600 uppercase tracking-widest leading-normal">
+                      <div className="text-xs font-black text-red-400 uppercase tracking-widest leading-normal">
                         System Error: {section9Error}
                       </div>
                     </div>
@@ -1742,7 +1727,7 @@ export default function App() {
                 </div>
 
                 <div className="glass-panel bg-red-500/5 border-l-4 border-l-red-500 p-10 flex gap-8">
-                  <div className="text-4xl text-red-600">⚠️</div>
+                  <div className="text-4xl text-red-400">⚠️</div>
                   <div>
                     <h4 className="font-black text-red-900 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Reactive Validation</h4>
                     <p className="text-sm text-red-800/80 font-medium leading-relaxed">
@@ -1754,7 +1739,7 @@ export default function App() {
                 <div className="flex items-center justify-between pt-6">
                   <button
                     onClick={() => setCurrentSection(8)}
-                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                    className="px-6 py-3 border border-slate-600 rounded-xl font-bold text-slate-300 hover:bg-slate-800/30 transition-colors"
                   >
                     ← Back
                   </button>
@@ -1778,22 +1763,22 @@ export default function App() {
             <div className="glass-panel p-10 md:p-16">
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 10: Interaction Deception</h2>
-                  <p className="text-lg text-slate-500 font-medium italic">Conflicting affordances and behavioral glitching.</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-100 mb-2">Protocol 10: Interaction Deception</h2>
+                  <p className="text-lg text-slate-300 font-medium italic">Conflicting affordances and behavioral glitching.</p>
                 </div>
-                <div className="px-4 py-2 rounded-xl bg-pink-50 border border-pink-100 text-pink-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                <div className="px-4 py-2 rounded-xl bg-pink-500/20 border border-pink-400/30 text-pink-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Affordance Conflict
                 </div>
               </div>
 
               <div className="space-y-12">
-                <div className="glass-panel bg-white/40 border-slate-200/60 p-20 flex flex-col items-center justify-center shadow-inner backdrop-blur-md min-h-[450px]">
+                <div className="glass-panel bg-white/10 border-slate-600/60 p-20 flex flex-col items-center justify-center shadow-inner backdrop-blur-md min-h-[450px]">
                   <button
                     onClick={handleSection10Click}
                     disabled={section10Completed}
                     className={`px-24 py-12 text-3xl font-black border-4 transition-all duration-700 rounded-[2.5rem] shadow-2xl relative group ${section10Completed
                       ? 'bg-emerald-50 text-emerald-600 border-emerald-100 cursor-default scale-95'
-                      : 'bg-white/50 text-slate-300 border-slate-200/50 cursor-not-allowed hover:cursor-pointer hover:border-indigo-500/30 hover:text-indigo-600/40 hover:bg-indigo-50/30'
+                      : 'bg-white/10 text-slate-300 border-slate-600/50 cursor-not-allowed hover:cursor-pointer hover:border-indigo-500/30 hover:text-indigo-400/40 hover:bg-indigo-500/20/30'
                       }`}
                   >
                     <span className="relative z-10">{section10Completed ? 'Authorization Success ✓' : 'Engage Secondary Layer'}</span>
@@ -1804,20 +1789,20 @@ export default function App() {
 
                   <div className="mt-16 text-center space-y-4">
                     <div className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
-                      Synaptic Loop State: <span className={section10HoverLoops > 0 ? 'text-indigo-600 animate-pulse' : ''}>{section10HoverLoops > 0 ? 'ACTIVE_CONFLICT_RECOVERED' : 'IDLE_WAITING'}</span>
+                      Synaptic Loop State: <span className={section10HoverLoops > 0 ? 'text-indigo-400 animate-pulse' : ''}>{section10HoverLoops > 0 ? 'ACTIVE_CONFLICT_RECOVERED' : 'IDLE_WAITING'}</span>
                     </div>
                     <div className="flex gap-8 justify-center items-center text-[10px] font-black uppercase tracking-widest text-slate-400">
                       <span>Rage Events: <span className="text-red-500">{section10Attempts}</span></span>
-                      <span>Loop Iterations: <span className="text-indigo-600">{section10HoverLoops}</span></span>
+                      <span>Loop Iterations: <span className="text-indigo-400">{section10HoverLoops}</span></span>
                     </div>
                   </div>
                 </div>
 
                 <div className="glass-panel bg-indigo-500/5 border-l-4 border-l-indigo-600 p-10 flex gap-8">
-                  <div className="text-4xl text-indigo-600">💡</div>
+                  <div className="text-4xl text-indigo-400">💡</div>
                   <div>
-                    <h4 className="font-black text-indigo-900 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: False Affordances</h4>
-                    <p className="text-sm text-indigo-800/80 font-medium leading-relaxed">
+                    <h4 className="font-black text-indigo-300 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: False Affordances</h4>
+                    <p className="text-sm text-indigo-200/80 font-medium leading-relaxed">
                       By presenting a `not-allowed` cursor alongside positive hover states (color shifts, scaling), the UI induces a specialized type of cognitive dissonance. The visual brain recognizes an interactive element, but the functional brain is told it's disabled. This conflict inevitably leads to "Rage Clicking" as users attempt to bypass the perceived system error.
                     </p>
                   </div>
@@ -1826,7 +1811,7 @@ export default function App() {
                 <div className="flex items-center justify-between pt-6">
                   <button
                     onClick={() => setCurrentSection(9)}
-                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                    className="px-6 py-3 border border-slate-600 rounded-xl font-bold text-slate-300 hover:bg-slate-800/30 transition-colors"
                   >
                     ← Back
                   </button>
@@ -1850,17 +1835,17 @@ export default function App() {
             <div className="glass-panel p-10 md:p-16">
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 11: Precision Targeting</h2>
-                  <p className="text-lg text-slate-500 font-medium italic">Testing neuromuscular control via micro-hit areas.</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-100 mb-2">Protocol 11: Precision Targeting</h2>
+                  <p className="text-lg text-slate-300 font-medium italic">Testing neuromuscular control via micro-hit areas.</p>
                 </div>
-                <div className="px-4 py-2 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                <div className="px-4 py-2 rounded-xl bg-blue-500/20 border border-blue-400/30 text-blue-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Tiny Click Target
                 </div>
               </div>
 
               <div className="space-y-12">
                 <div
-                  className="glass-panel bg-white/40 border-slate-200/60 p-20 flex flex-col items-center justify-center shadow-inner backdrop-blur-md min-h-[450px] cursor-crosshair relative overflow-hidden"
+                  className="glass-panel bg-white/10 border-slate-600/60 p-20 flex flex-col items-center justify-center shadow-inner backdrop-blur-md min-h-[450px] cursor-crosshair relative overflow-hidden"
                   onClick={handleSection11AreaClick}
                 >
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.03)_0%,transparent_70%)]" />
@@ -1872,7 +1857,7 @@ export default function App() {
                           <div className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
                           <h4 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">System Priority Alert</h4>
                         </div>
-                        <p className="text-base font-bold text-slate-700 leading-relaxed mb-6">
+                        <p className="text-base font-bold text-slate-200 leading-relaxed mb-6">
                           High-velocity data stream detected. Please acknowledge the synaptic update to prevent session termination.
                         </p>
                         <button
@@ -1880,7 +1865,7 @@ export default function App() {
                             e.stopPropagation();
                             handleSection11Success();
                           }}
-                          className="absolute top-4 right-4 w-5 h-5 rounded bg-slate-100 hover:bg-red-500 hover:text-white transition-all duration-300 flex items-center justify-center text-[10px] border border-slate-200 hover:border-red-400 group"
+                          className="absolute top-4 right-4 w-5 h-5 rounded bg-slate-700/30 hover:bg-red-500 hover:text-white transition-all duration-300 flex items-center justify-center text-[10px] border border-slate-600 hover:border-red-400 group"
                         >
                           <span className="group-hover:rotate-90 transition-transform">✕</span>
                         </button>
@@ -1891,7 +1876,7 @@ export default function App() {
                           <span className="text-4xl text-emerald-600">✓</span>
                         </div>
                         <div>
-                          <div className="text-3xl font-black text-slate-800 tracking-tight">Handshake Verified</div>
+                          <div className="text-3xl font-black text-slate-100 tracking-tight">Handshake Verified</div>
                           <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mt-2">Protocol Metrics Logged</div>
                         </div>
                       </div>
@@ -1900,15 +1885,15 @@ export default function App() {
 
                   <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-12 text-[10px] font-black uppercase tracking-widest text-slate-400 text-center">
                     <span>Precision Deviations: <span className="text-red-500">{section11MissedClicks}</span></span>
-                    <span>Target Resolution: <span className="text-blue-600">4px</span></span>
+                    <span>Target Resolution: <span className="text-blue-400">4px</span></span>
                   </div>
                 </div>
 
                 <div className="glass-panel bg-blue-500/5 border-l-4 border-l-blue-600 p-10 flex gap-8">
-                  <div className="text-4xl text-blue-600">🎯</div>
+                  <div className="text-4xl text-blue-400">🎯</div>
                   <div>
-                    <h4 className="font-black text-blue-900 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Fitts's Law Disruption</h4>
-                    <p className="text-sm text-blue-800/80 font-medium leading-relaxed">
+                    <h4 className="font-black text-blue-300 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Fitts's Law Disruption</h4>
+                    <p className="text-sm text-blue-200/80 font-medium leading-relaxed">
                       Fitts's Law states that the time to acquire a target is a function of the distance to and size of the target. By intentionally minimizing click targets (like small 'X' buttons), interfaces dramatically increase the "error rate" and time cost, often used to discourage users from dismissing intrusive elements.
                     </p>
                   </div>
@@ -1917,7 +1902,7 @@ export default function App() {
                 <div className="flex items-center justify-between pt-6">
                   <button
                     onClick={() => setCurrentSection(10)}
-                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                    className="px-6 py-3 border border-slate-600 rounded-xl font-bold text-slate-300 hover:bg-slate-800/30 transition-colors"
                   >
                     ← Back
                   </button>
@@ -1941,16 +1926,16 @@ export default function App() {
             <div className="glass-panel p-10 md:p-16">
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 12: Shifting Targets</h2>
-                  <p className="text-lg text-slate-500 font-medium italic">Measuring kinetic frustration via layout instability.</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-100 mb-2">Protocol 12: Shifting Targets</h2>
+                  <p className="text-lg text-slate-300 font-medium italic">Measuring kinetic frustration via layout instability.</p>
                 </div>
-                <div className="px-4 py-2 rounded-xl bg-pink-50 border border-pink-100 text-pink-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                <div className="px-4 py-2 rounded-xl bg-pink-500/20 border border-pink-400/30 text-pink-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Layout Shift
                 </div>
               </div>
 
               <div className="space-y-12">
-                <div className="glass-panel bg-white/40 border-slate-200/60 p-16 mb-8 relative shadow-inner backdrop-blur-md overflow-hidden min-h-[450px] flex items-center justify-center">
+                <div className="glass-panel bg-white/10 border-slate-600/60 p-16 mb-8 relative shadow-inner backdrop-blur-md overflow-hidden min-h-[450px] flex items-center justify-center">
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(236,72,153,0.03)_0%,transparent_70%)]" />
 
                   <div
@@ -1966,7 +1951,7 @@ export default function App() {
                       disabled={section12Completed}
                       className={`glass-button px-16 py-8 text-2xl font-black shadow-2xl transition-all duration-300 ${section12Completed
                         ? 'bg-emerald-600 text-white'
-                        : 'bg-white text-slate-700 hover:ring-8 hover:ring-indigo-500/10 active:scale-90'
+                        : 'bg-white text-slate-200 hover:ring-8 hover:ring-indigo-500/10 active:scale-90'
                         }`}
                     >
                       {section12Completed ? 'Interface Captured ✓' : 'Engage Static Layer'}
@@ -1975,15 +1960,15 @@ export default function App() {
 
                   <div className="absolute bottom-10 flex gap-12 text-[10px] font-black uppercase tracking-widest text-slate-400">
                     <span>Evasion Events: <span className="text-red-500">{section12Attempts}</span></span>
-                    <span>Kinetic Friction: <span className="text-indigo-600">{section12Attempts > 0 ? 'HIGH' : 'LOW'}</span></span>
+                    <span>Kinetic Friction: <span className="text-indigo-400">{section12Attempts > 0 ? 'HIGH' : 'LOW'}</span></span>
                   </div>
                 </div>
 
                 <div className="glass-panel bg-pink-500/5 border-l-4 border-l-pink-600 p-10 flex gap-8">
-                  <div className="text-4xl text-pink-600">🏃</div>
+                  <div className="text-4xl text-pink-400">🏃</div>
                   <div>
-                    <h4 className="font-black text-pink-900 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Kinetic Obstruction</h4>
-                    <p className="text-sm text-pink-800/80 font-medium leading-relaxed">
+                    <h4 className="font-black text-pink-300 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Kinetic Obstruction</h4>
+                    <p className="text-sm text-pink-200/80 font-medium leading-relaxed">
                       Layout shifts—intentional or accidental—break the user's "mental map" of the interface. When targets shift just before a click (kinetic obstruction), it triggers an immediate stress response and erodes system trust. This pattern is commonly seen in ad-heavy layouts that load content asynchronously to force accidental clicks.
                     </p>
                   </div>
@@ -1992,7 +1977,7 @@ export default function App() {
                 <div className="flex items-center justify-between pt-6">
                   <button
                     onClick={() => setCurrentSection(11)}
-                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                    className="px-6 py-3 border border-slate-600 rounded-xl font-bold text-slate-300 hover:bg-slate-800/30 transition-colors"
                   >
                     ← Back
                   </button>
@@ -2016,24 +2001,24 @@ export default function App() {
             <div className="glass-panel p-10 md:p-16">
               <div className="flex flex-col md:flex-row md:items-center justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-4xl font-black tracking-tight text-slate-800 mb-2">Protocol 13: Forced Pacing</h2>
-                  <p className="text-lg text-slate-500 font-medium italic">Measuring temporal subversion via gated content streams.</p>
+                  <h2 className="text-4xl font-black tracking-tight text-slate-100 mb-2">Protocol 13: Forced Pacing</h2>
+                  <p className="text-lg text-slate-300 font-medium italic">Measuring temporal subversion via gated content streams.</p>
                 </div>
-                <div className="px-4 py-2 rounded-xl bg-orange-50 border border-orange-100 text-orange-600 text-xs font-black uppercase tracking-widest self-start md:self-center">
+                <div className="px-4 py-2 rounded-xl bg-orange-500/20 border border-orange-100 text-orange-400 text-xs font-black uppercase tracking-widest self-start md:self-center">
                   Pattern: Content Gating
                 </div>
               </div>
 
               <div className="space-y-12">
-                <div className="glass-panel bg-white/40 border-slate-200/60 p-12 mb-8 shadow-inner backdrop-blur-md min-h-[500px] flex flex-col">
+                <div className="glass-panel bg-white/10 border-slate-600/60 p-12 mb-8 shadow-inner backdrop-blur-md min-h-[500px] flex flex-col">
                   <div className="flex-1">
-                    <div className="flex items-center justify-between mb-12 pb-6 border-b border-slate-200/60">
+                    <div className="flex items-center justify-between mb-12 pb-6 border-b border-slate-600/60">
                       <h3 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 text-center">Protocol Documentation Stream</h3>
                       <div className="flex gap-2">
                         {[0, 1, 2, 3].map((i) => (
                           <div
                             key={i}
-                            className="w-12 h-1.5 rounded-full overflow-hidden bg-slate-200/50"
+                            className="w-12 h-1.5 rounded-full overflow-hidden bg-slate-700/50"
                           >
                             {i === section13CurrentSlide && (
                               <div className="h-full bg-indigo-600 animate-[progress_5s_linear_forwards]" />
@@ -2049,11 +2034,11 @@ export default function App() {
                     <div className="animate-in slide-in-from-right-8 duration-700 max-w-3xl mx-auto">
                       {section13CurrentSlide === 0 && (
                         <div className="space-y-6">
-                          <h4 className="text-3xl font-black text-slate-800 tracking-tight">Phase 01: Synaptic Tuning</h4>
-                          <p className="text-xl text-slate-600 leading-relaxed font-medium">
+                          <h4 className="text-3xl font-black text-slate-100 tracking-tight">Phase 01: Synaptic Tuning</h4>
+                          <p className="text-xl text-slate-300 leading-relaxed font-medium">
                             To ensure optimal parity, the interface must calibrate its response latency to your specific neural patterns. This process is mandatory and cannot be bypassed.
                           </p>
-                          <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 rounded-lg text-[10px] font-black text-indigo-600 uppercase tracking-widest border border-indigo-100 animate-pulse">
+                          <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500/20 rounded-lg text-[10px] font-black text-indigo-400 uppercase tracking-widest border border-indigo-100 animate-pulse">
                             Status: Initializing handshake...
                           </div>
                         </div>
@@ -2061,11 +2046,11 @@ export default function App() {
 
                       {section13CurrentSlide === 1 && (
                         <div className="space-y-6">
-                          <h4 className="text-3xl font-black text-slate-800 tracking-tight">Phase 02: Payload Verification</h4>
-                          <p className="text-xl text-slate-600 leading-relaxed font-medium">
+                          <h4 className="text-3xl font-black text-slate-100 tracking-tight">Phase 02: Payload Verification</h4>
+                          <p className="text-xl text-slate-300 leading-relaxed font-medium">
                             Verifying incoming data packets across multiple shards. Forced serialization ensures that every byte is accounted for before the interface becomes interactive.
                           </p>
-                          <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 rounded-lg text-[10px] font-black text-indigo-600 uppercase tracking-widest border border-indigo-100 animate-pulse">
+                          <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500/20 rounded-lg text-[10px] font-black text-indigo-400 uppercase tracking-widest border border-indigo-100 animate-pulse">
                             Status: Running checksums v2.4...
                           </div>
                         </div>
@@ -2073,11 +2058,11 @@ export default function App() {
 
                       {section13CurrentSlide === 2 && (
                         <div className="space-y-6">
-                          <h4 className="text-3xl font-black text-slate-800 tracking-tight">Phase 03: State Resolution</h4>
-                          <p className="text-xl text-slate-600 leading-relaxed font-medium">
+                          <h4 className="text-3xl font-black text-slate-100 tracking-tight">Phase 03: State Resolution</h4>
+                          <p className="text-xl text-slate-300 leading-relaxed font-medium">
                             Committing experimental findings to the persistent ledger. This involves complex merging of behavioral matrices to ensure future sessions are appropriately difficult.
                           </p>
-                          <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-50 rounded-lg text-[10px] font-black text-indigo-600 uppercase tracking-widest border border-indigo-100 animate-pulse">
+                          <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500/20 rounded-lg text-[10px] font-black text-indigo-400 uppercase tracking-widest border border-indigo-100 animate-pulse">
                             Status: Merging persistent state...
                           </div>
                         </div>
@@ -2089,26 +2074,26 @@ export default function App() {
                             ✓
                           </div>
                           <div>
-                            <h4 className="text-4xl font-black text-slate-800 tracking-tight">Sequence Complete</h4>
-                            <p className="text-xl text-slate-500 font-medium mt-4">The gated content has been successfully processed.</p>
+                            <h4 className="text-4xl font-black text-slate-100 tracking-tight">Sequence Complete</h4>
+                            <p className="text-xl text-slate-300 font-medium mt-4">The gated content has been successfully processed.</p>
                           </div>
                         </div>
                       )}
                     </div>
                   </div>
 
-                  <div className="mt-12 pt-8 border-t border-slate-200/60 flex items-center justify-center">
-                    <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-6 py-2 bg-slate-50 rounded-full border border-slate-100">
-                      Temporal Resistance: <span className="text-indigo-600">{section13ReadTime}s</span>
+                  <div className="mt-12 pt-8 border-t border-slate-600/60 flex items-center justify-center">
+                    <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-6 py-2 bg-slate-800/30 rounded-full border border-slate-700">
+                      Temporal Resistance: <span className="text-indigo-400">{section13ReadTime}s</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="glass-panel bg-orange-500/5 border-l-4 border-l-orange-500 p-10 flex gap-8">
-                  <div className="text-4xl text-orange-600">⌛</div>
+                  <div className="text-4xl text-orange-400">⌛</div>
                   <div>
                     <h4 className="font-black text-orange-900 text-sm uppercase tracking-tight mb-2">Behavioral Analysis: Subverted Autonomy</h4>
-                    <p className="text-sm text-orange-800/80 font-medium leading-relaxed">
+                    <p className="text-sm text-orange-200/80 font-medium leading-relaxed">
                       Forced pacing (or "Railroading") intentionally breaks the user's natural reading and processing speed. By withholding the "Next" button or forcing a timed slide transition, the UI asserts dominance over the user's time, often used to hide critical information or force engagement with secondary content.
                     </p>
                   </div>
@@ -2117,7 +2102,7 @@ export default function App() {
                 <div className="flex items-center justify-between pt-6">
                   <button
                     onClick={() => setCurrentSection(12)}
-                    className="px-6 py-3 border border-slate-300 rounded-xl font-bold text-slate-500 hover:bg-slate-50 transition-colors"
+                    className="px-6 py-3 border border-slate-600 rounded-xl font-bold text-slate-300 hover:bg-slate-800/30 transition-colors"
                   >
                     ← Back
                   </button>
@@ -2147,22 +2132,22 @@ export default function App() {
                   <h1 className="text-7xl font-black mb-6 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tighter">
                     Experiment Conclusion
                   </h1>
-                  <p className="text-3xl text-slate-800 font-bold tracking-tight">This is the biological cost of friction.</p>
+                  <p className="text-3xl text-slate-100 font-bold tracking-tight">This is the biological cost of friction.</p>
                   <p className="text-xl text-slate-400 italic mt-6 font-medium border-l-4 border-indigo-500/20 pl-8 leading-relaxed max-w-2xl">
                     Anxiety level is calculated based on micro-interactions, missed targets, and hesitation loops detected throughout the 13 investigative protocols.
                   </p>
                 </div>
 
-                <div className="glass-panel bg-white p-12 mb-12 shadow-xl border-slate-200/60 ring-1 ring-black/5">
+                <div className="glass-panel bg-white p-12 mb-12 shadow-xl border-slate-600/60 ring-1 ring-black/5">
                   <div className="flex items-center justify-between mb-12">
                     <div>
                       <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 mb-2">Behavioral Anxiety Matrix</h3>
-                      <div className="text-2xl font-black text-slate-800">System Resonance State</div>
+                      <div className="text-2xl font-black text-slate-100">System Resonance State</div>
                     </div>
-                    <div className="text-7xl font-black text-indigo-600 tracking-tighter">{anxietyLevel}<span className="text-3xl text-slate-300 ml-1">/100</span></div>
+                    <div className="text-7xl font-black text-indigo-400 tracking-tighter">{anxietyLevel}<span className="text-3xl text-slate-300 ml-1">/100</span></div>
                   </div>
 
-                  <div className="w-full h-10 bg-slate-100 rounded-2xl overflow-hidden mb-10 p-1.5 border border-slate-200/60">
+                  <div className="w-full h-10 bg-slate-700/30 rounded-2xl overflow-hidden mb-10 p-1.5 border border-slate-600/60">
                     <div
                       className="h-full transition-all duration-2000 ease-out rounded-xl relative shadow-[0_0_40px_rgba(79,70,229,0.3)]"
                       style={{
@@ -2175,23 +2160,23 @@ export default function App() {
                   </div>
 
                   <div className="grid grid-cols-4 gap-4 text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 text-center">
-                    <div className={anxietyLevel < 25 ? 'text-indigo-600 scale-110 transition-transform' : ''}>Quiescent</div>
-                    <div className={anxietyLevel >= 25 && anxietyLevel < 50 ? 'text-purple-600 scale-110 transition-transform' : ''}>Elevated</div>
-                    <div className={anxietyLevel >= 50 && anxietyLevel < 75 ? 'text-orange-600 scale-110 transition-transform' : ''}>Distressed</div>
-                    <div className={anxietyLevel >= 75 ? 'text-pink-600 scale-110 transition-transform' : ''}>Critical</div>
+                    <div className={anxietyLevel < 25 ? 'text-indigo-400 scale-110 transition-transform' : ''}>Quiescent</div>
+                    <div className={anxietyLevel >= 25 && anxietyLevel < 50 ? 'text-purple-400 scale-110 transition-transform' : ''}>Elevated</div>
+                    <div className={anxietyLevel >= 50 && anxietyLevel < 75 ? 'text-orange-400 scale-110 transition-transform' : ''}>Distressed</div>
+                    <div className={anxietyLevel >= 75 ? 'text-pink-400 scale-110 transition-transform' : ''}>Critical</div>
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
                   {[
-                    { label: 'Total Interaction Events', value: stats.totalClicks, color: 'text-indigo-600', icon: '🖱️' },
-                    { label: 'Cognitive Hesitations', value: stats.hesitations + stats.cursorHesitations, color: 'text-purple-600', icon: '❓' },
+                    { label: 'Total Interaction Events', value: stats.totalClicks, color: 'text-indigo-400', icon: '🖱️' },
+                    { label: 'Cognitive Hesitations', value: stats.hesitations + stats.cursorHesitations, color: 'text-purple-400', icon: '❓' },
                     { label: 'Goal Obstructions', value: stats.retries, color: 'text-orange-500', icon: '🚫' },
-                    { label: 'Temporal Investment', value: `${stats.timeSpent}s`, color: 'text-blue-600', icon: '⏳' },
-                    { label: 'Precision Failures', value: stats.missedClicks, color: 'text-pink-600', icon: '🎯' },
-                    { label: 'Reactive Frustration', value: stats.rageClicks, color: 'text-red-600', icon: '💢' },
+                    { label: 'Temporal Investment', value: `${stats.timeSpent}s`, color: 'text-blue-400', icon: '⏳' },
+                    { label: 'Precision Failures', value: stats.missedClicks, color: 'text-pink-400', icon: '🎯' },
+                    { label: 'Reactive Frustration', value: stats.rageClicks, color: 'text-red-400', icon: '💢' },
                   ].map((stat, i) => (
-                    <div key={i} className="glass-panel bg-white/50 border-white hover:bg-white hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 p-10 group shadow-sm">
+                    <div key={i} className="glass-panel bg-white/10 border-white hover:bg-white hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 p-10 group shadow-sm">
                       <div className="text-4xl mb-6 group-hover:scale-125 transition-transform duration-500">{stat.icon}</div>
                       <div className={`text-5xl font-black mb-3 ${stat.color} tracking-tighter`}>{stat.value}</div>
                       <div className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{stat.label}</div>
@@ -2223,7 +2208,7 @@ export default function App() {
                     </button>
                     <button
                       onClick={() => setCurrentSection(1)}
-                      className="px-12 py-6 border-2 border-slate-200 bg-white/50 hover:bg-white rounded-[2rem] transition-all font-black text-xl backdrop-blur-md shadow-xl text-slate-800"
+                      className="px-12 py-6 border-2 border-slate-600 bg-white/10 hover:bg-white rounded-[2rem] transition-all font-black text-xl backdrop-blur-md shadow-xl text-slate-100"
                     >
                       Review Protocols
                     </button>
@@ -2231,7 +2216,7 @@ export default function App() {
 
                   <div className="text-right">
                     <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Simulated Environment</div>
-                    <div className="text-sm font-bold text-slate-600">Protocol 14: Final_Reflection_v1.0.4</div>
+                    <div className="text-sm font-bold text-slate-300">Protocol 14: Final_Reflection_v1.0.4</div>
                   </div>
                 </div>
               </div>
@@ -2242,4 +2227,9 @@ export default function App() {
     </div>
   );
 }
+
+
+
+
+
 
