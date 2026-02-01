@@ -1,8 +1,8 @@
-# Cursor Anxiety Stimulator 🧠💨
+# Cursor Anxiety Stimulator 🧠
 
 An interactive deep-dive into the biological cost of friction and "Dark Patterns" that define the modern web. This application serves as a psychological laboratory, measuring user stress through micro-interactions across 13 specialized protocols.
 
-[Figma Design Reference](https://www.figma.com/design/GXznzAeJxZhlWamtwZMwDu/Invisible-Friction-Website-Design--Copy-)
+[Website](https://cursor-anxiety-simulator.vercel.app/)
 
 ## ✨ Core Features
 
