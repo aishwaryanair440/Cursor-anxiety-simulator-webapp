@@ -744,7 +744,7 @@ export default function App() {
         </header>
       )}
 
-      <div className={currentSection > 0 && currentSection < 14 ? 'pt-24 pb-20' : 'py-12'}>
+      <div className={currentSection > 0 && currentSection < 14 ? 'pt-20 pb-12' : 'py-8'}>
 
         {/* Introduction Screen */}
         {currentSection === 0 && (
@@ -1273,8 +1273,8 @@ export default function App() {
               </div>
             )}
 
-            <div className="glass-panel p-10">
-              <div className="flex items-start justify-between mb-8">
+            <div className="glass-panel p-6">
+              <div className="flex items-start justify-between mb-5">
                 <div>
                   <h2 className="text-3xl font-bold mb-2 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Section 5: Interruptions & Distractions</h2>
                   <p className="text-muted-foreground">Complete the task while managing interruptions</p>
@@ -1285,11 +1285,11 @@ export default function App() {
               </div>
 
               <div className="border-t border-gray-200/30 pt-6">
-                <p className="text-gray-800 mb-6 leading-relaxed">
+                <p className="text-gray-800 mb-4 leading-relaxed">
                   Try to complete the task below. You will be interrupted by various UI elements designed to break your focus.
                 </p>
 
-                <div className="bg-white/40 border border-white/50 rounded-xl p-8 mb-6 shadow-sm backdrop-blur-md">
+                <div className="bg-white/40 border border-white/50 rounded-xl p-5 mb-5 shadow-sm backdrop-blur-md">
                   <h3 className="text-sm font-semibold mb-4 text-foreground/80 uppercase tracking-wider">Simple Task: User Feedback</h3>
 
                   <div className="mb-4">
@@ -1311,21 +1311,33 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center justify-between mb-6">
                   <button
                     onClick={() => setCurrentSection(4)}
                     className="px-6 py-3 border border-gray-300 bg-white/50 hover:bg-white rounded-lg transition-colors font-medium"
                   >
                     ← Back
                   </button>
-                  <button
-                    onClick={handleSection5Complete}
-                    disabled={section5Completed}
-                    className={`glass-button px-10 py-3 font-bold ${section5Completed ? 'bg-green-500 text-white' : ''}`}
-                  >
-                    {section5Completed ? 'Task Complete ✓' : 'Submit Response'}
-                  </button>
+                  {!section5Completed && (
+                    <button
+                      onClick={handleSection5Complete}
+                      className="glass-button px-10 py-3 font-bold"
+                    >
+                      Submit Response
+                    </button>
+                  )}
                 </div>
+
+                {section5Completed && (
+                  <div className="flex justify-end pt-4 animate-in fade-in duration-500">
+                    <button
+                      onClick={() => setCurrentSection(6)}
+                      className="glass-button px-10 py-4 font-black text-lg bg-indigo-600 text-white shadow-xl shadow-indigo-500/20"
+                    >
+                      Continue Protocol 06 →
+                    </button>
+                  </div>
+                )}
 
               </div>
 
